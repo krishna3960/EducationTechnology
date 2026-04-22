@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bfdw1ns2g3qwu"]
+
+[ext_resource type="PackedScene" uid="uid://dmfp0eug4sj8i" path="res://Scenes/tilemap.tscn" id="1_a02cp"]
+
+[node name="world" type="Node2D" unique_id=574149908]
+
+[node name="ground" parent="." unique_id=1556056034 instance=ExtResource("1_a02cp")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=338738434]
