@@ -1,9 +1,23 @@
 [gd_scene format=3 uid="uid://bfdw1ns2g3qwu"]
 
 [ext_resource type="PackedScene" uid="uid://dmfp0eug4sj8i" path="res://Scenes/tilemap.tscn" id="1_a02cp"]
+[ext_resource type="Script" uid="uid://oj2ul5ahdt5b" path="res://Scripts/camera_2d.gd" id="2_go701"]
 
 [node name="world" type="Node2D" unique_id=574149908]
 
 [node name="ground" parent="." unique_id=1556056034 instance=ExtResource("1_a02cp")]
+position = Vector2(31, -55)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=338738434]
+[node name="Camera2D" type="Camera2D" parent="ground" unique_id=338738434]
+position = Vector2(128, 624)
+zoom = Vector2(0.5, 0.5)
+limit_left = -1400
+limit_top = -1000
+limit_right = 1400
+limit_bottom = 2000
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+rotation_smoothing_enabled = true
+drag_left_margin = 0.0
+script = ExtResource("2_go701")
