@@ -14,7 +14,6 @@ func _process(delta: float) -> void:
 	var viewport_size = get_viewport_rect().size / zoom
 	var half_view = viewport_size / 2
 	var new_pos = position + (direction * speed * delta)
-	print("new position is", new_pos)
 	
 	new_pos.x = clamp(new_pos.x, -325 , limit_right - half_view.x)
 	new_pos.y = clamp(new_pos.y, -315 , limit_bottom - half_view.y)
