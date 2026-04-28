@@ -1,5 +1,5 @@
 # Toggleable debug panel anchored top-right.
-# Other systems can add their own buttons with e.g  Debug.add_button / add_checkbox / add_spinbox.
+# Other systems can add their own buttons with e.g. Debug.add_button / Debug.add_checkbox / Debug.add_spinbox.
 extends Node
 
 const _TOGGLE_KEY: Key = KEY_F3
