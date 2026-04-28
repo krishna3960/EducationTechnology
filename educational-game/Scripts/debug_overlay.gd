@@ -23,6 +23,9 @@ var _dialogue_dim_enabled: bool = false
 
 func _ready() -> void:
 	_panel.visible = false
+	if not OS.is_debug_build():
+		_hint.visible = false
+		return
 	# Dialogue debug components
 	add_button("Trigger Dialogue", _on_trigger_dialogue)
 	add_checkbox("Dim", _dialogue_dim_enabled, func(p): _dialogue_dim_enabled = p)
@@ -31,7 +34,7 @@ func _ready() -> void:
 	_fade_hint()
 
 func toggle_debug_panel() -> void:
-	_panel.visible = not _panel.visible
+	_panel.visible = OS.is_debug_build() and not _panel.visible
 
 ## Append a button to the panel. The callback fires when the user clicks it.
 func add_button(label: String, callback: Callable) -> Button:
@@ -79,6 +82,8 @@ func add_separator(label: String = "") -> void:
 	_items.add_child(HSeparator.new())
 
 func _input(event: InputEvent) -> void:
+	if not OS.is_debug_build():
+		return
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == _TOGGLE_KEY:
 		toggle_debug_panel()
 		get_viewport().set_input_as_handled()
