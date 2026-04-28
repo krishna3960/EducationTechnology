@@ -33,6 +33,7 @@ func _ready() -> void:
 func toggleDebugPanel() -> void:
 	_panel.visible = not _panel.visible
 
+## Append a button to the panel. The callback fires when the user clicks it.
 func add_button(label: String, callback: Callable) -> Button:
 	var btn := Button.new()
 	btn.text = label
@@ -40,6 +41,7 @@ func add_button(label: String, callback: Callable) -> Button:
 	_items.add_child(btn)
 	return btn
 
+## Append a checkbox bound to a callback (fires with the new bool on each toggle).
 func add_checkbox(label: String, default: bool, on_toggled: Callable) -> CheckBox:
 	var cb := CheckBox.new()
 	cb.text = label
@@ -48,6 +50,7 @@ func add_checkbox(label: String, default: bool, on_toggled: Callable) -> CheckBo
 	_items.add_child(cb)
 	return cb
 
+## Append a numeric input. By default the range is unbounded.
 func add_spinbox(
 		label: String,
 		default: float,
@@ -67,6 +70,7 @@ func add_spinbox(
 	_items.add_child(sb)
 	return sb
 
+## Append a horizontal divider, optionally preceded by a section label.
 func add_separator(label: String = "") -> void:
 	if label != "":
 		var lbl := Label.new()

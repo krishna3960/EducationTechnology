@@ -4,6 +4,7 @@ extends Node
 const DIM_ALPHA: float = 0.4
 const DIM_FADE_TIME: float = 0.25
 
+# Emitted after the dialogue closes. Useful for sequencing follow-up actions.
 signal dialogue_finished
 
 @onready var _ui: Control = $UILayer/Container
@@ -21,9 +22,11 @@ func _ready() -> void:
 	_dim_rect.modulate.a = 0.0
 	_dim_rect.visible = false
 
+## True while a dialogue is on screen (typing or waiting for dismissal).
 func is_active() -> bool:
 	return _active
 
+## Renders the conversation bubble. If a dialogue is already active, this does nothing.
 func show_dialogue(portrait: Texture2D, text: String, opts: DialogueOptions = null) -> void:
 	if _active:
 		return
@@ -45,6 +48,8 @@ func show_dialogue(portrait: Texture2D, text: String, opts: DialogueOptions = nu
 	_tween.tween_property(_label, "visible_ratio", 1.0, duration)
 	_tween.finished.connect(func(): _typing = false)
 
+
+# Click or ui_accept skips to the end of typewriter animation, or dismisses the dialog if already finished
 func _unhandled_input(event: InputEvent) -> void:
 	if not _active:
 		return
@@ -58,6 +63,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	else:
 		_close()
 
+## Skip to the end of the typewriter effect
 func _finish_typing() -> void:
 	if _tween and _tween.is_valid():
 		_tween.kill()
@@ -70,6 +76,7 @@ func _close() -> void:
 	_active = false
 	dialogue_finished.emit()
 
+## Fades the dim overlay to a certain alpha
 func _fade_dim(target_alpha: float) -> void:
 	if _dim_tween and _dim_tween.is_valid():
 		_dim_tween.kill()
