@@ -4,24 +4,30 @@ extends Node
 
 const _TOGGLE_KEY: Key = KEY_F3
 
-
 # Constants
 const _HINT_VISIBLE_TIME: float = 5.0
 const _HINT_FADE_TIME: float = 1.0
+## Dialogue
+const _DIALOGUE_DEFAULT_PORTRAIT: Texture2D = preload("res://icon.svg")
+const _DIALOGUE_DEFAULT: String = "Triggered from the debug overlay."
+const _DIALOGUE_CHARS_PER_SEC_RANGE := Vector2(1.0, 200.0)
 
-
+# Other
+var _dialogue_chars_per_sec: float = DialogueOptions.DEFAULT_CHARS_PER_SEC
+## Dialogue
+var _dialogue_dim_enabled: bool = false
 
 @onready var _panel: Control = $UILayer/Panel
 @onready var _items: VBoxContainer = $UILayer/Panel/Margin/VBox/Items
 @onready var _hint: Label = $UILayer/Hint
 
-
 func _ready() -> void:
 	_panel.visible = false
-
-
-
-
+	# Dialogue debug components
+	add_button("Trigger Dialogue", _on_trigger_dialogue)
+	add_checkbox("Dim", _dialogue_dim_enabled, func(p): _dialogue_dim_enabled = p)
+	add_spinbox("Chars/sec ", _dialogue_chars_per_sec, func(v): _dialogue_chars_per_sec = v,
+		_DIALOGUE_CHARS_PER_SEC_RANGE.x, _DIALOGUE_CHARS_PER_SEC_RANGE.y)
 	_fade_hint()
 
 func toggleDebugPanel() -> void:
@@ -73,6 +79,11 @@ func _input(event: InputEvent) -> void:
 		toggleDebugPanel()
 		get_viewport().set_input_as_handled()
 
+func _on_trigger_dialogue() -> void:
+	var opts := DialogueOptions.new()
+	opts.dim = _dialogue_dim_enabled
+	opts.chars_per_sec = _dialogue_chars_per_sec
+	Dialogue.show_dialogue(_DIALOGUE_DEFAULT_PORTRAIT, _DIALOGUE_DEFAULT, opts)
 
 func _fade_hint() -> void:
 	var tween := create_tween()

@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Dialogue="*res://Scenes/DialogueBox.tscn"
 Debug="*res://Scenes/DebugOverlay.tscn"
 
 [display]
