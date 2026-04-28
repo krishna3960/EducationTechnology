@@ -30,7 +30,7 @@ func _ready() -> void:
 		_DIALOGUE_CHARS_PER_SEC_RANGE.x, _DIALOGUE_CHARS_PER_SEC_RANGE.y)
 	_fade_hint()
 
-func toggleDebugPanel() -> void:
+func toggle_debug_panel() -> void:
 	_panel.visible = not _panel.visible
 
 ## Append a button to the panel. The callback fires when the user clicks it.
@@ -80,7 +80,7 @@ func add_separator(label: String = "") -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == _TOGGLE_KEY:
-		toggleDebugPanel()
+		toggle_debug_panel()
 		get_viewport().set_input_as_handled()
 
 func _on_trigger_dialogue() -> void:
