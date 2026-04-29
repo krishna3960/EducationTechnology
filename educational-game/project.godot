@@ -15,6 +15,20 @@ run/main_scene="uid://bfdw1ns2g3qwu"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Dialogue="*res://Scenes/DialogueBox.tscn"
+Debug="*res://Scenes/DebugOverlay.tscn"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1440
+window/size/window_height_override=810
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [input]
 
 move_left={

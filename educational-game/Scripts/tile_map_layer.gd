@@ -1,6 +1,6 @@
 extends TileMapLayer
 
-func _input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		var mouse_pos = get_global_mouse_position()
 		var cell = local_to_map(to_local(mouse_pos))
