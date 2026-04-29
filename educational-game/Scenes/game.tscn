@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://dwlv65ewtiham"]
+[gd_scene format=3]
 
-[ext_resource type="PackedScene" uid="uid://bfdw1ns2g3qwu" path="res://Scenes/world.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://Scenes/world.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/managers/stage_manager.gd" id="2"]
 
 [ext_resource type="PackedScene" path="res://Scenes/Stages/0_example_stage.tscn" id="3"]
