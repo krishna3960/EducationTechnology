@@ -31,9 +31,10 @@ func toggle_debug_panel() -> void:
 	_panel.visible = OS.is_debug_build() and not _panel.visible
 
 ## Returns a sub-container in the panel.
-func add_section() -> VBoxContainer:
+func add_section(label: String = "") -> VBoxContainer:
 	var section := VBoxContainer.new()
 	_items.add_child(section)
+	add_separator(label, section)
 	return section
 
 ## Append a button to the panel. The callback fires when the user clicks it.
