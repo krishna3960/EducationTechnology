@@ -11,14 +11,15 @@ config_version=5
 [application]
 
 config/name="EducationalGame"
-run/main_scene="uid://bfdw1ns2g3qwu"
+run/main_scene="uid://dgame4n7p2x3qa"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Dialogue="*res://Scenes/DialogueBox.tscn"
 Debug="*res://Scenes/DebugOverlay.tscn"
+Dialogue="*res://Scenes/DialogueBox.tscn"
+GameState="*res://Scripts/managers/game_state.gd"
 
 [display]
 

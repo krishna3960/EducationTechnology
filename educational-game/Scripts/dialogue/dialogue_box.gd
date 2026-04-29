@@ -4,6 +4,10 @@ extends Node
 const DIM_ALPHA: float = 0.4
 const DIM_FADE_TIME: float = 0.25
 
+const _DEBUG_DEFAULT_PORTRAIT: Texture2D = preload("res://icon.svg")
+const _DEBUG_DEFAULT_TEXT: String = "Triggered from the debug overlay."
+const _DEBUG_CHARS_PER_SEC_RANGE := Vector2(1.0, 200.0)
+
 # Emitted after the dialogue closes. Useful for sequencing follow-up actions.
 signal dialogue_finished
 
@@ -17,10 +21,19 @@ var _typing: bool = false
 var _tween: Tween
 var _dim_tween: Tween
 
+var _debug_chars_per_sec: float = DialogueOptions.DEFAULT_CHARS_PER_SEC
+var _debug_dim_enabled: bool = false
+
 func _ready() -> void:
 	_ui.visible = false
 	_dim_rect.modulate.a = 0.0
 	_dim_rect.visible = false
+	if OS.is_debug_build():
+		Debug.add_separator("Dialogue")
+		Debug.add_button("Trigger Dialogue", _trigger_debug_dialogue)
+		Debug.add_checkbox("Dim", _debug_dim_enabled, func(p): _debug_dim_enabled = p)
+		Debug.add_spinbox("Chars/sec ", _debug_chars_per_sec, func(v): _debug_chars_per_sec = v,
+			_DEBUG_CHARS_PER_SEC_RANGE.x, _DEBUG_CHARS_PER_SEC_RANGE.y)
 
 ## True while a dialogue is on screen (typing or waiting for dismissal).
 func is_active() -> bool:
@@ -85,3 +98,9 @@ func _fade_dim(target_alpha: float) -> void:
 	_dim_tween.tween_property(_dim_rect, "modulate:a", target_alpha, DIM_FADE_TIME)
 	if target_alpha == 0.0:
 		_dim_tween.tween_callback(_dim_rect.hide)
+
+func _trigger_debug_dialogue() -> void:
+	var opts := DialogueOptions.new()
+	opts.dim = _debug_dim_enabled
+	opts.chars_per_sec = _debug_chars_per_sec
+	show_dialogue(_DEBUG_DEFAULT_PORTRAIT, _DEBUG_DEFAULT_TEXT, opts)
