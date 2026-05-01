@@ -31,4 +31,4 @@ services:
       - /etc/timezone:/etc/timezone
       - /etc/localtime:/etc/localtime
     working_dir: /app
-    command: /bin/sh -c "yarn install && yarn dev"
+    command: /bin/sh -c "npm install && npm run dev"
