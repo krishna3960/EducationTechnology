@@ -1,31 +1,14 @@
 name: "educational-game-dev"
 
 services:
-  caddy:
-    container_name: caddy
-    image: caddy:2.11.2@sha256:25cdc846626b62d05f6b633b9b40c2c9f6ef89b515dc76133cefd920f7dbe562
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    cap_add:
-      - NET_ADMIN
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./data/Caddy/caddy_data:/data
-      - ./data/Caddy/caddy_config:/config
-      - /etc/timezone:/etc/timezone
-      - /etc/localtime:/etc/localtime
-    env_file:
-      - .env
-
   educational-game-website:
     container_name: educational-game-website
     build:
       context: educational-game-website
       dockerfile: Dockerfile.dev
     restart: unless-stopped
+    ports:
+      - 3000:3000
     volumes:
       - ./educational-game-website:/app
       - /etc/timezone:/etc/timezone
