@@ -1,0 +1,17 @@
+name: "educational-game-dev"
+
+services:
+  educational-game-website:
+    container_name: educational-game-website
+    build:
+      context: educational-game-website
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - ./educational-game-website:/app
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    working_dir: /app
+    command: /bin/sh -c "npm install && npm run dev"

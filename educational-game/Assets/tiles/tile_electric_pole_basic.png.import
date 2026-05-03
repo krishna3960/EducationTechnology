@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3futxxa34qfu"
-path="res://.godot/imported/House_0_lights_off.png-43a5c0f8cdff1ea0dbeeb64f34b6a57e.ctex"
+uid="uid://4niw22vcdy3x"
+path="res://.godot/imported/tile_electric_pole_basic.png-4ab8922094b154d47253ecbf9bab8742.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tiles/House_0_lights_off.png"
-dest_files=["res://.godot/imported/House_0_lights_off.png-43a5c0f8cdff1ea0dbeeb64f34b6a57e.ctex"]
+source_file="res://Assets/tiles/tile_electric_pole_basic.png"
+dest_files=["res://.godot/imported/tile_electric_pole_basic.png-4ab8922094b154d47253ecbf9bab8742.ctex"]
 
 [params]
 

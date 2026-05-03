@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dvk7r2yajm4pn"]
+
+[ext_resource type="Script" uid="uid://c4mp9x2k7v8nq" path="res://Scripts/debug_overlay.gd" id="1_script"]
+
+[node name="DebugOverlay" type="Node"]
+script = ExtResource("1_script")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="Panel" type="Panel" parent="UILayer"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -316.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 416.0
+
+[node name="Margin" type="MarginContainer" parent="UILayer/Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="UILayer/Panel/Margin"]
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="UILayer/Panel/Margin/VBox"]
+text = "DEBUG  (F3 to toggle)"
+theme_override_font_sizes/font_size = 16
+
+[node name="Sep" type="HSeparator" parent="UILayer/Panel/Margin/VBox"]
+
+[node name="Items" type="VBoxContainer" parent="UILayer/Panel/Margin/VBox"]
+theme_override_constants/separation = 6
+
+[node name="Hint" type="Label" parent="UILayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 16.0
+offset_right = 200.0
+offset_bottom = 48.0
+horizontal_alignment = 1
+text = "Toggle Debug Panel with F3"
+theme_override_font_sizes/font_size = 18

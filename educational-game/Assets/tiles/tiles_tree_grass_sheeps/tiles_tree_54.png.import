@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3futxxa34qfu"
-path="res://.godot/imported/House_0_lights_off.png-43a5c0f8cdff1ea0dbeeb64f34b6a57e.ctex"
+uid="uid://b3e8k3y06sf3t"
+path="res://.godot/imported/tiles_tree_54.png-6a0c1aa07d8aa17b32b2436303e9bcce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tiles/House_0_lights_off.png"
-dest_files=["res://.godot/imported/House_0_lights_off.png-43a5c0f8cdff1ea0dbeeb64f34b6a57e.ctex"]
+source_file="res://Assets/tiles/tiles_tree_grass_sheeps/tiles_tree_54.png"
+dest_files=["res://.godot/imported/tiles_tree_54.png-6a0c1aa07d8aa17b32b2436303e9bcce.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3futxxa34qfu"
-path="res://.godot/imported/House_0_lights_off.png-43a5c0f8cdff1ea0dbeeb64f34b6a57e.ctex"
+uid="uid://bj387cedkq7vg"
+path="res://.godot/imported/newspaper-pricesLaptops.png-bb4706f83ab91c5845a00fad5bd59e8e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tiles/House_0_lights_off.png"
-dest_files=["res://.godot/imported/House_0_lights_off.png-43a5c0f8cdff1ea0dbeeb64f34b6a57e.ctex"]
+source_file="res://Assets/scene_png/newspapers/newspaper-pricesLaptops.png"
+dest_files=["res://.godot/imported/newspaper-pricesLaptops.png-bb4706f83ab91c5845a00fad5bd59e8e.ctex"]
 
 [params]
 

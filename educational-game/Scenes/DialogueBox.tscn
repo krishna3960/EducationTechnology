@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cnv7faj3xs2f1"]
+
+[ext_resource type="Script" uid="uid://bvk2x1n4q8m3p" path="res://Scripts/dialogue_box.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://kam0nhs73a5f" path="res://icon.svg" id="2_icon"]
+
+[node name="DialogueBox" type="Node"]
+script = ExtResource("1_script")
+
+[node name="DimLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="DimRect" type="ColorRect" parent="DimLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="Container" type="Control" parent="UILayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Portrait" type="TextureRect" parent="UILayer/Container"]
+anchors_preset = 9
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -152.0
+offset_right = 152.0
+offset_bottom = -24.0
+texture = ExtResource("2_icon")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="Bubble" type="Panel" parent="UILayer/Container"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 176.0
+offset_top = -152.0
+offset_right = -24.0
+offset_bottom = -24.0
+mouse_filter = 2
+
+[node name="Label" type="RichTextLabel" parent="UILayer/Container/Bubble"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = -12.0
+mouse_filter = 2
+bbcode_enabled = true
+scroll_active = false
+autowrap_mode = 3
+theme_override_font_sizes/normal_font_size = 22

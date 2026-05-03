@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3futxxa34qfu"
-path="res://.godot/imported/House_0_lights_off.png-43a5c0f8cdff1ea0dbeeb64f34b6a57e.ctex"
+uid="uid://dn1m8w1sfn3j4"
+path="res://.godot/imported/river-1-cornerDown-400x484.png-847d70218f273639c5e308cc16544901.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tiles/House_0_lights_off.png"
-dest_files=["res://.godot/imported/House_0_lights_off.png-43a5c0f8cdff1ea0dbeeb64f34b6a57e.ctex"]
+source_file="res://Assets/tiles/river-1-cornerDown-400x484.png"
+dest_files=["res://.godot/imported/river-1-cornerDown-400x484.png-847d70218f273639c5e308cc16544901.ctex"]
 
 [params]
 
