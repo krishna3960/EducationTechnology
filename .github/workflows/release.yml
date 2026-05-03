@@ -63,7 +63,7 @@ jobs:
         run: |
           rm -rf website/educational-game-website/public/game
           mkdir -p website/educational-game-website/public/game
-          cp -r educational-game/build/web/. website/educational-game-website/public/game/
+          cp -r educational-game/build/web/Web/. website/educational-game-website/public/game/
 
       - uses: actions/setup-node@v4
         with:
