@@ -77,6 +77,11 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: /EducationTechnology
           NEXT_PUBLIC_VERSION: ${{ needs.release.outputs.new_release_version }}
         run: |
+          if [ ! -f public/game/index.html ]; then
+            echo "::error::public/game/index.html missing — Godot export did not produce a web build"
+            ls -la public/game/ || true
+            exit 1
+          fi
           npm ci
           npm run build
           touch out/.nojekyll
