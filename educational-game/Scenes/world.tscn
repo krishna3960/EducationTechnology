@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dmfp0eug4sj8i" path="res://Scenes/tilemap.tscn" id="1_a02cp"]
 [ext_resource type="Script" uid="uid://oj2ul5ahdt5b" path="res://Scripts/camera_2d.gd" id="2_go701"]
+[ext_resource type="PackedScene" uid="uid://c0n8pausemen0" path="res://Scenes/pause_menu.tscn" id="3_pause"]
 
 [node name="world" type="Node2D" unique_id=574149908]
 
@@ -21,3 +22,5 @@ position_smoothing_speed = 20.0
 rotation_smoothing_enabled = true
 drag_left_margin = 0.0
 script = ExtResource("2_go701")
+
+[node name="PauseMenu" parent="." instance=ExtResource("3_pause")]
