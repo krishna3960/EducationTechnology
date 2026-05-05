@@ -1,6 +1,6 @@
 extends Stage
 
-const _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant.png")
+const _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
 const _INTRO_TEXT: String = "We need to start by buying some land for the datacenter. Where should we build it?"
 
 const _CHOICES: Array = [
