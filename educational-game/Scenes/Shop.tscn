@@ -1,0 +1,343 @@
+[gd_scene format=3 uid="uid://c64iuupffu6js"]
+
+[ext_resource type="Script" uid="uid://djjdyxh4o8yds" path="res://Scripts/shop.gd" id="1_iidq5"]
+[ext_resource type="Texture2D" uid="uid://0tiuotxtachm" path="res://Assets/scene_png/shop_with_price_tags.png" id="2_iidq5"]
+[ext_resource type="Texture2D" uid="uid://b6oe3futlslxx" path="res://Assets/PriceHike.png" id="3_lagin"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjfcx"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1243070111]
+script = ExtResource("1_iidq5")
+
+[node name="ShopV0" type="Sprite2D" parent="." unique_id=1581618991]
+position = Vector2(957, 539.5)
+scale = Vector2(0.9958333, 0.9990741)
+texture = ExtResource("2_iidq5")
+
+[node name="BuyServerButtons" type="Node" parent="." unique_id=1191250001]
+
+[node name="Button" type="Button" parent="BuyServerButtons" unique_id=1155225072]
+offset_left = 280.0
+offset_top = 350.0
+offset_right = 401.0
+offset_bottom = 405.0
+theme_override_font_sizes/font_size = 27
+text = "Buy"
+
+[node name="Button2" type="Button" parent="BuyServerButtons" unique_id=916125230]
+offset_left = 534.0
+offset_top = 349.0
+offset_right = 652.0
+offset_bottom = 404.0
+theme_override_font_sizes/font_size = 27
+text = "Buy"
+
+[node name="Button3" type="Button" parent="BuyServerButtons" unique_id=279691913]
+offset_left = 778.0
+offset_top = 348.0
+offset_right = 896.0
+offset_bottom = 404.0
+theme_override_font_sizes/font_size = 27
+text = "Buy"
+
+[node name="Price" type="Node" parent="." unique_id=1801598310]
+
+[node name="PhonePrices" type="Node" parent="Price" unique_id=472274291]
+
+[node name="Label" type="Label" parent="Price/PhonePrices" unique_id=1491841743]
+offset_left = 1156.0
+offset_top = 458.0
+offset_right = 1233.0
+offset_bottom = 495.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "$1000"
+
+[node name="Label2" type="Label" parent="Price/PhonePrices" unique_id=308354652]
+offset_left = 1523.0
+offset_top = 458.0
+offset_right = 1600.0
+offset_bottom = 495.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "$1200"
+
+[node name="Label3" type="Label" parent="Price/PhonePrices" unique_id=1296143028]
+offset_left = 1408.0
+offset_top = 458.0
+offset_right = 1470.0
+offset_bottom = 495.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "$600"
+
+[node name="Label4" type="Label" parent="Price/PhonePrices" unique_id=1927884949]
+offset_left = 1285.0
+offset_top = 458.0
+offset_right = 1347.0
+offset_bottom = 495.0
+theme_override_colors/font_color = Color(0.07058824, 0, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "$800"
+
+[node name="TabletPrices" type="Node" parent="Price" unique_id=1244081825]
+
+[node name="Label11" type="Label" parent="Price/TabletPrices" unique_id=987405801]
+offset_left = 1189.0
+offset_top = 658.0
+offset_right = 1251.0
+offset_bottom = 695.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "$550"
+
+[node name="Label10" type="Label" parent="Price/TabletPrices" unique_id=2029720523]
+offset_left = 1486.0
+offset_top = 659.0
+offset_right = 1563.0
+offset_bottom = 696.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "$1350"
+
+[node name="LaptopPrices" type="Node" parent="Price" unique_id=1408481229]
+
+[node name="Label9" type="Label" parent="Price/LaptopPrices" unique_id=1446213077]
+offset_left = 1218.0
+offset_top = 862.0
+offset_right = 1295.0
+offset_bottom = 899.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "$2200"
+
+[node name="Label8" type="Label" parent="Price/LaptopPrices" unique_id=711467188]
+offset_left = 1489.0
+offset_top = 862.0
+offset_right = 1555.0
+offset_bottom = 894.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "$1400"
+
+[node name="AsscessoryPrices" type="Node" parent="Price" unique_id=978733311]
+
+[node name="Label7" type="Label" parent="Price/AsscessoryPrices" unique_id=1450050885]
+offset_left = 1195.0
+offset_top = 1007.0
+offset_right = 1248.0
+offset_bottom = 1039.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "$120"
+
+[node name="Label6" type="Label" parent="Price/AsscessoryPrices" unique_id=1141648661]
+offset_left = 1357.0
+offset_top = 1008.0
+offset_right = 1396.0
+offset_bottom = 1040.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "$67"
+
+[node name="Label5" type="Label" parent="Price/AsscessoryPrices" unique_id=1302866141]
+offset_left = 1510.0
+offset_top = 1006.0
+offset_right = 1563.0
+offset_bottom = 1038.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "$240"
+
+[node name="Bought" type="Label" parent="." unique_id=456784685]
+offset_left = 549.0
+offset_top = 294.0
+offset_right = 858.0
+offset_bottom = 377.0
+theme_override_font_sizes/font_size = 29
+text = "Servers Racks Bought:
+"
+
+[node name="Counter" type="Label" parent="." unique_id=1947249064]
+offset_left = 863.0
+offset_top = 290.0
+offset_right = 883.0
+offset_bottom = 339.0
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="Intro PopUp" type="Node" parent="." unique_id=818156618]
+
+[node name="DimOverLay" type="ColorRect" parent="Intro PopUp" unique_id=716987472]
+visible = false
+anchors_preset = -1
+anchor_right = 0.6979167
+anchor_bottom = 0.74814814
+offset_left = -3.0
+offset_top = -5.0
+offset_right = 577.0
+offset_bottom = 270.0
+color = Color(0, 0, 0, 0.8)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Intro PopUp" unique_id=970872274]
+visible = false
+anchors_preset = -1
+anchor_right = 0.17447917
+anchor_bottom = 0.2
+offset_left = 502.0
+offset_top = 314.0
+offset_right = 1082.0
+offset_bottom = 589.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="LabelExpl1" type="Label" parent="Intro PopUp" unique_id=1957014868]
+visible = false
+anchors_preset = -1
+anchor_top = -0.044444446
+anchor_right = 0.06614583
+offset_left = 625.0
+offset_top = 415.0
+offset_right = 1162.0
+offset_bottom = 449.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 41
+text = "Welcome to Joe's Hardware Shop!"
+metadata/_edit_use_anchors_ = true
+
+[node name="LabelExpl2" type="Label" parent="Intro PopUp" unique_id=662862389]
+visible = false
+anchors_preset = -1
+anchor_left = -0.022916667
+anchor_right = 0.036458332
+anchor_bottom = 0.031481482
+offset_left = 678.0
+offset_top = 468.0
+offset_right = 1195.0
+offset_bottom = 697.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 25
+text = "You need to buy 5 server racks to set up the AI Center!
+
+But watch out. Every time you buy them, prices of other devices go up!
+
+Can you guess why?"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Button4" type="Button" parent="Intro PopUp" unique_id=35523471]
+visible = false
+anchors_preset = -1
+anchor_right = 0.0375
+anchor_bottom = 0.022222223
+offset_left = 1077.0
+offset_top = 680.0
+offset_right = 1216.0
+offset_bottom = 711.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_kjfcx")
+text = "Start Shopping"
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit Pop Up" type="Node" parent="." unique_id=2006457421]
+
+[node name="DimOverLay2" type="ColorRect" parent="Exit Pop Up" unique_id=197646420]
+visible = false
+anchors_preset = -1
+anchor_right = 0.6979167
+anchor_bottom = 0.74722224
+offset_left = -3.0
+offset_top = -5.0
+offset_right = 577.0
+offset_bottom = 270.0
+color = Color(0.12156863, 0.13725491, 0, 0.8)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="Exit Pop Up" unique_id=1236233598]
+visible = false
+anchors_preset = -1
+anchor_left = -0.003125
+anchor_right = 0.1734375
+anchor_bottom = 0.19166666
+offset_left = 501.0
+offset_top = 313.0
+offset_right = 1081.0
+offset_bottom = 588.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="LabelExpl3" type="Label" parent="Exit Pop Up" unique_id=264416687]
+visible = false
+offset_left = 758.0
+offset_top = 364.0
+offset_right = 1146.0
+offset_bottom = 428.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 46
+text = "Well Done :)"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LabelExpl4" type="Label" parent="Exit Pop Up" unique_id=885427649]
+visible = false
+anchors_preset = -1
+anchor_right = 0.0546875
+anchor_bottom = 0.025
+offset_left = 620.0
+offset_top = 470.0
+offset_right = 1137.0
+offset_bottom = 699.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "You have bought all the server racks! 
+
+Did you figure out why prices of gadgets kept rising the more server racks you bought?
+
+Return to main map to find out..."
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Button5" type="Button" parent="Exit Pop Up" unique_id=2044713135]
+visible = false
+anchors_preset = -1
+anchor_right = 0.032291666
+anchor_bottom = 0.025
+offset_left = 1120.0
+offset_top = 657.0
+offset_right = 1259.0
+offset_bottom = 688.0
+theme_override_colors/font_color = Color(0.012617188, 0.012617188, 0.012617188, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0.7254902, 1)
+theme_override_font_sizes/font_size = 33
+theme_override_styles/normal = SubResource("StyleBoxFlat_kjfcx")
+text = "Exit"
+metadata/_edit_use_anchors_ = true
+
+[node name="PriceHike" type="Sprite2D" parent="." unique_id=1810693872]
+position = Vector2(1685, 416)
+scale = Vector2(0.16576533, 0.2617469)
+texture = ExtResource("3_lagin")
+
+[node name="PriceHike2" type="Sprite2D" parent="." unique_id=978832107]
+position = Vector2(1689, 956)
+scale = Vector2(0.16576533, 0.2617469)
+texture = ExtResource("3_lagin")
+
+[node name="PriceHike3" type="Sprite2D" parent="." unique_id=906323514]
+position = Vector2(1687, 816)
+scale = Vector2(0.16576533, 0.2617469)
+texture = ExtResource("3_lagin")
+
+[node name="PriceHike4" type="Sprite2D" parent="." unique_id=1082422899]
+position = Vector2(1685, 621)
+scale = Vector2(0.16576533, 0.2617469)
+texture = ExtResource("3_lagin")
+
+[connection signal="pressed" from="BuyServerButtons/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="BuyServerButtons/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="BuyServerButtons/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Intro PopUp/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="Exit Pop Up/Button5" to="." method="_on_button_5_pressed"]
