@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2fcvxwmixn8m"
-path="res://.godot/imported/assistant.png-d72981f7c6bca148df57aa9190c8f1b4.ctex"
+uid="uid://okfs3qbrvo85"
+path="res://.godot/imported/assistant_v1.png-1c8f70f48c32ca8622dcf662ec52c20a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/scene_png/assistant.png"
-dest_files=["res://.godot/imported/assistant.png-d72981f7c6bca148df57aa9190c8f1b4.ctex"]
+source_file="res://Assets/scene_png/assistant_v1.png"
+dest_files=["res://.godot/imported/assistant_v1.png-1c8f70f48c32ca8622dcf662ec52c20a.ctex"]
 
 [params]
 
