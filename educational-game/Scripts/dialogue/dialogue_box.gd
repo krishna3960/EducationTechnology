@@ -9,7 +9,9 @@ const _DEBUG_DEFAULT_TEXT: String = "Triggered from the debug overlay."
 const _DEBUG_CHARS_PER_SEC_RANGE := Vector2(1.0, 200.0)
 
 # Emitted after the dialogue closes. Useful for sequencing follow-up actions.
-signal dialogue_finished
+signal on_close
+# Emitted when the typewriter finishes
+signal on_typewriter_done
 
 @onready var _ui: Control = $UILayer/Container
 @onready var _portrait: TextureRect = $UILayer/Container/Portrait
@@ -18,6 +20,7 @@ signal dialogue_finished
 
 var _active: bool = false
 var _typing: bool = false
+var _auto_close: bool = false
 var _tween: Tween
 var _dim_tween: Tween
 
@@ -52,6 +55,7 @@ func show_dialogue(portrait: Texture2D, text: String, opts: DialogueOptions = nu
 	_ui.visible = true
 	_active = true
 	_typing = true
+	_auto_close = opts.auto_close
 
 	if opts.dim:
 		_fade_dim(DIM_ALPHA)
@@ -59,10 +63,14 @@ func show_dialogue(portrait: Texture2D, text: String, opts: DialogueOptions = nu
 	var duration: float = float(text.length()) / maxf(opts.chars_per_sec, 1.0)
 	_tween = create_tween()
 	_tween.tween_property(_label, "visible_ratio", 1.0, duration)
-	_tween.finished.connect(func(): _typing = false)
+	_tween.finished.connect(_handle_typewriter_done)
 
+## Close dialog manually
+func dismiss() -> void:
+	if _active:
+		_close()
 
-# Click or ui_accept skips to the end of typewriter animation, or dismisses the dialog if already finished
+# Click or ui_accept skips to the end of typewriter animation, or dismisses the dialog if already finished (if the dialog is set to automatically dismiss)
 func _unhandled_input(event: InputEvent) -> void:
 	if not _active:
 		return
@@ -70,10 +78,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		or event.is_action_pressed("ui_accept")
 	if not advance:
 		return
-	get_viewport().set_input_as_handled()
 	if _typing:
+		get_viewport().set_input_as_handled()
 		_finish_typing()
-	else:
+	elif _auto_close:
+		get_viewport().set_input_as_handled()
 		_close()
 
 ## Skip to the end of the typewriter effect
@@ -82,12 +91,18 @@ func _finish_typing() -> void:
 		_tween.kill()
 	_label.visible_ratio = 1.0
 	_typing = false
+	on_typewriter_done.emit()
+
+func _handle_typewriter_done() -> void:
+	_typing = false
+	on_typewriter_done.emit()
 
 func _close() -> void:
 	_ui.visible = false
 	_fade_dim(0.0)
 	_active = false
-	dialogue_finished.emit()
+	_auto_close = true
+	on_close.emit()
 
 ## Fades the dim overlay to a certain alpha
 func _fade_dim(target_alpha: float) -> void:
