@@ -136,4 +136,4 @@ func _on_button_3_pressed():
 	buy_server()
 
 func _on_button_5_pressed():
-	get_tree().change_scene_to_file("res://Scenes/world.tscn")
+	get_tree().change_scene_to_file("res://Scenes/game.tscn")

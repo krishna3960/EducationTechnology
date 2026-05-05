@@ -34,7 +34,12 @@ theme_override_font_sizes/font_size = 16
 
 [node name="Sep" type="HSeparator" parent="UILayer/Panel/Margin/VBox"]
 
-[node name="Items" type="VBoxContainer" parent="UILayer/Panel/Margin/VBox"]
+[node name="Scroll" type="ScrollContainer" parent="UILayer/Panel/Margin/VBox"]
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Items" type="VBoxContainer" parent="UILayer/Panel/Margin/VBox/Scroll"]
+size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
 [node name="Hint" type="Label" parent="UILayer"]

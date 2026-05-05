@@ -12,7 +12,7 @@ const _HEADER_FONT_SIZE: int = 17
 const _HEADER_EMBOLDEN: float = 0.6
 
 @onready var _panel: Control = $UILayer/Panel
-@onready var _items: VBoxContainer = $UILayer/Panel/Margin/VBox/Items
+@onready var _items: VBoxContainer = $UILayer/Panel/Margin/VBox/Scroll/Items
 @onready var _hint: Label = $UILayer/Hint
 
 var _bold_font: FontVariation
