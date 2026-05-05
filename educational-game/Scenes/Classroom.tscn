@@ -1,0 +1,473 @@
+[gd_scene format=3 uid="uid://bll7htfgsvu6x"]
+
+[ext_resource type="Script" uid="uid://c2xcrr3yiapnc" path="res://Scripts/classroom.gd" id="1_jjrax"]
+[ext_resource type="Texture2D" uid="uid://b0vi2f0ab62ab" path="res://Assets/scene_png/Classroom_v1.png" id="2_2b2wp"]
+[ext_resource type="Texture2D" uid="uid://bfjh7lb1ek8hl" path="res://Assets/speechbubble.png" id="3_jjrax"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jjrax"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ryp0j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xt1a6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f3g6n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_285xf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixmp7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tejth"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_712lx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_al5fb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_brk63"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cp7ml"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xwogr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7nob"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ru2x7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boq3r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fctai"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jtgbu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hm8it"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_poi0x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_76anp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_drm8i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hegpx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_038c3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jovjt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uk1n8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ni0pk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7a6j6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ef35s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jhis0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_435mq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fy7li"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lb6lu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w4s0i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lbiga"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3uk48"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1243070111]
+script = ExtResource("1_jjrax")
+
+[node name="ClassroomV1" type="Sprite2D" parent="." unique_id=1224570099]
+position = Vector2(964, 533)
+scale = Vector2(0.99791664, 1)
+texture = ExtResource("2_2b2wp")
+
+[node name="DimOverLay2" type="ColorRect" parent="ClassroomV1" unique_id=481261193]
+anchors_preset = -1
+anchor_left = 0.72807926
+anchor_top = 0.6157407
+anchor_right = 0.9202549
+anchor_bottom = 0.71111107
+offset_left = -1596.3257
+offset_top = -1107.0
+offset_right = -1016.3256
+offset_bottom = -831.99994
+color = Color(0.03529412, 0.25490198, 0.12156863, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Sub-scene1" type="Node" parent="." unique_id=1264604971]
+
+[node name="Speechbubble" type="Sprite2D" parent="Sub-scene1" unique_id=1908926924]
+position = Vector2(1581, 678.99994)
+scale = Vector2(0.39791667, 0.46458334)
+texture = ExtResource("3_jjrax")
+
+[node name="Label" type="Label" parent="Sub-scene1" unique_id=790963778]
+offset_left = 739.0
+offset_top = 179.0
+offset_right = 1731.0
+offset_bottom = 504.0
+theme_override_font_sizes/font_size = 58
+text = "Welcome to Mrs. Susan's lecture on using AI sustainably!
+
+Are you excited?"
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="Sub-scene1" unique_id=1341746185]
+offset_left = 1426.0
+offset_top = 549.0
+offset_right = 1738.0
+offset_bottom = 768.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jjrax")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ryp0j")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_xt1a6")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_f3g6n")
+text = "Yes!"
+
+[node name="Sub-scene2" type="Node" parent="." unique_id=1208461160]
+
+[node name="Speechbubble" type="Sprite2D" parent="Sub-scene2" unique_id=713911064]
+position = Vector2(859, 720)
+scale = Vector2(0.39791667, 0.46458334)
+texture = ExtResource("3_jjrax")
+flip_h = true
+
+[node name="Label" type="Label" parent="Sub-scene2" unique_id=1872792843]
+offset_left = 724.0
+offset_top = 102.0
+offset_right = 1752.0
+offset_bottom = 509.0
+theme_override_font_sizes/font_size = 47
+text = "Larger, more complex prompts use lot of  resources.
+
+So please be mindful of what you ask.
+
+Let’s work through some examples together!"
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="Sub-scene2" unique_id=1260750910]
+offset_left = 704.0
+offset_top = 594.0
+offset_right = 1016.0
+offset_bottom = 813.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 53
+theme_override_styles/normal = SubResource("StyleBoxEmpty_285xf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ixmp7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_tejth")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_712lx")
+text = "I am ready"
+
+[node name="Sub-scene3" type="Node" parent="." unique_id=1412052143]
+
+[node name="Label" type="Label" parent="Sub-scene3" unique_id=1630217145]
+offset_left = 724.0
+offset_top = 102.0
+offset_right = 1716.0
+offset_bottom = 509.0
+theme_override_font_sizes/font_size = 47
+text = "You need to summarize a 3-page document. What's the most energy-conscious way to use AI for this?
+"
+autowrap_mode = 2
+
+[node name="Speechbubble" type="Sprite2D" parent="Sub-scene3" unique_id=1160017875]
+position = Vector2(860.99994, 610.75)
+scale = Vector2(0.51875, 0.6661458)
+texture = ExtResource("3_jjrax")
+flip_h = true
+
+[node name="Button2" type="Button" parent="Sub-scene3" unique_id=1369264617]
+offset_left = 671.0
+offset_top = 356.0
+offset_right = 1038.0
+offset_bottom = 794.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 39
+theme_override_styles/normal = SubResource("StyleBoxEmpty_285xf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_al5fb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_brk63")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_cp7ml")
+text = "Ask AI to summarize everything."
+autowrap_mode = 2
+
+[node name="Speechbubble2" type="Sprite2D" parent="Sub-scene3" unique_id=148331147]
+position = Vector2(1558, 587)
+scale = Vector2(0.51875, 0.6661458)
+texture = ExtResource("3_jjrax")
+
+[node name="Button" type="Button" parent="Sub-scene3" unique_id=683791412]
+offset_left = 1372.0
+offset_top = 336.0
+offset_right = 1739.0
+offset_bottom = 774.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 39
+theme_override_styles/normal = SubResource("StyleBoxEmpty_285xf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_xwogr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_c7nob")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ru2x7")
+text = "Read first. Pick 2–3 key points. Ask one clear question."
+autowrap_mode = 2
+
+[node name="Wrong" type="Label" parent="Sub-scene3" unique_id=1721362001]
+offset_left = 718.0
+offset_top = 145.0
+offset_right = 1710.0
+offset_bottom = 359.0
+theme_override_colors/font_color = Color(0.9601241, 0.49037087, 0.47765654, 1)
+theme_override_font_sizes/font_size = 47
+text = "Not exactly"
+autowrap_mode = 2
+
+[node name="Correct" type="Label" parent="Sub-scene3" unique_id=1571431702]
+offset_left = 719.0
+offset_top = 147.0
+offset_right = 1711.0
+offset_bottom = 361.0
+theme_override_colors/font_color = Color(0.54560816, 0.7248669, 3.85046e-07, 1)
+theme_override_font_sizes/font_size = 47
+text = "Correct"
+autowrap_mode = 2
+
+[node name="Lesson" type="Label" parent="Sub-scene3" unique_id=1384944592]
+offset_left = 720.0
+offset_top = 248.0
+offset_right = 1712.0
+offset_bottom = 517.0
+theme_override_font_sizes/font_size = 47
+text = "When using AI, think first and ask after :)
+
+Just one AI prompt can use enough electricity to power an LED bulb for 2 minutes"
+autowrap_mode = 2
+
+[node name="Speechbubble3" type="Sprite2D" parent="Sub-scene3" unique_id=1298233512]
+position = Vector2(1579, 664)
+scale = Vector2(0.39791667, 0.46458334)
+texture = ExtResource("3_jjrax")
+
+[node name="Button3" type="Button" parent="Sub-scene3" unique_id=1213306482]
+offset_left = 1420.0
+offset_top = 526.0
+offset_right = 1732.0
+offset_bottom = 745.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 44
+theme_override_styles/normal = SubResource("StyleBoxEmpty_285xf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_boq3r")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fctai")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_jtgbu")
+text = "Understood!"
+
+[node name="Sub-scene4" type="Node" parent="." unique_id=1380066738]
+
+[node name="Label" type="Label" parent="Sub-scene4" unique_id=2140986105]
+offset_left = 724.0
+offset_top = 102.0
+offset_right = 1716.0
+offset_bottom = 509.0
+theme_override_font_sizes/font_size = 47
+text = "You want AI to help write a work email. Which prompt approach saves the most energy?
+"
+autowrap_mode = 2
+
+[node name="Speechbubble" type="Sprite2D" parent="Sub-scene4" unique_id=1958102113]
+position = Vector2(860.99994, 610.75)
+scale = Vector2(0.51875, 0.6661458)
+texture = ExtResource("3_jjrax")
+flip_h = true
+
+[node name="Button" type="Button" parent="Sub-scene4" unique_id=564824244]
+offset_left = 669.0
+offset_top = 373.0
+offset_right = 1036.0
+offset_bottom = 811.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 39
+theme_override_styles/normal = SubResource("StyleBoxEmpty_285xf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hm8it")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_poi0x")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_76anp")
+text = "Ask AI to write 5 versions, then pick the best one."
+autowrap_mode = 2
+
+[node name="Speechbubble2" type="Sprite2D" parent="Sub-scene4" unique_id=1774045640]
+position = Vector2(1558, 587)
+scale = Vector2(0.51875, 0.6661458)
+texture = ExtResource("3_jjrax")
+
+[node name="Button2" type="Button" parent="Sub-scene4" unique_id=1535663037]
+offset_left = 1372.0
+offset_top = 336.0
+offset_right = 1739.0
+offset_bottom = 774.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 39
+theme_override_styles/normal = SubResource("StyleBoxEmpty_285xf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_drm8i")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hegpx")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_038c3")
+text = "Write it yourself. Ask AI to fix unclear parts."
+autowrap_mode = 2
+
+[node name="Wrong" type="Label" parent="Sub-scene4" unique_id=263427620]
+offset_left = 719.0
+offset_top = 147.0
+offset_right = 1711.0
+offset_bottom = 361.0
+theme_override_colors/font_color = Color(0.9601241, 0.49037087, 0.47765654, 1)
+theme_override_font_sizes/font_size = 47
+text = "Not exactly"
+autowrap_mode = 2
+
+[node name="Correct" type="Label" parent="Sub-scene4" unique_id=1330302652]
+offset_left = 720.0
+offset_top = 146.0
+offset_right = 1712.0
+offset_bottom = 360.0
+theme_override_colors/font_color = Color(0.54560816, 0.7248669, 3.85046e-07, 1)
+theme_override_font_sizes/font_size = 47
+text = "Correct"
+autowrap_mode = 2
+
+[node name="Lesson" type="Label" parent="Sub-scene4" unique_id=139184044]
+offset_left = 724.0
+offset_top = 269.0
+offset_right = 1716.0
+offset_bottom = 483.0
+theme_override_font_sizes/font_size = 47
+text = "Use AI as an editor rather than a full author
+
+One AI query can use about 500 ml of freshwater (an entire bottle!)"
+autowrap_mode = 2
+
+[node name="Speechbubble3" type="Sprite2D" parent="Sub-scene4" unique_id=1268069501]
+position = Vector2(1579, 664)
+scale = Vector2(0.39791667, 0.46458334)
+texture = ExtResource("3_jjrax")
+
+[node name="Button3" type="Button" parent="Sub-scene4" unique_id=85282041]
+offset_left = 1420.0
+offset_top = 526.0
+offset_right = 1732.0
+offset_bottom = 745.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 44
+theme_override_styles/normal = SubResource("StyleBoxEmpty_285xf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jovjt")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_uk1n8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ni0pk")
+text = "Understood!"
+
+[node name="Sub-scene5" type="Node" parent="." unique_id=717242570]
+
+[node name="Label" type="Label" parent="Sub-scene5" unique_id=1332304671]
+offset_left = 724.0
+offset_top = 102.0
+offset_right = 1716.0
+offset_bottom = 509.0
+theme_override_font_sizes/font_size = 47
+text = "You need to brainstorm ideas for a project. How do you prompt AI most sustainably?
+"
+autowrap_mode = 2
+
+[node name="Speechbubble" type="Sprite2D" parent="Sub-scene5" unique_id=1864856312]
+position = Vector2(860.99994, 610.75)
+scale = Vector2(0.51875, 0.6661458)
+texture = ExtResource("3_jjrax")
+flip_h = true
+
+[node name="Button" type="Button" parent="Sub-scene5" unique_id=1502392372]
+offset_left = 669.0
+offset_top = 373.0
+offset_right = 1036.0
+offset_bottom = 811.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 39
+theme_override_styles/normal = SubResource("StyleBoxEmpty_285xf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_7a6j6")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ef35s")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_jhis0")
+text = "Ask for 50 ideas. Regenerate until one fits."
+autowrap_mode = 2
+
+[node name="Speechbubble2" type="Sprite2D" parent="Sub-scene5" unique_id=932487753]
+position = Vector2(1558, 587)
+scale = Vector2(0.51875, 0.6661458)
+texture = ExtResource("3_jjrax")
+
+[node name="Button2" type="Button" parent="Sub-scene5" unique_id=509816283]
+offset_left = 1372.0
+offset_top = 336.0
+offset_right = 1739.0
+offset_bottom = 774.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 39
+theme_override_styles/normal = SubResource("StyleBoxEmpty_285xf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_435mq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fy7li")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_lb6lu")
+text = "Brainstorm 5 mins. Ask AI to expand your top 2–3 ideas."
+autowrap_mode = 2
+
+[node name="Wrong" type="Label" parent="Sub-scene5" unique_id=1478380029]
+offset_left = 728.0
+offset_top = 146.0
+offset_right = 1720.0
+offset_bottom = 360.0
+theme_override_colors/font_color = Color(0.9601241, 0.49037087, 0.47765654, 1)
+theme_override_font_sizes/font_size = 47
+text = "Not exactly"
+autowrap_mode = 2
+
+[node name="Correct" type="Label" parent="Sub-scene5" unique_id=1394565251]
+offset_left = 728.0
+offset_top = 147.0
+offset_right = 1720.0
+offset_bottom = 361.0
+theme_override_colors/font_color = Color(0.54560816, 0.7248669, 3.85046e-07, 1)
+theme_override_font_sizes/font_size = 47
+text = "Correct"
+autowrap_mode = 2
+
+[node name="Lesson" type="Label" parent="Sub-scene5" unique_id=824712179]
+offset_left = 726.0
+offset_top = 245.0
+offset_right = 1718.0
+offset_bottom = 547.0
+theme_override_font_sizes/font_size = 42
+text = "AI works best as a human amplifier, and we are the best idea generators after all.
+
+One AI query produces CO₂ similar to one human breath"
+autowrap_mode = 2
+
+[node name="Speechbubble3" type="Sprite2D" parent="Sub-scene5" unique_id=372880477]
+position = Vector2(1579, 664)
+scale = Vector2(0.39791667, 0.46458334)
+texture = ExtResource("3_jjrax")
+
+[node name="Button3" type="Button" parent="Sub-scene5" unique_id=329958544]
+offset_left = 1420.0
+offset_top = 526.0
+offset_right = 1732.0
+offset_bottom = 745.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 44
+theme_override_styles/normal = SubResource("StyleBoxEmpty_285xf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_w4s0i")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_lbiga")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_3uk48")
+text = "Understood!"
+
+[connection signal="pressed" from="Sub-scene1/Button" to="." method="on_scene1_button_pressed"]
+[connection signal="pressed" from="Sub-scene2/Button" to="." method="on_scene2_button_pressed"]
+[connection signal="pressed" from="Sub-scene3/Button2" to="." method="on_scene3_button_pressed"]
+[connection signal="pressed" from="Sub-scene3/Button" to="." method="on_scene3_button2_pressed"]
+[connection signal="pressed" from="Sub-scene3/Button3" to="." method="on_scene3_button3_pressed"]
+[connection signal="pressed" from="Sub-scene4/Button" to="." method="on_scene4_button_pressed"]
+[connection signal="pressed" from="Sub-scene4/Button2" to="." method="on_scene4_button2_pressed"]
+[connection signal="pressed" from="Sub-scene4/Button3" to="." method="on_scene4_button3_pressed"]
+[connection signal="pressed" from="Sub-scene5/Button" to="." method="on_scene5_button_pressed"]
+[connection signal="pressed" from="Sub-scene5/Button2" to="." method="on_scene5_button2_pressed"]
+[connection signal="pressed" from="Sub-scene5/Button3" to="." method="on_scene5_button3_pressed"]
