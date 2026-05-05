@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cnewspaperov1"]
+
+[ext_resource type="Script" path="res://Scripts/newspaper.gd" id="1_script"]
+
+[node name="Newspaper" type="Node"]
+script = ExtResource("1_script")
+
+[node name="DimLayer" type="CanvasLayer" parent="."]
+layer = 40
+
+[node name="DimRect" type="ColorRect" parent="DimLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="Container" type="Control" parent="UILayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Paper" type="TextureRect" parent="UILayer/Container"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -450.0
+offset_right = 450.0
+offset_bottom = 450.0
+pivot_offset = Vector2(450, 450)
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2

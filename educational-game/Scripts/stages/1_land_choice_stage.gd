@@ -41,7 +41,19 @@ func _show_choices() -> void:
 func _on_choice(value: GameState.LandLocation) -> void:
 	GameState.land_location = value
 	Dialogue.dismiss()
-	finished.emit()
+	if _ui:
+		_ui.queue_free()
+		_ui = null
+	var article: int = Newspaper.Article.FARMLAND
+	match value:
+		GameState.LandLocation.FARMLAND:
+			article = Newspaper.Article.FARMLAND
+		GameState.LandLocation.VILLAGE:
+			article = Newspaper.Article.VILLAGE_TOO_CLOSE
+		GameState.LandLocation.FOREST:
+			article = Newspaper.Article.FOREST
+	Newspaper.on_close.connect(func(): finished.emit(), CONNECT_ONE_SHOT)
+	Newspaper.show_article(article)
 
 
 func _stage_end() -> void:
@@ -51,3 +63,4 @@ func _stage_end() -> void:
 	if Dialogue.on_typewriter_done.is_connected(_show_choices):
 		Dialogue.on_typewriter_done.disconnect(_show_choices)
 	Dialogue.dismiss()
+	Newspaper.dismiss()

@@ -78,6 +78,18 @@ func add_spinbox(
 	parent.add_child(sb)
 	return sb
 
+## Append a dropdown of options. Fires `on_selected(index)` whenever an item is picked.
+## Pass default_index = -1 to start with nothing selected (so the first pick fires).
+func add_option(items: Array, default_index: int, on_selected: Callable, parent: Node = _items) -> OptionButton:
+	var ob := OptionButton.new()
+	for item in items:
+		ob.add_item(str(item))
+	ob.select(default_index)
+	ob.item_selected.connect(on_selected)
+	_apply_body(ob)
+	parent.add_child(ob)
+	return ob
+
 ## Append a static text label.
 func add_label(text: String, parent: Node = _items) -> Label:
 	var lbl := Label.new()
