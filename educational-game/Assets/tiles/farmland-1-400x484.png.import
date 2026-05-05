@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2fcvxwmixn8m"
-path="res://.godot/imported/assistant.png-d72981f7c6bca148df57aa9190c8f1b4.ctex"
+uid="uid://dfcuf5a1nn7mw"
+path="res://.godot/imported/farmland-1-400x484.png-e9cd883f6e0f0caecc808de29da537fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/scene_png/assistant.png"
-dest_files=["res://.godot/imported/assistant.png-d72981f7c6bca148df57aa9190c8f1b4.ctex"]
+source_file="res://Assets/tiles/farmland-1-400x484.png"
+dest_files=["res://.godot/imported/farmland-1-400x484.png-e9cd883f6e0f0caecc808de29da537fe.ctex"]
 
 [params]
 

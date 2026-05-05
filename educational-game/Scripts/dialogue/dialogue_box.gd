@@ -3,13 +3,17 @@ extends Node
 
 const DIM_ALPHA: float = 0.4
 const DIM_FADE_TIME: float = 0.25
+const SQUEEZE_AMOUNT_RANGE := Vector2(0.02, 0.04)  # 1.0 - scale_y at peak squash
+const SQUEEZE_DURATION_RANGE := Vector2(0.15, 0.29)  # full squeeze + release in seconds
 
 const _DEBUG_DEFAULT_PORTRAIT: Texture2D = preload("res://icon.svg")
-const _DEBUG_DEFAULT_TEXT: String = "Triggered from the debug overlay."
+const _DEBUG_DEFAULT_TEXT: String = "Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla"
 const _DEBUG_CHARS_PER_SEC_RANGE := Vector2(1.0, 200.0)
 
 # Emitted after the dialogue closes. Useful for sequencing follow-up actions.
-signal dialogue_finished
+signal on_close
+# Emitted when the typewriter finishes
+signal on_typewriter_done
 
 @onready var _ui: Control = $UILayer/Container
 @onready var _portrait: TextureRect = $UILayer/Container/Portrait
@@ -18,8 +22,10 @@ signal dialogue_finished
 
 var _active: bool = false
 var _typing: bool = false
+var _auto_close: bool = false
 var _tween: Tween
 var _dim_tween: Tween
+var _squeeze_tween: Tween
 
 var _debug_chars_per_sec: float = DialogueOptions.DEFAULT_CHARS_PER_SEC
 var _debug_dim_enabled: bool = false
@@ -52,6 +58,7 @@ func show_dialogue(portrait: Texture2D, text: String, opts: DialogueOptions = nu
 	_ui.visible = true
 	_active = true
 	_typing = true
+	_auto_close = opts.auto_close
 
 	if opts.dim:
 		_fade_dim(DIM_ALPHA)
@@ -59,10 +66,15 @@ func show_dialogue(portrait: Texture2D, text: String, opts: DialogueOptions = nu
 	var duration: float = float(text.length()) / maxf(opts.chars_per_sec, 1.0)
 	_tween = create_tween()
 	_tween.tween_property(_label, "visible_ratio", 1.0, duration)
-	_tween.finished.connect(func(): _typing = false)
+	_tween.finished.connect(_handle_typewriter_done)
+	_start_squeeze()
 
+## Close dialog manually
+func dismiss() -> void:
+	if _active:
+		_close()
 
-# Click or ui_accept skips to the end of typewriter animation, or dismisses the dialog if already finished
+# Click or ui_accept skips to the end of typewriter animation, or dismisses the dialog if already finished (if the dialog is set to automatically dismiss)
 func _unhandled_input(event: InputEvent) -> void:
 	if not _active:
 		return
@@ -70,10 +82,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		or event.is_action_pressed("ui_accept")
 	if not advance:
 		return
-	get_viewport().set_input_as_handled()
 	if _typing:
+		get_viewport().set_input_as_handled()
 		_finish_typing()
-	else:
+	elif _auto_close:
+		get_viewport().set_input_as_handled()
 		_close()
 
 ## Skip to the end of the typewriter effect
@@ -82,12 +95,49 @@ func _finish_typing() -> void:
 		_tween.kill()
 	_label.visible_ratio = 1.0
 	_typing = false
+	_stop_squeeze()
+	on_typewriter_done.emit()
+
+func _handle_typewriter_done() -> void:
+	_typing = false
+	_stop_squeeze()
+	on_typewriter_done.emit()
 
 func _close() -> void:
 	_ui.visible = false
 	_fade_dim(0.0)
 	_active = false
-	dialogue_finished.emit()
+	_auto_close = true
+	_stop_squeeze()
+	on_close.emit()
+
+# Animates the portrait of the talking entity
+func _start_squeeze() -> void:
+	_stop_squeeze()
+	# Pivot at bottom-center so the squash compresses downward (top edge dips, bottom stays put).
+	_portrait.pivot_offset = Vector2(
+		(_portrait.offset_right - _portrait.offset_left) * 0.5,
+		_portrait.offset_bottom - _portrait.offset_top
+	)
+	_portrait.scale = Vector2.ONE
+	_queue_squeeze()
+
+func _queue_squeeze() -> void:
+	if _squeeze_tween and _squeeze_tween.is_valid():
+		_squeeze_tween.kill()
+	var amount: float = randf_range(SQUEEZE_AMOUNT_RANGE.x, SQUEEZE_AMOUNT_RANGE.y)
+	var dur: float = randf_range(SQUEEZE_DURATION_RANGE.x, SQUEEZE_DURATION_RANGE.y)
+	_squeeze_tween = create_tween()
+	_squeeze_tween.tween_property(_portrait, "scale:y", 1.0 - amount, dur * 0.4) \
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_squeeze_tween.tween_property(_portrait, "scale:y", 1.0, dur * 0.6) \
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	_squeeze_tween.finished.connect(_queue_squeeze)
+
+func _stop_squeeze() -> void:
+	if _squeeze_tween and _squeeze_tween.is_valid():
+		_squeeze_tween.kill()
+	_portrait.scale = Vector2.ONE
 
 ## Fades the dim overlay to a certain alpha
 func _fade_dim(target_alpha: float) -> void:

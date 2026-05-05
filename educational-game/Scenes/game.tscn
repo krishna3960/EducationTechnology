@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/managers/stage_manager.gd" id="2"]
 
 [ext_resource type="PackedScene" path="res://Scenes/Stages/0_example_stage.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://Scenes/Stages/1_land_choice_stage.tscn" id="4"]
 
 [node name="Game" type="Node2D"]
 
@@ -12,5 +13,6 @@
 [node name="StageManager" type="Node" parent="."]
 script = ExtResource("2")
 stages = Array[PackedScene]([
+    ExtResource("4"),
     ExtResource("3")
 ])
