@@ -2,6 +2,7 @@ extends CanvasLayer
 
 
 func _ready() -> void:
+	layer = RenderLayers.PAUSE_MENU
 	visible = false
 
 

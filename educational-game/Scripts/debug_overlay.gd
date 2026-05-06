@@ -14,10 +14,12 @@ const _HEADER_EMBOLDEN: float = 0.6
 @onready var _panel: Control = $UILayer/Panel
 @onready var _items: VBoxContainer = $UILayer/Panel/Margin/VBox/Scroll/Items
 @onready var _hint: Label = $UILayer/Hint
+@onready var _ui_layer: CanvasLayer = $UILayer
 
 var _bold_font: FontVariation
 
 func _ready() -> void:
+	_ui_layer.layer = RenderLayers.DEBUG_OVERLAY
 	_panel.visible = false
 	_bold_font = FontVariation.new()
 	_bold_font.base_font = ThemeDB.fallback_font

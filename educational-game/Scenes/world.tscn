@@ -12,10 +12,10 @@ position = Vector2(31, -55)
 [node name="Camera2D" type="Camera2D" parent="ground" unique_id=338738434]
 position = Vector2(128, 624)
 zoom = Vector2(0.5, 0.5)
-limit_left = -2000
-limit_top = -1500
-limit_right = 4000
-limit_bottom = 2500
+limit_left = -8000
+limit_top = -6000
+limit_right = 10000
+limit_bottom = 7000
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
