@@ -5,6 +5,8 @@ const DIM_ALPHA: float = 0.4
 const DIM_FADE_TIME: float = 0.25
 const SQUEEZE_AMOUNT_RANGE := Vector2(0.02, 0.04)  # 1.0 - scale_y at peak squash
 const SQUEEZE_DURATION_RANGE := Vector2(0.15, 0.29)  # full squeeze + release in seconds
+const SQUEEZE_CHARS_RANGE := Vector2i(2, 4)  # squeeze every N revealed non-silent chars
+const _SILENT_CHARS: String = " \t\n.,!?;:-—\""
 
 const _DEBUG_DEFAULT_PORTRAIT: Texture2D = preload("res://icon.svg")
 const _DEBUG_DEFAULT_TEXT: String = "Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla"
@@ -26,6 +28,9 @@ var _auto_close: bool = false
 var _tween: Tween
 var _dim_tween: Tween
 var _squeeze_tween: Tween
+var _last_char_count: int = 0
+var _chars_since_squeeze: int = 0
+var _next_squeeze_at: int = 0
 
 var _debug_chars_per_sec: float = DialogueOptions.DEFAULT_CHARS_PER_SEC
 var _debug_dim_enabled: bool = false
@@ -63,11 +68,21 @@ func show_dialogue(portrait: Texture2D, text: String, opts: DialogueOptions = nu
 	if opts.dim:
 		_fade_dim(DIM_ALPHA)
 
+	_last_char_count = 0
+	_chars_since_squeeze = 0
+	_next_squeeze_at = randi_range(SQUEEZE_CHARS_RANGE.x, SQUEEZE_CHARS_RANGE.y)
+
+
+	_portrait.pivot_offset = Vector2(
+		(_portrait.offset_right - _portrait.offset_left) * 0.5,
+		_portrait.offset_bottom - _portrait.offset_top
+	)
+	_portrait.scale = Vector2.ONE
+
 	var duration: float = float(text.length()) / maxf(opts.chars_per_sec, 1.0)
 	_tween = create_tween()
-	_tween.tween_property(_label, "visible_ratio", 1.0, duration)
+	_tween.tween_method(_on_typewriter_progress, 0.0, 1.0, duration)
 	_tween.finished.connect(_handle_typewriter_done)
-	_start_squeeze()
 
 ## Close dialog manually
 func dismiss() -> void:
@@ -111,18 +126,23 @@ func _close() -> void:
 	_stop_squeeze()
 	on_close.emit()
 
-# Animates the portrait of the talking entity
-func _start_squeeze() -> void:
-	_stop_squeeze()
-	# Pivot at bottom-center so the squash compresses downward (top edge dips, bottom stays put).
-	_portrait.pivot_offset = Vector2(
-		(_portrait.offset_right - _portrait.offset_left) * 0.5,
-		_portrait.offset_bottom - _portrait.offset_top
-	)
-	_portrait.scale = Vector2.ONE
-	_queue_squeeze()
+# Call when the typewriter effect progresses. Shows the "squeeze" animation every certain amount of non-silent characters
+func _on_typewriter_progress(ratio: float) -> void:
+	_label.visible_ratio = ratio
+	var text_len: int = _label.text.length()
+	var current: int = int(ratio * text_len)
+	while _last_char_count < current:
+		var ch: String = _label.text.substr(_last_char_count, 1)
+		_last_char_count += 1
+		if _SILENT_CHARS.contains(ch):
+			continue
+		_chars_since_squeeze += 1
+		if _chars_since_squeeze >= _next_squeeze_at:
+			_trigger_squeeze()
+			_chars_since_squeeze = 0
+			_next_squeeze_at = randi_range(SQUEEZE_CHARS_RANGE.x, SQUEEZE_CHARS_RANGE.y)
 
-func _queue_squeeze() -> void:
+func _trigger_squeeze() -> void:
 	if _squeeze_tween and _squeeze_tween.is_valid():
 		_squeeze_tween.kill()
 	var amount: float = randf_range(SQUEEZE_AMOUNT_RANGE.x, SQUEEZE_AMOUNT_RANGE.y)
@@ -132,7 +152,6 @@ func _queue_squeeze() -> void:
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	_squeeze_tween.tween_property(_portrait, "scale:y", 1.0, dur * 0.6) \
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-	_squeeze_tween.finished.connect(_queue_squeeze)
 
 func _stop_squeeze() -> void:
 	if _squeeze_tween and _squeeze_tween.is_valid():
