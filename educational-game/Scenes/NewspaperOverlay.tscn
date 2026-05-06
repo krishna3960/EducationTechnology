@@ -6,7 +6,6 @@
 script = ExtResource("1_script")
 
 [node name="DimLayer" type="CanvasLayer" parent="."]
-layer = 40
 
 [node name="DimRect" type="ColorRect" parent="DimLayer"]
 anchors_preset = 15
@@ -16,7 +15,6 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="UILayer" type="CanvasLayer" parent="."]
-layer = 50
 
 [node name="Container" type="Control" parent="UILayer"]
 anchors_preset = 15
