@@ -1,7 +1,7 @@
 # Renders a portrait + speech bubble in the bottom-left.
 extends Node
 
-const DIM_ALPHA: float = 0.4
+const DIM_ALPHA: float = 0.6
 const DIM_FADE_TIME: float = 0.25
 const SQUEEZE_AMOUNT_RANGE := Vector2(0.02, 0.04)  # 1.0 - scale_y at peak squash
 const SQUEEZE_DURATION_RANGE := Vector2(0.15, 0.29)  # full squeeze + release in seconds
