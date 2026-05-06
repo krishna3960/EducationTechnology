@@ -36,12 +36,16 @@ signal on_close
 @onready var _ui: Control = $UILayer/Container
 @onready var _paper: TextureRect = $UILayer/Container/Paper
 @onready var _dim_rect: ColorRect = $DimLayer/DimRect
+@onready var _dim_layer: CanvasLayer = $DimLayer
+@onready var _ui_layer: CanvasLayer = $UILayer
 
 var _active: bool = false
 var _tween: Tween
 
 
 func _ready() -> void:
+	_dim_layer.layer = RenderLayers.NEWSPAPER_DIM
+	_ui_layer.layer = RenderLayers.NEWSPAPER_UI
 	_ui.visible = false
 	_dim_rect.modulate.a = 0.0
 	_dim_rect.visible = false

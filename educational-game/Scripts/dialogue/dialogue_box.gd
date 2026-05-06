@@ -21,6 +21,8 @@ signal on_typewriter_done
 @onready var _portrait: TextureRect = $UILayer/Container/Portrait
 @onready var _label: RichTextLabel = $UILayer/Container/Bubble/Label
 @onready var _dim_rect: ColorRect = $DimLayer/DimRect
+@onready var _dim_layer: CanvasLayer = $DimLayer
+@onready var _ui_layer: CanvasLayer = $UILayer
 
 var _active: bool = false
 var _typing: bool = false
@@ -36,6 +38,8 @@ var _debug_chars_per_sec: float = DialogueOptions.DEFAULT_CHARS_PER_SEC
 var _debug_dim_enabled: bool = false
 
 func _ready() -> void:
+	_dim_layer.layer = RenderLayers.DIALOG_DIM
+	_ui_layer.layer = RenderLayers.DIALOG_UI
 	_ui.visible = false
 	_dim_rect.modulate.a = 0.0
 	_dim_rect.visible = false
