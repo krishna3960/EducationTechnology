@@ -12,7 +12,7 @@ var _http: HTTPRequest
 
 
 func _ready() -> void:
-	record("session_start")
+	record("session_start", {"debug": OS.is_debug_build()})
 
 	if _SUBMIT_URL.is_empty() or _SUBMIT_FIELD.is_empty():
 		return
