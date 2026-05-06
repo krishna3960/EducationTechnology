@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Debug="*res://Scenes/DebugOverlay.tscn"
+EventLogger="*res://Scripts/event_logger.gd"
 Dialogue="*res://Scenes/DialogueBox.tscn"
 Newspaper="*res://Scenes/NewspaperOverlay.tscn"
 GameState="*res://Scripts/managers/game_state.gd"

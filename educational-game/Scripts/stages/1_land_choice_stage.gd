@@ -101,6 +101,7 @@ func _show_choices() -> void:
 
 func _on_choice(value: GameState.LandLocation) -> void:
 	GameState.land_location = value
+	EventLogger.record("land_choice", {"value": GameState.LandLocation.keys()[value]})
 	Dialogue.dismiss()
 	if _clumps_canvas:
 		_clumps_canvas.queue_free()
