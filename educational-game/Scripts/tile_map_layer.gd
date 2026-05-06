@@ -13,3 +13,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
+@onready var tilemap = $"../MiddleLayer"
+func change_tile(cell: Vector2i, atlas_coords: Vector2i, source_id: int = 0):
+	tilemap.set_cell(cell, source_id, atlas_coords)
