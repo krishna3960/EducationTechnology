@@ -28,4 +28,4 @@ func _on_settings_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().paused = false
-	get_tree().quit()
+	EventLogger.submit_and_quit()

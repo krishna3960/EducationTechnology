@@ -25,6 +25,7 @@ func _ready() -> void:
 func _advance() -> void:
 	# If we are in a stage, we end it.
 	if _current:
+		EventLogger.record("stage_end", {"index": _index, "name": _stage_label(_index)})
 		_current._stage_end()
 		_current.queue_free()
 		_current = null
@@ -32,6 +33,7 @@ func _advance() -> void:
 	GameState.current_stage_index = _index
 	if _index >= stages.size():
 		_update_debug_labels()
+		EventLogger.record("no_more_stages")
 		no_more_stages.emit()
 		return
 	_current = stages[_index].instantiate()
@@ -41,6 +43,7 @@ func _advance() -> void:
 	_current.finished.connect(_advance, CONNECT_DEFERRED | CONNECT_ONE_SHOT)
 	_current._stage_start()
 	_update_debug_labels()
+	EventLogger.record("stage_start", {"index": _index, "name": _stage_label(_index)})
 	stage_changed.emit(_index, _current)
 
 func _update_debug_labels() -> void:

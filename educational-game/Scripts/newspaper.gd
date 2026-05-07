@@ -65,6 +65,7 @@ func show_article(article: Article) -> void:
 	_ui.visible = true
 	_dim_rect.visible = true
 	_active = true
+	EventLogger.record("newspaper_show", {"article": Article.keys()[article]})
 	_animate_in()
 
 
@@ -105,6 +106,7 @@ func _close() -> void:
 func _finalize_close() -> void:
 	_ui.visible = false
 	_dim_rect.visible = false
+	EventLogger.record("newspaper_close")
 	on_close.emit()
 
 

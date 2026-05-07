@@ -1,7 +1,7 @@
 # Renders a portrait + speech bubble in the bottom-left.
 extends Node
 
-const DIM_ALPHA: float = 0.4
+const DIM_ALPHA: float = 0.6
 const DIM_FADE_TIME: float = 0.25
 const SQUEEZE_AMOUNT_RANGE := Vector2(0.02, 0.04)  # 1.0 - scale_y at peak squash
 const SQUEEZE_DURATION_RANGE := Vector2(0.15, 0.29)  # full squeeze + release in seconds
@@ -69,6 +69,8 @@ func show_dialogue(portrait: Texture2D, text: String, opts: DialogueOptions = nu
 	_typing = true
 	_auto_close = opts.auto_close
 
+	EventLogger.record("dialogue_show", {"chars": text.length(), "auto_close": opts.auto_close})
+
 	if opts.dim:
 		_fade_dim(DIM_ALPHA)
 
@@ -115,11 +117,13 @@ func _finish_typing() -> void:
 	_label.visible_ratio = 1.0
 	_typing = false
 	_stop_squeeze()
+	EventLogger.record("dialogue_skip_typing")
 	on_typewriter_done.emit()
 
 func _handle_typewriter_done() -> void:
 	_typing = false
 	_stop_squeeze()
+	EventLogger.record("dialogue_typewriter_done")
 	on_typewriter_done.emit()
 
 func _close() -> void:
@@ -128,6 +132,7 @@ func _close() -> void:
 	_active = false
 	_auto_close = true
 	_stop_squeeze()
+	EventLogger.record("dialogue_close")
 	on_close.emit()
 
 # Call when the typewriter effect progresses. Shows the "squeeze" animation every certain amount of non-silent characters
