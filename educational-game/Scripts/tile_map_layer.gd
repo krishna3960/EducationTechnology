@@ -50,11 +50,6 @@ func _toggle_coord_labels(enabled: bool) -> void:
 			child.add_child(lbl)
 			_coord_labels.append(lbl)
 
-@onready var tilemap = $"../MiddleLayer"
-func change_tile(cell: Vector2i, atlas_coords: Vector2i, source_id: int = 0):
-	tilemap.set_cell(cell, source_id, atlas_coords)
-
-
 ## Bit of a workaround. Given the 2D coordinate of a tile, returns a a Sprite2D instance which is layered precisely on top of the tile, with the same image as the tile.
 func get_tile(cell: Vector2i) -> Sprite2D:
 	var src := get_cell_source_id(cell)
