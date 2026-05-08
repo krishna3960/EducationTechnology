@@ -1,7 +1,7 @@
 extends Stage
 
-const _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
-const _INTRO_TEXT: String = "We need to start by buying some land for the datacenter. Where should we build it?"
+@export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
+@export var _INTRO_TEXT: String = "We need to start by buying some land for the datacenter. Where should we build it?"
 
 const _CHOICES: Array = [
 	{
@@ -60,7 +60,7 @@ func _show_choices() -> void:
 	for choice in _CHOICES:
 		var clump := Node2D.new()
 		_clumps_canvas.add_child(clump)
-		# For tile in the clump we get an overlay of the tile
+		# For each tile in the clump we get an overlay of the tile
 		for cell in choice["cells"]:
 			var overlay: Polygon2D = tilemap.get_cell_overlay(cell)
 			if overlay:
