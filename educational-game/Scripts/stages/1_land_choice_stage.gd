@@ -124,7 +124,7 @@ func _on_choice(value: GameState.LandLocation) -> void:
 
 # Very naive way to find the tilemap, we traverse the tree recursively.
 func _find_tilemap() -> TileMapLayer:
-	return get_tree().root.find_child("TileMapLayer", true, false) as TileMapLayer
+	return get_tree().root.find_child("TileMapLayer*", true, false) as TileMapLayer
 
 
 # Fades a node's hue to the target color.
