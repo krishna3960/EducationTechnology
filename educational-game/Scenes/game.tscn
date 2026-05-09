@@ -1,18 +1,15 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dudhn6g38delf"]
 
-[ext_resource type="PackedScene" path="res://Scenes/world.tscn" id="1"]
-[ext_resource type="Script" path="res://Scripts/managers/stage_manager.gd" id="2"]
-
+[ext_resource type="PackedScene" uid="uid://bfdw1ns2g3qwu" path="res://Scenes/world.tscn" id="1"]
+[ext_resource type="Script" uid="uid://bajygpwkaiy0a" path="res://Scripts/managers/stage_manager.gd" id="2"]
 [ext_resource type="PackedScene" path="res://Scenes/Stages/0_example_stage.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://Scenes/Stages/1_land_choice_stage.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://bfloo87wqlsxl" path="res://Scenes/Stages/1_land_choice_stage.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://bfeifdovbrou3" path="res://Scenes/Stages/01_intro_stage.tscn" id="5_wowpa"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" unique_id=511060941]
 
-[node name="World" parent="." instance=ExtResource("1")]
+[node name="World" parent="." unique_id=524236968 instance=ExtResource("1")]
 
-[node name="StageManager" type="Node" parent="."]
+[node name="StageManager" type="Node" parent="." unique_id=1196368449]
 script = ExtResource("2")
-stages = Array[PackedScene]([
-    ExtResource("4"),
-    ExtResource("3")
-])
+stages = Array[PackedScene]([ExtResource("5_wowpa"), ExtResource("4"), ExtResource("3")])

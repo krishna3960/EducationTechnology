@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://bfeifdovbrou3"]
+
+[ext_resource type="Script" uid="uid://c1oygk8gvnwj2" path="res://Scripts/stages/01_intro_stage.gd" id="1_8qp1f"]
+[ext_resource type="Texture2D" uid="uid://2v81b8hgucwn" path="res://Assets/intro-background.png" id="2_0t1ct"]
+[ext_resource type="Texture2D" uid="uid://d4ilfpjtm11s2" path="res://Assets/arrow.png" id="3_dumhe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0t1ct"]
+bg_color = Color(0.21176471, 0.019607844, 0.40784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dumhe"]
+bg_color = Color(0.32941177, 0.25882354, 0.5568628, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_la30e"]
+bg_color = Color(0.21176471, 0.019607844, 0.40784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxvoa"]
+bg_color = Color(0.627451, 0.60784316, 0.90588236, 1)
+
+[node name="2TestHere" type="Node2D" unique_id=885598074]
+script = ExtResource("1_8qp1f")
+
+[node name="Control_intro" type="Control" parent="." unique_id=1903783701]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="IntroBackground" type="Sprite2D" parent="Control_intro" unique_id=594470587]
+z_index = 1
+position = Vector2(684.0001, 755.5)
+scale = Vector2(3.279167, 2.399074)
+texture = ExtResource("2_0t1ct")
+
+[node name="Button" type="Button" parent="Control_intro" unique_id=1564996088]
+z_index = 1
+layout_mode = 0
+offset_left = -146.0
+offset_top = 1048.0
+offset_right = 303.0
+offset_bottom = 1177.0
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_0t1ct")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dumhe")
+text = "Next"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control_intro" unique_id=741221593]
+z_index = 1
+layout_mode = 0
+offset_left = -1213.0
+offset_top = -288.0
+offset_right = 1937.0
+offset_bottom = 853.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 100
+
+[node name="Control_arrows" type="Control" parent="." unique_id=71581091]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="arrow_pointing_pontia" type="Sprite2D" parent="Control_arrows" unique_id=2040229205]
+z_index = 20
+position = Vector2(-632, 547)
+scale = Vector2(0.39179105, 0.45930234)
+texture = ExtResource("3_dumhe")
+
+[node name="arrow_pointing_fontania" type="Sprite2D" parent="Control_arrows" unique_id=1425549723]
+z_index = 1
+position = Vector2(1609, 1485)
+rotation = 1.5707964
+scale = Vector2(0.39179105, 0.45930234)
+texture = ExtResource("3_dumhe")
+
+[node name="arrow_pointing_petalia" type="Sprite2D" parent="Control_arrows" unique_id=945177957]
+z_index = 1
+position = Vector2(2306, 547)
+scale = Vector2(0.39179105, 0.45930234)
+texture = ExtResource("3_dumhe")
+
+[node name="arrow_pointing_aiCenter" type="Sprite2D" parent="Control_arrows" unique_id=1666706143]
+z_index = 1
+position = Vector2(1122, 579)
+scale = Vector2(0.39179105, 0.45930234)
+texture = ExtResource("3_dumhe")
+
+[node name="Button_to_stage_1" type="Button" parent="Control_arrows" unique_id=1229068983]
+z_index = 2
+layout_mode = 0
+offset_left = -339.0
+offset_top = 776.0
+offset_right = 581.0
+offset_bottom = 1183.0
+theme_override_font_sizes/font_size = 200
+theme_override_styles/normal = SubResource("StyleBoxFlat_la30e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mxvoa")
+text = "Start"
+
+[connection signal="pressed" from="Control_intro/Button" to="." method="_button_pressed"]
+[connection signal="pressed" from="Control_arrows/Button_to_stage_1" to="." method="_start_scene_1"]
