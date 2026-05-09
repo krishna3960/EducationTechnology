@@ -7,18 +7,22 @@ const _CHOICES: Dictionary = {
 	GameState.LandLocation.FIRST: {
 		"tint": Color(0.0, 1.0, 0.0, 0.518),
 		"cells": [Vector2i(3, 2), Vector2i(2, 0), Vector2i(4, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 2), Vector2i(1, 1), Vector2i(2, 2), Vector2i(3, 3), Vector2i(2, 4), Vector2i(2, 3), Vector2i(1, 4), Vector2i(0, 4), Vector2i(0, 3), Vector2i(0, 2), Vector2i(0, 1), Vector2i(1, 2), Vector2i(1, 3)],
+		"signs": [Vector2i(4,1)],
 	},
 	GameState.LandLocation.SECOND: {
 		"tint": Color(1.4, 0.0, 0.0, 0.624),
 		"cells": [Vector2i(3, 2), Vector2i(3, -1), Vector2i(3, -2), Vector2i(3, 1), Vector2i(4, 2), Vector2i(5, 1), Vector2i(2, 2), Vector2i(1, 1), Vector2i(2, -1), Vector2i(1, -1), Vector2i(4, -1), Vector2i(5, -1), Vector2i(5, 0), Vector2i(4, 0), Vector2i(4, 1), Vector2i(2, 0), Vector2i(2, 1), Vector2i(1, 0)],
+		"signs": [Vector2i(4,1)],
 	},
 	GameState.LandLocation.THIRD: {
 		"tint": Color(0.0, 0.0, 1.4, 0.627),
 		"cells": [Vector2i(3, 2), Vector2i(2, 0), Vector2i(1, -1), Vector2i(0, 0), Vector2i(-1, 0), Vector2i(-1, 1), Vector2i(-2, 2), Vector2i(-2, 3), Vector2i(-1, 3), Vector2i(0, 3), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 1), Vector2i(2, 1), Vector2i(1, 0), Vector2i(1, 1), Vector2i(0, 1), Vector2i(0, 2), Vector2i(-1, 2)],
+		"signs": [Vector2i(3,1)],
 	},
 	GameState.LandLocation.FOURTH: {
 		"tint": Color(0.748, 0.068, 0.85, 0.627),
 		"cells": [Vector2i(3, 2), Vector2i(2, 1), Vector2i(1, 1), Vector2i(1, 2), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 4), Vector2i(5, 3), Vector2i(6, 3), Vector2i(6, 2), Vector2i(5, 1), Vector2i(4, 1), Vector2i(3, 1), Vector2i(2, 2), Vector2i(4, 2), Vector2i(4, 3), Vector2i(5, 2)],
+		"signs": [Vector2i(3,1)],
 	},
 }
 
@@ -26,6 +30,8 @@ const _HOVER_FADE_DURATION: float = 0.08
 
 const _CONSTRUCTION_TILE: String = "res://Assets/tiles/construction_land_tile.png"
 const _CONSTRUCTION_SIGN: String = "res://Assets/tiles/under_construction.png"
+const _CONSTRUCTION_MAX_DELAY: float = 1.5
+const _SIGN_HOLD_DELAY: float = 1.0
 const _NEWSPAPER_DELAY: float = 1.0
 
 var _clump_polygons: Dictionary = {}  # LandLocation -> Array[Polygon2D]
@@ -104,13 +110,32 @@ func _on_choice(value: GameState.LandLocation) -> void:
 
 	# Set the chosen land to be the construction site
 	var chosen: Dictionary = _CHOICES[value]
-	for cell in chosen.get("cells", []):
-		MapLayer.main.set_cell_by_texture(cell, _CONSTRUCTION_TILE)
-	for cell in chosen.get("signs", []):
+	var sign_cells: Array = chosen["signs"]
+	var sign_set: Dictionary = {}
+	for c in sign_cells:
+		sign_set[c] = true
+
+	# Animate signs first (instantly).
+	for cell in sign_cells:
 		MapLayer.main.set_cell_by_texture(cell, _CONSTRUCTION_SIGN)
 
-	await get_tree().create_timer(_NEWSPAPER_DELAY).timeout
+	# Random per-tile delay.
+	for cell in chosen["cells"]:
+		if sign_set.has(cell):
+			continue
+		var delay: float = randf() * _CONSTRUCTION_MAX_DELAY
+		get_tree().create_timer(delay).timeout.connect(
+			MapLayer.main.set_cell_by_texture.bind(cell, _CONSTRUCTION_TILE), CONNECT_ONE_SHOT)
 
+	# After construction finishes, remove the signs
+	var sign_replace_at: float = _CONSTRUCTION_MAX_DELAY + _SIGN_HOLD_DELAY
+	for cell in sign_cells:
+		get_tree().create_timer(sign_replace_at).timeout.connect(
+			MapLayer.main.set_cell_by_texture.bind(cell, _CONSTRUCTION_TILE), CONNECT_ONE_SHOT)
+
+	await get_tree().create_timer(sign_replace_at + _NEWSPAPER_DELAY).timeout
+
+	# Finally trigger the newspaper
 	var article: int = Newspaper.Article.FARMLAND
 	match value:
 		GameState.LandLocation.FIRST:
