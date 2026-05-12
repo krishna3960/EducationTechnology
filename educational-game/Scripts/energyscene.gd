@@ -47,8 +47,10 @@ var _clump_polygons: Dictionary = {}
 var _ui_canvas: CanvasLayer
 var _current_choice_index: int = 0
 var _choose_btn: Button = null
+var _ts_started: float = 0.0
 
 func _stage_start() -> void:
+	_ts_started = Time.get_unix_time_from_system()
 	var chosen = _CHOICES[GameState.land_location]
 	for cell in chosen["cells"]:
 		MapLayer.main.set_cell_by_texture(cell, _EXPANSION_TILE)
@@ -177,6 +179,13 @@ func _show_only(active_key) -> void:
 
 func _on_choice(key: String) -> void:
 	GameState.electricity_choice = key
+	var ts_chosen: float = Time.get_unix_time_from_system()
+	var entry := Metrics.ChoiceEntry.new()
+	entry.value = key
+	entry.ts_started = _ts_started
+	entry.ts_chosen = ts_chosen
+	entry.ts_duration = ts_chosen - _ts_started
+	GameState.metrics.electricity_choice = entry
 	Dialogue.dismiss()
 	if _ui_canvas:
 		_ui_canvas.queue_free()

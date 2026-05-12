@@ -7,6 +7,7 @@ signal no_more_stages
 @export var stages: Array[PackedScene] = []
 var _current: Stage
 var _index: int = -1
+var _ts_started: float = 0.0
 var _debug_label_current: Label
 var _debug_label_next: Label
 func _ready() -> void:
@@ -18,7 +19,14 @@ func _ready() -> void:
 func _advance() -> void:
 	# If we are in a stage, we end it.
 	if _current:
-		EventLogger.record("stage_end", {"index": _index, "name": _stage_label(_index)})
+		var ts_ended: float = Time.get_unix_time_from_system()
+		var entry := Metrics.StageEntry.new()
+		entry.index = _index
+		entry.name = _stage_label(_index)
+		entry.ts_started = _ts_started
+		entry.ts_ended = ts_ended
+		entry.ts_duration = ts_ended - _ts_started
+		GameState.metrics.stages.append(entry)
 		_current._stage_end()
 		_current.queue_free()
 		_current = null
@@ -26,7 +34,6 @@ func _advance() -> void:
 	GameState.current_stage_index = _index
 	if _index >= stages.size():
 		_update_debug_labels()
-		EventLogger.record("no_more_stages")
 		no_more_stages.emit()
 		return
 	_current = stages[_index].instantiate()
@@ -35,7 +42,7 @@ func _advance() -> void:
 	_current.finished.connect(_advance, CONNECT_DEFERRED | CONNECT_ONE_SHOT)
 	_current._stage_start()
 	_update_debug_labels()
-	EventLogger.record("stage_start", {"index": _index, "name": _stage_label(_index)})
+	_ts_started = Time.get_unix_time_from_system()
 	stage_changed.emit(_index, _current)
 func _update_debug_labels() -> void:
 	_debug_label_current.text = "Current: %s" % _stage_label(_index)

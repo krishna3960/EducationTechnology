@@ -39,6 +39,13 @@ var _next_squeeze_at: int = 0
 var _debug_chars_per_sec: float = DialogueOptions.DEFAULT_CHARS_PER_SEC
 var _debug_dim_enabled: bool = false
 
+var _ts_started: float = 0.0
+var _ts_skipped: Variant = null
+var _ts_ended: float = 0.0
+var _current_speaker: String = ""
+var _current_text: String = ""
+var _current_chars: int = 0
+
 func _ready() -> void:
 	_dim_layer.layer = RenderLayers.DIALOG_DIM
 	_ui_layer.layer = RenderLayers.DIALOG_UI
@@ -72,7 +79,12 @@ func show_dialogue(portrait: Texture2D, speaker: String, text: String, opts: Dia
 	_typing = true
 	_auto_close = opts.auto_close
 
-	EventLogger.record("dialogue_show", {"chars": text.length(), "auto_close": opts.auto_close})
+	_ts_started = Time.get_unix_time_from_system()
+	_ts_skipped = null
+	_ts_ended = 0.0
+	_current_speaker = speaker
+	_current_text = text
+	_current_chars = text.length()
 
 	if opts.dim:
 		_fade_dim(DIM_ALPHA)
@@ -120,13 +132,14 @@ func _finish_typing() -> void:
 	_label.visible_ratio = 1.0
 	_typing = false
 	_stop_squeeze()
-	EventLogger.record("dialogue_skip_typing")
+	_ts_skipped = Time.get_unix_time_from_system()
+	_ts_ended = _ts_skipped
 	on_typewriter_done.emit()
 
 func _handle_typewriter_done() -> void:
 	_typing = false
 	_stop_squeeze()
-	EventLogger.record("dialogue_typewriter_done")
+	_ts_ended = Time.get_unix_time_from_system()
 	on_typewriter_done.emit()
 
 func _close() -> void:
@@ -135,7 +148,17 @@ func _close() -> void:
 	_active = false
 	_auto_close = true
 	_stop_squeeze()
-	EventLogger.record("dialogue_close")
+	var ts_closed: float = Time.get_unix_time_from_system()
+	var entry := Metrics.DialogueEntry.new()
+	entry.speaker = _current_speaker
+	entry.text = _current_text
+	entry.chars = _current_chars
+	entry.ts_started = _ts_started
+	entry.ts_skipped = _ts_skipped
+	entry.ts_ended = _ts_ended
+	entry.ts_closed = ts_closed
+	entry.ts_duration = ts_closed - _ts_ended
+	GameState.metrics.dialogues.append(entry)
 	on_close.emit()
 
 # Call when the typewriter effect progresses. Shows the "squeeze" animation every certain amount of non-silent characters

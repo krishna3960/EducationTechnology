@@ -39,12 +39,14 @@ var _clump_polygons: Dictionary = {}
 var _ui_canvas: CanvasLayer
 var _current_choice_index: int = 0
 var _choose_btn: Button = null
+var _ts_started: float = 0.0
 
 
 const _DATACENTER_CELL: Vector2i = Vector2i(3, 0)
 
 
 func _stage_start() -> void:
+	_ts_started = Time.get_unix_time_from_system()
 	var camera := get_viewport().get_camera_2d()
 	if MapLayer.main and camera:
 		camera.position = MapLayer.main.map_to_local(_DATACENTER_CELL)
@@ -159,7 +161,13 @@ func _show_only(active_value) -> void:
 
 func _on_choice(value: GameState.LandLocation) -> void:
 	GameState.land_location = value
-	EventLogger.record("land_choice", {"value": GameState.LandLocation.keys()[value]})
+	var ts_chosen: float = Time.get_unix_time_from_system()
+	var entry := Metrics.ChoiceEntry.new()
+	entry.value = GameState.LandLocation.keys()[value]
+	entry.ts_started = _ts_started
+	entry.ts_chosen = ts_chosen
+	entry.ts_duration = ts_chosen - _ts_started
+	GameState.metrics.land_choice = entry
 	Dialogue.dismiss()
 	if _ui_canvas:
 		_ui_canvas.queue_free()
