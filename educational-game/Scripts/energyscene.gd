@@ -1,7 +1,7 @@
 extends Stage
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
-@export const _SPEAKER: String = "Prompto"
+@export var _SPEAKER: String = "Prompto"
 @export var _INTRO_TEXT: String = "Ah thats a shame about the news....but your new hardware looks so good! Now we just need to power them up with electrcity. Where do you want to get electricity from?"
 
 const _EXPANSION_TILE: String = "res://Assets/tiles/tiles_tree_grass_sheeps/tiles_grass_v6.png"
