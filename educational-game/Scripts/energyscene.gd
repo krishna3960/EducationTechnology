@@ -1,50 +1,69 @@
 extends Stage
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
-@export var _INTRO_TEXT: String = "We need to start by buying some land for the datacenter. Where should we build it?"
+@export var _INTRO_TEXT: String = "Ah thats a shame about the news....but your new hardware looks so good! Now we just need to power them up with electrcity. Where do you want to get electricity from?"
+
+const _EXPANSION_TILE: String = "res://Assets/tiles/tiles_tree_grass_sheeps/tiles_grass_v6.png"
+const _FACTORY_TILE: String = "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6-lights-off.png"
+const _FACTORY_LIT_TILE: String = "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6.png"
+const _ELECTRIC_POLE_TILE: String = "res://Assets/tiles/tile_electric_pole_aiCenter.png"
 
 const _CHOICES: Dictionary = {
 	GameState.LandLocation.FIRST: {
-		"tint": Color(0.0, 1.0, 0.0, 0.518),
 		"cells": [Vector2i(3, 2), Vector2i(2, 0), Vector2i(4, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 2), Vector2i(1, 1), Vector2i(2, 2), Vector2i(3, 3), Vector2i(2, 4), Vector2i(2, 3), Vector2i(1, 4), Vector2i(0, 4), Vector2i(0, 3), Vector2i(0, 2), Vector2i(0, 1), Vector2i(1, 2), Vector2i(1, 3)],
-		"signs": [Vector2i(4,1)],
+		"factory": [Vector2i(3, 1), Vector2i(4, 1), Vector2i(2, 1), Vector2i(3, 2), Vector2i(2, 2)],
 	},
 	GameState.LandLocation.SECOND: {
-		"tint": Color(1.4, 0.0, 0.0, 0.624),
 		"cells": [Vector2i(3, 2), Vector2i(3, -1), Vector2i(3, -2), Vector2i(3, 1), Vector2i(4, 2), Vector2i(5, 1), Vector2i(2, 2), Vector2i(1, 1), Vector2i(2, -1), Vector2i(1, -1), Vector2i(4, -1), Vector2i(5, -1), Vector2i(5, 0), Vector2i(4, 0), Vector2i(4, 1), Vector2i(2, 0), Vector2i(2, 1), Vector2i(1, 0)],
-		"signs": [Vector2i(4,1)],
+		"factory": [Vector2i(3, 1), Vector2i(4, 1), Vector2i(3, 0), Vector2i(4, 0), Vector2i(3, -1)],
 	},
 	GameState.LandLocation.THIRD: {
-		"tint": Color(0.0, 0.0, 1.4, 0.627),
 		"cells": [Vector2i(3, 2), Vector2i(2, 0), Vector2i(1, -1), Vector2i(0, 0), Vector2i(-1, 0), Vector2i(-1, 1), Vector2i(-2, 2), Vector2i(-2, 3), Vector2i(-1, 3), Vector2i(0, 3), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 1), Vector2i(2, 1), Vector2i(1, 0), Vector2i(1, 1), Vector2i(0, 1), Vector2i(0, 2), Vector2i(-1, 2)],
-		"signs": [Vector2i(3,1)],
+		"factory": [Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 2)],
 	},
 	GameState.LandLocation.FOURTH: {
-		"tint": Color(0.748, 0.068, 0.85, 0.627),
 		"cells": [Vector2i(3, 2), Vector2i(2, 1), Vector2i(1, 1), Vector2i(1, 2), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 4), Vector2i(5, 3), Vector2i(6, 3), Vector2i(6, 2), Vector2i(5, 1), Vector2i(4, 1), Vector2i(3, 1), Vector2i(2, 2), Vector2i(4, 2), Vector2i(4, 3), Vector2i(5, 2)],
-		"signs": [Vector2i(3,1)],
+		"factory": [Vector2i(3, 1), Vector2i(4, 1), Vector2i(3, 2), Vector2i(4, 2), Vector2i(5, 1)],
+	},
+}
+
+const _ELECTRICITY_CHOICES: Dictionary = {
+	"far": {
+		"tint": Color(0.0, 1.0, 0.0, 0.518),
+		"cells": [Vector2i(-5, 2)],
+	},
+	"close": {
+		"tint": Color(1.4, 0.0, 0.0, 0.624),
+		"cells": [Vector2i(8, 0)],
 	},
 }
 
 const _HOVER_FADE_DURATION: float = 0.08
 
-const _CONSTRUCTION_TILE: String = "res://Assets/tiles/construction_land_tile.png"
-const _CONSTRUCTION_SIGN: String = "res://Assets/tiles/under_construction.png"
-const _CONSTRUCTION_MAX_DELAY: float = 1.5
-const _SIGN_HOLD_DELAY: float = 1.0
-const _NEWSPAPER_DELAY: float = 1.0
-
 var _clump_polygons: Dictionary = {}
 var _ui_canvas: CanvasLayer
 
-
 func _stage_start() -> void:
+	var camera := get_viewport().get_camera_2d()
+	camera.zoom = Vector2(0.2, 0.2)
+	camera.position = Vector2(500, 0)
+
+	var chosen = _CHOICES[GameState.land_location]
+	for cell in chosen["cells"]:
+		MapLayer.main.set_cell_by_texture(cell, _EXPANSION_TILE)
+	for cell in chosen["factory"]:
+		MapLayer.main.set_cell_by_texture(cell, _FACTORY_TILE)
+
+	Newspaper.on_close.connect(_show_intro_dialogue, CONNECT_ONE_SHOT)
+	Newspaper.show_article(Newspaper.Article.PRICES_LAPTOPS)
+
+
+func _show_intro_dialogue() -> void:
 	Dialogue.on_typewriter_done.connect(_show_choices, CONNECT_ONE_SHOT)
 	var opts := DialogueOptions.new()
-	opts.dim = true
+	opts.dim = false
 	opts.auto_close = false
 	Dialogue.show_dialogue(_PORTRAIT, _INTRO_TEXT, opts)
-
 
 func _show_choices() -> void:
 	var tilemap := MapLayer.main
@@ -56,8 +75,8 @@ func _show_choices() -> void:
 	add_child(_ui_canvas)
 
 	_clump_polygons.clear()
-	for value in _CHOICES:
-		var choice: Dictionary = _CHOICES[value]
+	for key in _ELECTRICITY_CHOICES:
+		var choice: Dictionary = _ELECTRICITY_CHOICES[key]
 		var tint: Color = choice["tint"]
 		var polys: Array[Polygon2D] = []
 		for cell in choice["cells"]:
@@ -69,7 +88,7 @@ func _show_choices() -> void:
 			overlay.z_index = RenderLayers.STAGE_CHOICE
 			tilemap.add_child(overlay)
 			polys.append(overlay)
-		_clump_polygons[value] = polys
+		_clump_polygons[key] = polys
 
 	var row := HBoxContainer.new()
 	row.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
@@ -81,83 +100,62 @@ func _show_choices() -> void:
 	row.add_theme_constant_override("separation", 24)
 	_ui_canvas.add_child(row)
 
-	for value in _CHOICES:
-		var tint: Color = _CHOICES[value]["tint"]
-		var polys: Array = _clump_polygons[value]
+	for key in _ELECTRICITY_CHOICES:
+		var tint: Color = _ELECTRICITY_CHOICES[key]["tint"]
+		var polys: Array = _clump_polygons[key]
 
 		var btn := Button.new()
-		btn.text = GameState.LandLocation.keys()[value]
+		btn.text = "Further from village" if key == "far" else "Close to village"
 		btn.custom_minimum_size = Vector2(160, 56)
 		btn.add_theme_color_override("font_color", Color(tint.r, tint.g, tint.b, 1.0))
 		row.add_child(btn)
 
 		btn.mouse_entered.connect(func(): _fade_clump(polys, 1.0))
 		btn.mouse_exited.connect(func(): _fade_clump(polys, 0.0))
-		btn.pressed.connect(func(): _on_choice(value))
+		btn.pressed.connect(func(): _on_choice(key))
 
-
-func _on_choice(value: GameState.LandLocation) -> void:
-	GameState.land_location = value
-	EventLogger.record("land_choice", {"value": GameState.LandLocation.keys()[value]})
+func _on_choice(key: String) -> void:
+	GameState.electricity_choice = key
 	Dialogue.dismiss()
 	if _ui_canvas:
 		_ui_canvas.queue_free()
 		_ui_canvas = null
 	_clear_clumps()
 
-	var chosen: Dictionary = _CHOICES[value]
-	var sign_cells: Array = chosen["signs"]
-	var sign_set: Dictionary = {}
-	for c in sign_cells:
-		sign_set[c] = true
+	for cell in _ELECTRICITY_CHOICES[key]["cells"]:
+		MapLayer.main.set_cell_by_texture(cell, _ELECTRIC_POLE_TILE)
 
-	for cell in sign_cells:
-		MapLayer.main.set_cell_by_texture(cell, _CONSTRUCTION_SIGN)
-
-	for cell in chosen["cells"]:
-		if sign_set.has(cell):
-			continue
-		var delay: float = randf() * _CONSTRUCTION_MAX_DELAY
-		get_tree().create_timer(delay).timeout.connect(
-			MapLayer.main.set_cell_by_texture.bind(cell, _CONSTRUCTION_TILE), CONNECT_ONE_SHOT)
-
-	var sign_replace_at: float = _CONSTRUCTION_MAX_DELAY + _SIGN_HOLD_DELAY
-	for cell in sign_cells:
-		get_tree().create_timer(sign_replace_at).timeout.connect(
-			MapLayer.main.set_cell_by_texture.bind(cell, _CONSTRUCTION_TILE), CONNECT_ONE_SHOT)
-
-	await get_tree().create_timer(sign_replace_at + _NEWSPAPER_DELAY).timeout
+	await get_tree().create_timer(1.0).timeout
 
 	var article: int = Newspaper.Article.FARMLAND
-	match value:
-		GameState.LandLocation.FIRST:
-			article = Newspaper.Article.FARMLAND
-		GameState.LandLocation.SECOND:
-			article = Newspaper.Article.VILLAGE_TOO_CLOSE
-		GameState.LandLocation.THIRD:
-			article = Newspaper.Article.FOREST
-		GameState.LandLocation.FOURTH:
-			article = Newspaper.Article.FARMLAND
+	match key:
+		"far":
+			article = Newspaper.Article.SCIENTIST
+		"close":
+			article = Newspaper.Article.WINTER
 
 	Newspaper.on_close.connect(func():
-		_show_continue_dialogue()
+		var chosen = _CHOICES[GameState.land_location]
+		for cell in chosen["factory"]:
+			MapLayer.main.set_cell_by_texture(cell, _FACTORY_LIT_TILE)
+
+		await get_tree().create_timer(1.0).timeout
+		_show_prompt_dialogue()
 	, CONNECT_ONE_SHOT)
 	Newspaper.show_article(article)
 
-
-func _show_continue_dialogue() -> void:
+func _show_prompt_dialogue() -> void:
 	var opts := DialogueOptions.new()
 	opts.dim = false
 	opts.auto_close = false
 	Dialogue.show_dialogue(
 		_PORTRAIT,
-		"Wow, that is terrible news. But we must move forward. Let us buy some hardware!",
+		"The news hurts me, but seeing our datacenter light up makes me happy!...However we now have a new problem. We are getting a lot of wasteful prompts. Should we educate our users on how to prompt better?",
 		opts
 	)
-	Dialogue.on_typewriter_done.connect(_show_continue_button, CONNECT_ONE_SHOT)
+	Dialogue.on_typewriter_done.connect(_show_prompt_choice_button, CONNECT_ONE_SHOT)
 
-
-func _show_continue_button() -> void:
+func _show_prompt_choice_button() -> void:
 	_ui_canvas = CanvasLayer.new()
 	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
 	add_child(_ui_canvas)
@@ -173,32 +171,28 @@ func _show_continue_button() -> void:
 	_ui_canvas.add_child(row)
 
 	var btn := Button.new()
-	btn.text = "Sure"
+	btn.text = "Yes"
 	btn.custom_minimum_size = Vector2(160, 56)
 	row.add_child(btn)
 
 	btn.pressed.connect(func():
-		finished.emit()
-		btn.queue_free()
 		Dialogue.dismiss()
-		var lbl := Label.new()
-		lbl.text = "Click on map to continue"
-		lbl.custom_minimum_size = Vector2(500, 250)
-		lbl.add_theme_color_override("font_color", Color(1.0, 0.0, 0.0, 1.0))
-		row.add_child(lbl)
+		if _ui_canvas:
+			_ui_canvas.queue_free()
+			_ui_canvas = null
+		_stage_end()
 	)
 
 func _fade_clump(polys: Array, target_alpha: float) -> void:
 	for p in polys:
 		if not is_instance_valid(p):
 			continue
-		var prev: Tween = p.get_meta("_hover_tween", null) as Tween
+		var prev = p.get_meta("_hover_tween", null)
 		if prev and prev.is_valid():
 			prev.kill()
 		var t := create_tween()
 		t.tween_property(p, "modulate:a", target_alpha, _HOVER_FADE_DURATION)
 		p.set_meta("_hover_tween", t)
-
 
 func _clear_clumps() -> void:
 	for polys in _clump_polygons.values():
@@ -207,7 +201,6 @@ func _clear_clumps() -> void:
 				p.queue_free()
 	_clump_polygons.clear()
 
-
 func _stage_end() -> void:
 	_clear_clumps()
 	if _ui_canvas:
@@ -215,8 +208,8 @@ func _stage_end() -> void:
 		_ui_canvas = null
 	if Dialogue.on_typewriter_done.is_connected(_show_choices):
 		Dialogue.on_typewriter_done.disconnect(_show_choices)
-	if Dialogue.on_typewriter_done.is_connected(_show_continue_button):
-		Dialogue.on_typewriter_done.disconnect(_show_continue_button)
+	if Dialogue.on_typewriter_done.is_connected(_show_prompt_choice_button):
+		Dialogue.on_typewriter_done.disconnect(_show_prompt_choice_button)
 	Dialogue.dismiss()
 	Newspaper.dismiss()
 	finished.emit()

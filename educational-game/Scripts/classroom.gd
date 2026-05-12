@@ -1,5 +1,7 @@
 extends Node
 
+signal exit_requested
+
 @export var speed: float = 0.05
 var full_text_1: String = "Welcome to Mrs. Susan's lecture on using AI sustainably!\n\nAre you excited?"
 var full_text_2: String = "Larger, more complex prompts use lot of resources.\n\nSo please be mindful of what you ask.\n\nLet's work through some examples together!"
@@ -165,7 +167,7 @@ func on_scene5_button2_pressed():
 
 func on_scene5_button3_pressed():
 	clear_quiz_result("Sub-scene5")
-	get_tree().change_scene_to_file("res://Scenes/world.tscn")
+	exit_requested.emit()
 
 func _process(delta):
 	var button1 = get_node("Sub-scene1/Button")
