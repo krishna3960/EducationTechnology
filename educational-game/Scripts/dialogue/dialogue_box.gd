@@ -10,6 +10,7 @@ const _SILENT_CHARS: String = " \t\n.,!?;:-—\""
 
 const _DEBUG_DEFAULT_PORTRAIT: Texture2D = preload("res://icon.svg")
 const _DEBUG_DEFAULT_TEXT: String = "Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla"
+const _DEBUG_DEFAULT_SPEAKER: String = "Yapper"
 const _DEBUG_CHARS_PER_SEC_RANGE := Vector2(1.0, 200.0)
 
 # Emitted after the dialogue closes. Useful for sequencing follow-up actions.
@@ -19,6 +20,7 @@ signal on_typewriter_done
 
 @onready var _ui: Control = $UILayer/Container
 @onready var _portrait: TextureRect = $UILayer/Container/Portrait
+@onready var _name_label: Label = $UILayer/Container/Bubble/Name
 @onready var _label: RichTextLabel = $UILayer/Container/Bubble/Label
 @onready var _dim_rect: ColorRect = $DimLayer/DimRect
 @onready var _dim_layer: CanvasLayer = $DimLayer
@@ -55,13 +57,14 @@ func is_active() -> bool:
 	return _active
 
 ## Renders the conversation bubble. If a dialogue is already active, this does nothing.
-func show_dialogue(portrait: Texture2D, text: String, opts: DialogueOptions = null) -> void:
+func show_dialogue(portrait: Texture2D, speaker: String, text: String, opts: DialogueOptions = null) -> void:
 	if _active:
 		return
 	if opts == null:
 		opts = DialogueOptions.new()
 
 	_portrait.texture = portrait
+	_name_label.text = speaker
 	_label.text = text
 	_label.visible_ratio = 0.0
 	_ui.visible = true
@@ -181,4 +184,4 @@ func _trigger_debug_dialogue() -> void:
 	var opts := DialogueOptions.new()
 	opts.dim = _debug_dim_enabled
 	opts.chars_per_sec = _debug_chars_per_sec
-	show_dialogue(_DEBUG_DEFAULT_PORTRAIT, _DEBUG_DEFAULT_TEXT, opts)
+	show_dialogue(_DEBUG_DEFAULT_PORTRAIT, _DEBUG_DEFAULT_SPEAKER, _DEBUG_DEFAULT_TEXT, opts)

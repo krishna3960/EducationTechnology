@@ -1,6 +1,7 @@
 extends Stage
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
+@export const _SPEAKER: String = "Prompto"
 @export var _INTRO_TEXT: String = "Ah thats a shame about the news....but your new hardware looks so good! Now we just need to power them up with electrcity. Where do you want to get electricity from?"
 
 const _EXPANSION_TILE: String = "res://Assets/tiles/tiles_tree_grass_sheeps/tiles_grass_v6.png"
@@ -63,7 +64,7 @@ func _show_intro_dialogue() -> void:
 	var opts := DialogueOptions.new()
 	opts.dim = false
 	opts.auto_close = false
-	Dialogue.show_dialogue(_PORTRAIT, _INTRO_TEXT, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _INTRO_TEXT, opts)
 
 func _show_choices() -> void:
 	var tilemap := MapLayer.main
@@ -150,6 +151,7 @@ func _show_prompt_dialogue() -> void:
 	opts.auto_close = false
 	Dialogue.show_dialogue(
 		_PORTRAIT,
+		_SPEAKER,
 		"The news hurts me, but seeing our datacenter light up makes me happy!...However we now have a new problem. We are getting a lot of wasteful prompts. Should we educate our users on how to prompt better?",
 		opts
 	)

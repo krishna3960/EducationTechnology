@@ -1,6 +1,7 @@
 extends Stage
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
+@export const _SPEAKER: String = "Prompto"
 @export var _INTRO_TEXT: String = "We need to start by buying some land for the datacenter. Where should we build it?"
 
 const _CHOICES: Dictionary = {
@@ -43,7 +44,7 @@ func _stage_start() -> void:
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	opts.auto_close = false
-	Dialogue.show_dialogue(_PORTRAIT, _INTRO_TEXT, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _INTRO_TEXT, opts)
 
 
 func _show_choices() -> void:
@@ -151,6 +152,7 @@ func _show_continue_dialogue() -> void:
 	opts.auto_close = false
 	Dialogue.show_dialogue(
 		_PORTRAIT,
+		_SPEAKER,
 		"Wow, that is terrible news. But we must move forward. Let us buy some hardware!",
 		opts
 	)
