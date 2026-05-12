@@ -30,11 +30,13 @@ const _CHOICES: Dictionary = {
 
 const _ELECTRICITY_CHOICES: Dictionary = {
 	"far": {
-		"tint": Color(0.0, 1.0, 0.0, 0.518),
+		"label": "Further from village",
+		"tint": Color(1.0, 1.0, 0.0, 0.706),
 		"cells": [Vector2i(-5, 2)],
 	},
 	"close": {
-		"tint": Color(1.4, 0.0, 0.0, 0.624),
+		"label": "Close to village",
+		"tint": Color(1.0, 1.0, 0.0, 0.706),
 		"cells": [Vector2i(8, 0)],
 	},
 }
@@ -43,17 +45,26 @@ const _HOVER_FADE_DURATION: float = 0.08
 
 var _clump_polygons: Dictionary = {}
 var _ui_canvas: CanvasLayer
+var _current_choice_index: int = 0
+var _choose_btn: Button = null
 
 func _stage_start() -> void:
-	var camera := get_viewport().get_camera_2d()
-	camera.zoom = Vector2(0.2, 0.2)
-	camera.position = Vector2(500, 0)
-
 	var chosen = _CHOICES[GameState.land_location]
 	for cell in chosen["cells"]:
 		MapLayer.main.set_cell_by_texture(cell, _EXPANSION_TILE)
 	for cell in chosen["factory"]:
 		MapLayer.main.set_cell_by_texture(cell, _FACTORY_TILE)
+
+	var camera := get_viewport().get_camera_2d()
+	if MapLayer.main and camera:
+		camera.zoom = Vector2(0.2, 0.2)
+		var centroid := Vector2.ZERO
+		for cell in chosen["factory"]:
+			centroid += MapLayer.main.map_to_local(cell)
+		if chosen["factory"].size() > 0:
+			centroid /= float(chosen["factory"].size())
+		camera.position = centroid
+		camera.reset_smoothing()
 
 	Newspaper.on_close.connect(_show_intro_dialogue, CONNECT_ONE_SHOT)
 	Newspaper.show_article(Newspaper.Article.PRICES_LAPTOPS)
@@ -97,23 +108,72 @@ func _show_choices() -> void:
 	row.offset_right = -24
 	row.offset_top = -300
 	row.offset_bottom = -220
-	row.alignment = BoxContainer.ALIGNMENT_BEGIN
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
 	row.add_theme_constant_override("separation", 24)
 	_ui_canvas.add_child(row)
 
-	for key in _ELECTRICITY_CHOICES:
-		var tint: Color = _ELECTRICITY_CHOICES[key]["tint"]
-		var polys: Array = _clump_polygons[key]
+	var prev_btn := Button.new()
+	prev_btn.text = "◀"
+	prev_btn.custom_minimum_size = Vector2(80, 56)
+	_style_button(prev_btn, Color(1, 1, 1, 0.25))
+	row.add_child(prev_btn)
+	prev_btn.pressed.connect(func(): _cycle_choice(-1))
 
-		var btn := Button.new()
-		btn.text = "Further from village" if key == "far" else "Close to village"
-		btn.custom_minimum_size = Vector2(160, 56)
-		btn.add_theme_color_override("font_color", Color(tint.r, tint.g, tint.b, 1.0))
-		row.add_child(btn)
+	_choose_btn = Button.new()
+	_choose_btn.custom_minimum_size = Vector2(280, 56)
+	row.add_child(_choose_btn)
+	_choose_btn.pressed.connect(func(): _on_choice(_ELECTRICITY_CHOICES.keys()[_current_choice_index]))
 
-		btn.mouse_entered.connect(func(): _fade_clump(polys, 1.0))
-		btn.mouse_exited.connect(func(): _fade_clump(polys, 0.0))
-		btn.pressed.connect(func(): _on_choice(key))
+	var next_btn := Button.new()
+	next_btn.text = "▶"
+	next_btn.custom_minimum_size = Vector2(80, 56)
+	_style_button(next_btn, Color(1, 1, 1, 0.25))
+	row.add_child(next_btn)
+	next_btn.pressed.connect(func(): _cycle_choice(1))
+
+	_current_choice_index = 0
+	_show_only(_ELECTRICITY_CHOICES.keys()[_current_choice_index])
+
+
+func _style_button(btn: Button, accent: Color) -> void:
+	var make_sb := func(bg: Color, border: Color) -> StyleBoxFlat:
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = bg
+		sb.set_corner_radius_all(8)
+		sb.set_border_width_all(4)
+		sb.border_color = border
+		sb.content_margin_left = 14
+		sb.content_margin_right = 14
+		sb.content_margin_top = 6
+		sb.content_margin_bottom = 6
+		return sb
+	var bg := Color(0.08, 0.10, 0.15, 0.92)
+	var bg_hover := Color(0.14, 0.17, 0.24, 0.95)
+	var bg_pressed := Color(0.05, 0.06, 0.10, 0.95)
+	btn.add_theme_stylebox_override("normal", make_sb.call(bg, accent))
+	btn.add_theme_stylebox_override("hover", make_sb.call(bg_hover, Color(accent.r, accent.g, accent.b, min(accent.a + 0.4, 1.0))))
+	btn.add_theme_stylebox_override("pressed", make_sb.call(bg_pressed, accent))
+	btn.add_theme_stylebox_override("focus", make_sb.call(bg, accent))
+	btn.add_theme_color_override("font_color", Color(0.96, 0.96, 0.96))
+	btn.add_theme_color_override("font_hover_color", Color.WHITE)
+	btn.add_theme_color_override("font_pressed_color", Color(0.85, 0.85, 0.85))
+	btn.add_theme_font_size_override("font_size", 22)
+
+
+func _cycle_choice(delta: int) -> void:
+	var keys: Array = _ELECTRICITY_CHOICES.keys()
+	_current_choice_index = (_current_choice_index + delta + keys.size()) % keys.size()
+	_show_only(keys[_current_choice_index])
+
+
+func _show_only(active_key) -> void:
+	for key in _clump_polygons:
+		var alpha: float = 1.0 if key == active_key else 0.0
+		_fade_clump(_clump_polygons[key], alpha)
+	var tint: Color = _ELECTRICITY_CHOICES[active_key]["tint"]
+	var accent := Color(tint.r, tint.g, tint.b, 1.0)
+	_choose_btn.text = "Choose %s" % _ELECTRICITY_CHOICES[active_key]["label"]
+	_style_button(_choose_btn, accent)
 
 func _on_choice(key: String) -> void:
 	GameState.electricity_choice = key
