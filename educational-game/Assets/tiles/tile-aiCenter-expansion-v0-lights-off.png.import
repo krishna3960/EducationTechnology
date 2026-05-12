@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8jeycnquf365"
-path="res://.godot/imported/tile-aiCenter-expansion-v0-lights-off.png-c0539cc574f7ce936fcd1dc9df433ac5.ctex"
+path="res://.godot/imported/tile-aiCenter-expansion-v0-lights-off.png-446f4f02b4e78b265a0d700c70625919.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v0-lights-off.png"
-dest_files=["res://.godot/imported/tile-aiCenter-expansion-v0-lights-off.png-c0539cc574f7ce936fcd1dc9df433ac5.ctex"]
+source_file="res://Assets/tiles/tile-aiCenter-expansion-v0-lights-off.png"
+dest_files=["res://.godot/imported/tile-aiCenter-expansion-v0-lights-off.png-446f4f02b4e78b265a0d700c70625919.ctex"]
 
 [params]
 
