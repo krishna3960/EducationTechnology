@@ -45,7 +45,7 @@ func submit_and_quit() -> void:
 	if _http == null:
 		get_tree().quit()
 		return
-	var body: String = "%s=%s" % [_SUBMIT_FIELD, JSON.stringify(payload).uri_encode()]
+	var body: String = "%s=%s" % [_SUBMIT_FIELD, JSON.stringify(payload, "\t").uri_encode()]
 	var headers: PackedStringArray = ["Content-Type: application/x-www-form-urlencoded"]
 	var err: int = _http.request(_SUBMIT_URL, headers, HTTPClient.METHOD_POST, body)
 	if err != OK:
