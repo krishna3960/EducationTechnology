@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://gc6o6egtrg4x" path="res://Scenes/Stages/02_shop_stage.tscn" id="5_wowpa"]
 [ext_resource type="PackedScene" uid="uid://byknwb42a7u4c" path="res://Scenes/Stages/03_energy_scene.tscn" id="6_i6g32"]
 [ext_resource type="PackedScene" uid="uid://cv2rmvjykploa" path="res://Scenes/Stages/04_classroom_tscn.tscn" id="7_1l0tm"]
+[ext_resource type="PackedScene" path="res://Scenes/Stages/4_stage.tscn" id="8_water"]
 
 [node name="Game" type="Node2D" unique_id=305527448]
 
@@ -13,4 +14,4 @@
 
 [node name="StageManager" type="Node" parent="." unique_id=1413188430]
 script = ExtResource("2")
-stages = Array[PackedScene]([ExtResource("4"), ExtResource("5_wowpa"), ExtResource("6_i6g32"), ExtResource("7_1l0tm")])
+stages = Array[PackedScene]([ExtResource("4"), ExtResource("5_wowpa"), ExtResource("6_i6g32"), ExtResource("7_1l0tm"), ExtResource("8_water")])
