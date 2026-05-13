@@ -1,10 +1,17 @@
 [gd_scene format=3 uid="uid://bfdw1ns2g3qwu"]
 
+[ext_resource type="Texture2D" uid="uid://b4h48sd8agu50" path="res://Assets/power-lines.png" id="1_8j60k"]
 [ext_resource type="PackedScene" uid="uid://dmfp0eug4sj8i" path="res://Scenes/tilemap.tscn" id="1_a02cp"]
 [ext_resource type="Script" uid="uid://oj2ul5ahdt5b" path="res://Scripts/camera_2d.gd" id="2_go701"]
-[ext_resource type="PackedScene" path="res://Scenes/pause_menu.tscn" id="3_pause"]
+[ext_resource type="PackedScene" uid="uid://c0n8pausemen0" path="res://Scenes/pause_menu.tscn" id="3_pause"]
 
 [node name="world" type="Node2D" unique_id=574149908]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1155023478]
+z_index = 2
+position = Vector2(975.50006, 606.75)
+scale = Vector2(0.99654543, 0.9990026)
+texture = ExtResource("1_8j60k")
 
 [node name="ground" parent="." unique_id=1556056034 instance=ExtResource("1_a02cp")]
 position = Vector2(31, -55)
