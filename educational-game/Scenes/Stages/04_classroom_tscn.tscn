@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cv2rmvjykploa"]
+
+[ext_resource type="Script" uid="uid://cgkdtly50thfs" path="res://Scripts/classroom_transition.gd" id="1_kc68w"]
+
+[node name="04ClassroomTscn" type="Node2D" unique_id=2113109582]
+script = ExtResource("1_kc68w")

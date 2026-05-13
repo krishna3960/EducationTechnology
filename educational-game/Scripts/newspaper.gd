@@ -41,6 +41,8 @@ signal on_close
 
 var _active: bool = false
 var _tween: Tween
+var _ts_opened: float = 0.0
+var _current_article: int = -1
 
 
 func _ready() -> void:
@@ -65,7 +67,8 @@ func show_article(article: Article) -> void:
 	_ui.visible = true
 	_dim_rect.visible = true
 	_active = true
-	EventLogger.record("newspaper_show", {"article": Article.keys()[article]})
+	_ts_opened = Time.get_unix_time_from_system()
+	_current_article = article
 	_animate_in()
 
 
@@ -106,7 +109,13 @@ func _close() -> void:
 func _finalize_close() -> void:
 	_ui.visible = false
 	_dim_rect.visible = false
-	EventLogger.record("newspaper_close")
+	var ts_closed: float = Time.get_unix_time_from_system()
+	var entry := Metrics.NewspaperEntry.new()
+	entry.article = Article.keys()[_current_article]
+	entry.ts_opened = _ts_opened
+	entry.ts_closed = ts_closed
+	entry.ts_duration = ts_closed - _ts_opened
+	GameState.metrics.newspapers.append(entry)
 	on_close.emit()
 
 
