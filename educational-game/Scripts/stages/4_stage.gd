@@ -54,6 +54,7 @@ var _current_choice_index: int = 0
 var _choose_btn: Button = null
 var _first_choice_key: String = ""
 var _second_round: bool = false
+var _ts_choice_started: float = 0.0
 
 func _stage_start() -> void:
 	_resolve_pump_cells()
@@ -126,6 +127,7 @@ func _show_choices() -> void:
 	if tilemap == null:
 		return
 
+	_ts_choice_started = Time.get_unix_time_from_system()
 	_ui_canvas = CanvasLayer.new()
 	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
 	add_child(_ui_canvas)
@@ -204,6 +206,14 @@ func _show_only(active_key) -> void:
 	_style_button(_choose_btn, accent)
 
 func _on_choice(key: String) -> void:
+	var ts_chosen: float = Time.get_unix_time_from_system()
+	var entry := Metrics.ChoiceEntry.new()
+	entry.value = key
+	entry.ts_started = _ts_choice_started
+	entry.ts_chosen = ts_chosen
+	entry.ts_duration = ts_chosen - _ts_choice_started
+	GameState.metrics.water_choices.append(entry)
+
 	Dialogue.dismiss()
 	if _ui_canvas:
 		_ui_canvas.queue_free()

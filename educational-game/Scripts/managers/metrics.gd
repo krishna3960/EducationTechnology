@@ -118,6 +118,7 @@ var dialogues: Array[DialogueEntry] = []
 var classroom_quizzes: Array[ClassroomQuizEntry] = []
 var land_choice: ChoiceEntry = null
 var electricity_choice: ChoiceEntry = null
+var water_choices: Array[ChoiceEntry] = []
 
 
 func to_dict() -> Dictionary:
@@ -129,4 +130,5 @@ func to_dict() -> Dictionary:
 		"classroom_quizzes": classroom_quizzes.map(func(q): return q.to_dict()),
 		"land_choice": land_choice.to_dict() if land_choice else null,
 		"electricity_choice": electricity_choice.to_dict() if electricity_choice else null,
+		"water_choices": water_choices.map(func(c): return c.to_dict()),
 	}
