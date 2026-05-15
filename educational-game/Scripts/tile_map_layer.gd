@@ -1,59 +1,45 @@
+class_name MapLayer
 extends TileMapLayer
 
-# Shared across all TileMapLayer instances using this script so we declare some shared state statically. Wacky
 static var _coord_labels: Array = []
-static var _debug_registered: bool = false
-static var _input_handler: TileMapLayer = null
+static var main: TileMapLayer = null
 
 
 func _ready() -> void:
-	if not _input_handler:
-		_input_handler = self
-
-	if OS.is_debug_build() and not _debug_registered:
-		_debug_registered = true
+	main = self
+	if OS.is_debug_build():
 		var section: VBoxContainer = Debug.add_section("Tilemap")
 		Debug.add_checkbox("Show coords", false, _toggle_coord_labels, section)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if self != _input_handler:
-		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var cell := local_to_map(to_local(get_global_mouse_position()))
 		print("Clicked tile:", cell)
 
 
+
+
 # Shows labels for each tile displaying its coordinates.
 func _toggle_coord_labels(enabled: bool) -> void:
-	# Remove current labels if any
 	for lbl in _coord_labels:
 		if is_instance_valid(lbl):
 			lbl.queue_free()
 	_coord_labels.clear()
-	if not enabled or _input_handler == null:
+	if not enabled or main == null:
 		return
-	var seen := {}
-	for child in _input_handler.get_parent().get_children():
-		if not (child is TileMapLayer):
-			continue
-		for cell in child.get_used_cells():
-			if seen.has(cell):
-				continue
-			seen[cell] = true
-			var lbl := Label.new()
-			lbl.text = "%d,%d" % [cell.x, cell.y]
-			lbl.position = child.map_to_local(cell)
-			lbl.add_theme_font_size_override("font_size", 32)
-			lbl.add_theme_color_override("font_color", Color.YELLOW)
-			lbl.z_index = 1000
-			child.add_child(lbl)
-			_coord_labels.append(lbl)
-
-@onready var tilemap = $"../MiddleLayer"
-func change_tile(cell: Vector2i, atlas_coords: Vector2i, source_id: int = 0):
-	tilemap.set_cell(cell, source_id, atlas_coords)
-
+	for cell in main.get_used_cells():
+		var lbl := Label.new()
+		lbl.text = "%d,%d" % [cell.x, cell.y]
+		lbl.add_theme_font_size_override("font_size", 32)
+		lbl.add_theme_color_override("font_color", Color.YELLOW)
+		lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		lbl.size = Vector2(160, 48)
+		lbl.position = main.map_to_local(cell) - lbl.size * 0.5
+		lbl.z_index = 1000
+		main.add_child(lbl)
+		_coord_labels.append(lbl)
 
 ## Bit of a workaround. Given the 2D coordinate of a tile, returns a a Sprite2D instance which is layered precisely on top of the tile, with the same image as the tile.
 func get_tile(cell: Vector2i) -> Sprite2D:
@@ -74,7 +60,17 @@ func get_tile(cell: Vector2i) -> Sprite2D:
 	return s
 
 
-## Returns a hexagon covering exactly the tile at the given coordinates. Useful for highlighting or similar
+## Replaces the tile at `cell` with the tile whose source texture matches `texture_path`.
+func set_cell_by_texture(cell: Vector2i, texture_path: String) -> void:
+	for i in tile_set.get_source_count():
+		var source_id: int = tile_set.get_source_id(i)
+		var source := tile_set.get_source(source_id) as TileSetAtlasSource
+		if source and source.texture and source.texture.resource_path == texture_path:
+			set_cell(cell, source_id, Vector2i.ZERO)
+			return
+
+
+## Returns a hexagon covering the hex base (the terrain part of the tile)
 func get_cell_overlay(cell: Vector2i) -> Polygon2D:
 	var size := Vector2(tile_set.tile_size)
 	var hw: float = size.x * 0.5
@@ -88,5 +84,5 @@ func get_cell_overlay(cell: Vector2i) -> Polygon2D:
 		Vector2(-hw * 0.5, hh),
 		Vector2(-hw, 0),
 	])
-	p.position = to_global(map_to_local(cell))
+	p.position = map_to_local(cell)
 	return p

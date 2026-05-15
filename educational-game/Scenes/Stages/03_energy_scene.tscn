@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://byknwb42a7u4c"]
+
+[ext_resource type="Script" uid="uid://dmaxqk41qjyyb" path="res://Scripts/energyscene.gd" id="1_swlvu"]
+
+[node name="03EnergyScene" type="Node2D" unique_id=147502866]
+script = ExtResource("1_swlvu")

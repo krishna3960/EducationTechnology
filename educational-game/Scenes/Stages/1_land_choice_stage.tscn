@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://bfloo87wqlsxl"]
 
-[ext_resource type="Script" path="res://Scripts/stages/1_land_choice_stage.gd" id="1"]
+[ext_resource type="Script" uid="uid://0aarss64ty6f" path="res://Scripts/stages/1_land_choice_stage.gd" id="1"]
 
-[node name="LandChoiceStage" type="Node2D"]
+[node name="LandChoiceStage" type="Node2D" unique_id=503019989]
 script = ExtResource("1")
