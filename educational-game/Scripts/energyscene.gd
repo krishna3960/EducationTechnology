@@ -117,7 +117,7 @@ func _show_choices() -> void:
 	var prev_btn := Button.new()
 	prev_btn.text = "◀"
 	prev_btn.custom_minimum_size = Vector2(80, 56)
-	_style_button(prev_btn, Color(1, 1, 1, 0.25))
+	Stage.style_choice_button(prev_btn, Color(1, 1, 1, 0.25))
 	row.add_child(prev_btn)
 	prev_btn.pressed.connect(func(): _cycle_choice(-1))
 
@@ -129,37 +129,12 @@ func _show_choices() -> void:
 	var next_btn := Button.new()
 	next_btn.text = "▶"
 	next_btn.custom_minimum_size = Vector2(80, 56)
-	_style_button(next_btn, Color(1, 1, 1, 0.25))
+	Stage.style_choice_button(next_btn, Color(1, 1, 1, 0.25))
 	row.add_child(next_btn)
 	next_btn.pressed.connect(func(): _cycle_choice(1))
 
 	_current_choice_index = 0
 	_show_only(_ELECTRICITY_CHOICES.keys()[_current_choice_index])
-
-
-func _style_button(btn: Button, accent: Color) -> void:
-	var make_sb := func(bg: Color, border: Color) -> StyleBoxFlat:
-		var sb := StyleBoxFlat.new()
-		sb.bg_color = bg
-		sb.set_corner_radius_all(8)
-		sb.set_border_width_all(4)
-		sb.border_color = border
-		sb.content_margin_left = 14
-		sb.content_margin_right = 14
-		sb.content_margin_top = 6
-		sb.content_margin_bottom = 6
-		return sb
-	var bg := Color(0.08, 0.10, 0.15, 0.92)
-	var bg_hover := Color(0.14, 0.17, 0.24, 0.95)
-	var bg_pressed := Color(0.05, 0.06, 0.10, 0.95)
-	btn.add_theme_stylebox_override("normal", make_sb.call(bg, accent))
-	btn.add_theme_stylebox_override("hover", make_sb.call(bg_hover, Color(accent.r, accent.g, accent.b, min(accent.a + 0.4, 1.0))))
-	btn.add_theme_stylebox_override("pressed", make_sb.call(bg_pressed, accent))
-	btn.add_theme_stylebox_override("focus", make_sb.call(bg, accent))
-	btn.add_theme_color_override("font_color", Color(0.96, 0.96, 0.96))
-	btn.add_theme_color_override("font_hover_color", Color.WHITE)
-	btn.add_theme_color_override("font_pressed_color", Color(0.85, 0.85, 0.85))
-	btn.add_theme_font_size_override("font_size", 22)
 
 
 func _cycle_choice(delta: int) -> void:
@@ -175,7 +150,7 @@ func _show_only(active_key) -> void:
 	var tint: Color = _ELECTRICITY_CHOICES[active_key]["tint"]
 	var accent := Color(tint.r, tint.g, tint.b, 1.0)
 	_choose_btn.text = "Choose %s" % _ELECTRICITY_CHOICES[active_key]["label"]
-	_style_button(_choose_btn, accent)
+	Stage.style_choice_button(_choose_btn, accent)
 
 func _on_choice(key: String) -> void:
 	GameState.electricity_choice = key
