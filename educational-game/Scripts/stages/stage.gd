@@ -42,6 +42,16 @@ static func style_choice_button(btn: Button, accent: Color) -> void:
 	btn.add_theme_font_size_override("font_size", 22)
 
 
+## Fades each button in  over `duration` seconds.
+static func fade_in_choice_buttons(buttons: Array, duration: float = 0.35) -> void:
+	for btn in buttons:
+		if btn == null:
+			continue
+		btn.modulate.a = 0.0
+		var t : Tween = btn.create_tween()
+		t.tween_property(btn, "modulate:a", 1.0, duration)
+
+
 ## Disables/enables the Camera such that the player can't pan with WASD or zoom with the mouse wheel underneath it.
 static func set_world_camera_enabled(enabled: bool) -> void:
 	if MapLayer.main == null:

@@ -141,6 +141,7 @@ func _show_choices() -> void:
 
 	_current_choice_index = 0
 	_show_only(_ELECTRICITY_CHOICES.keys()[_current_choice_index])
+	Stage.fade_in_choice_buttons([prev_btn, _choose_btn, next_btn])
 	Stage.pulse_choice_buttons([prev_btn, next_btn, _choose_btn])
 
 
