@@ -210,24 +210,32 @@ func _show_continue_button() -> void:
 	row.offset_right = -24
 	row.offset_top = -300
 	row.offset_bottom = -220
-	row.alignment = BoxContainer.ALIGNMENT_BEGIN
+	row.alignment = BoxContainer.ALIGNMENT_END
 	row.add_theme_constant_override("separation", 24)
 	_ui_canvas.add_child(row)
 
 	var btn := Button.new()
-	btn.text = "To the Hardware Shop!"
-	btn.custom_minimum_size = Vector2(250, 56)
+	btn.text = "Go to the Hardware Shop  →"
+	btn.custom_minimum_size = Vector2(360, 64)
+	Stage.style_choice_button(btn, Color(1.0, 0.7, 0.2, 1.0))
 	row.add_child(btn)
 
+	Stage.pulse_choice_buttons([btn])
+	var pulse_timer := Timer.new()
+	pulse_timer.wait_time = 3.0
+	pulse_timer.autostart = true
+	pulse_timer.timeout.connect(func(): Stage.pulse_choice_buttons([btn]))
+	btn.add_child(pulse_timer)
+
 	btn.pressed.connect(func():
+		btn.disabled = true
+		pulse_timer.stop()
+		var fade := btn.create_tween()
+		fade.tween_property(btn, "modulate:a", 0.0, 0.35)
+		await fade.finished
+		Dialogue.dismiss()
 		finished.emit()
 		btn.queue_free()
-		Dialogue.dismiss()
-		var lbl := Label.new()
-		lbl.text = "Click on map to continue"
-		lbl.custom_minimum_size = Vector2(500, 250)
-		lbl.add_theme_color_override("font_color", Color(1.0, 0.0, 0.0, 1.0))
-		row.add_child(lbl)
 	)
 
 func _fade_clump(polys: Array, target_alpha: float) -> void:
