@@ -17,8 +17,8 @@ texture = ExtResource("1_8j60k")
 position = Vector2(31, -55)
 
 [node name="Camera2D" type="Camera2D" parent="ground" unique_id=338738434]
-position = Vector2(128, 624)
-zoom = Vector2(0.5, 0.5)
+position = Vector2(128, 128)
+zoom = Vector2(0.4, 0.4)
 limit_left = -8000
 limit_top = -6000
 limit_right = 10000

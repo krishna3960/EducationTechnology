@@ -1,12 +1,18 @@
 class_name MapLayer
 extends TileMapLayer
 
+const DEFAULT_CAMERA_CELL: Vector2i = Vector2i(3, 0)
+
 static var _coord_labels: Array = []
 static var main: TileMapLayer = null
 
 
 func _ready() -> void:
 	main = self
+	var camera: Camera2D = get_parent().get_node_or_null("Camera2D") if get_parent() else null
+	if camera:
+		camera.position = map_to_local(DEFAULT_CAMERA_CELL)
+		camera.reset_smoothing()
 	if OS.is_debug_build():
 		var section: VBoxContainer = Debug.add_section("Tilemap")
 		Debug.add_checkbox("Show coords", false, _toggle_coord_labels, section)

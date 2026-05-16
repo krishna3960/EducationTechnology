@@ -13,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
+color = Color(0, 0, 0, 0.85)
 
 [node name="CenterContainer" type="CenterContainer" parent="Background" unique_id=332092871]
 layout_mode = 0
@@ -36,16 +36,10 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "Resume"
 
-[node name="SettingsButton" type="Button" parent="Background/CenterContainer/VBoxContainer" unique_id=661696349]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-text = "Settings"
-
 [node name="QuitButton" type="Button" parent="Background/CenterContainer/VBoxContainer" unique_id=1646069971]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "Quit"
 
 [connection signal="pressed" from="Background/CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="Background/CenterContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Background/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_pressed"]

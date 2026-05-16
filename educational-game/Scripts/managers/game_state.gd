@@ -12,7 +12,6 @@ var metrics: Metrics = Metrics.new()
 
 
 func _ready() -> void:
-	metrics.session.ts_started = Time.get_unix_time_from_system()
 	metrics.session.debug = OS.is_debug_build()
 	Debug.add_separator("Scenes")
 	Debug.add_button("Open Shop", func(): get_tree().change_scene_to_file("res://Scenes/Shop.tscn"))

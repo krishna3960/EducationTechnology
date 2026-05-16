@@ -47,10 +47,6 @@ const _DATACENTER_CELL: Vector2i = Vector2i(3, 0)
 
 func _stage_start() -> void:
 	_ts_started = Time.get_unix_time_from_system()
-	var camera := get_viewport().get_camera_2d()
-	if MapLayer.main and camera:
-		camera.position = MapLayer.main.map_to_local(_DATACENTER_CELL)
-		camera.reset_smoothing()
 
 	Dialogue.on_typewriter_done.connect(_show_choices, CONNECT_ONE_SHOT)
 	var opts := DialogueOptions.new()
