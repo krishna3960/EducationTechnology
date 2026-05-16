@@ -90,7 +90,8 @@ func _finish_typing() -> void:
 		cb.call()
 
 
-func _unhandled_input(event: InputEvent) -> void:
+## Skip dialog on click
+func _input(event: InputEvent) -> void:
 	if not _typing:
 		return
 	var advance: bool = (event is InputEventMouseButton and event.pressed) \
