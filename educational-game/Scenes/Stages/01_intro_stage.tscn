@@ -87,10 +87,10 @@ texture = ExtResource("3_dumhe")
 [node name="Button_to_stage_1" type="Button" parent="Control_arrows" unique_id=1229068983]
 z_index = 20
 layout_mode = 0
-offset_left = -339.0
-offset_top = 776.0
-offset_right = 581.0
-offset_bottom = 1183.0
+offset_left = 630.0
+offset_top = 769.0
+offset_right = 1550.0
+offset_bottom = 1176.0
 theme_override_font_sizes/font_size = 200
 theme_override_styles/normal = SubResource("StyleBoxFlat_la30e")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mxvoa")
