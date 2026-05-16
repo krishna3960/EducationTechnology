@@ -173,6 +173,12 @@ func _on_choice(key: String) -> void:
 
 	await get_tree().create_timer(1.0).timeout
 
+	var chosen = _CHOICES[GameState.land_location]
+	for cell in chosen["factory"]:
+		MapLayer.main.set_cell_by_texture(cell, _FACTORY_LIT_TILE)
+
+	await get_tree().create_timer(1.0).timeout
+
 	var article: int = Newspaper.Article.FARMLAND
 	match key:
 		"far":
@@ -181,10 +187,6 @@ func _on_choice(key: String) -> void:
 			article = Newspaper.Article.WINTER
 
 	Newspaper.on_close.connect(func():
-		var chosen = _CHOICES[GameState.land_location]
-		for cell in chosen["factory"]:
-			MapLayer.main.set_cell_by_texture(cell, _FACTORY_LIT_TILE)
-
 		await get_tree().create_timer(1.0).timeout
 		_show_prompt_dialogue()
 	, CONNECT_ONE_SHOT)
