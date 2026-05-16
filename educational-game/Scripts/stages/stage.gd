@@ -42,6 +42,17 @@ static func style_choice_button(btn: Button, accent: Color) -> void:
 	btn.add_theme_font_size_override("font_size", 22)
 
 
+## Disables/enables the Camera such that the player can't pan with WASD or zoom with the mouse wheel underneath it.
+static func set_world_camera_enabled(enabled: bool) -> void:
+	if MapLayer.main == null:
+		return
+	var cam: Camera2D = MapLayer.main.get_parent().get_node_or_null("Camera2D")
+	if cam == null:
+		return
+	cam.set_process(enabled)
+	cam.set_process_unhandled_input(enabled)
+
+
 ## Plays a brief "look at me" pulse on each button
 static func pulse_choice_buttons(buttons: Array) -> void:
 	const startdelay: float = 0.5

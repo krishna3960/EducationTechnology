@@ -77,6 +77,15 @@
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1243070111]
 script = ExtResource("1_jjrax")
 
+[node name="Background" type="ColorRect" parent="." unique_id=1243070113]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [node name="ClassroomV1" type="Sprite2D" parent="." unique_id=1224570099]
 position = Vector2(964, 533)
 scale = Vector2(0.99791664, 1)
