@@ -49,6 +49,11 @@ var _current_choice_index: int = 0
 var _choose_btn: Button = null
 var _ts_started: float = 0.0
 
+## Camera target used when the electricity choice buttons appear.
+const _CHOICE_CAMERA_POS: Vector2 = Vector2(599.8859, 849.972)
+const _CHOICE_CAMERA_ZOOM: Vector2 = Vector2(0.402628, 0.402628)
+const _CAMERA_TRANSITION_DURATION: float = 1.0
+
 func _stage_start() -> void:
 	_ts_started = Time.get_unix_time_from_system()
 	var chosen = _CHOICES[GameState.land_location]
@@ -57,19 +62,18 @@ func _stage_start() -> void:
 	for cell in chosen["factory"]:
 		MapLayer.main.set_cell_by_texture(cell, _FACTORY_TILE)
 
-	var camera := get_viewport().get_camera_2d()
-	if MapLayer.main and camera:
-		camera.zoom = Vector2(0.2, 0.2)
-		var centroid := Vector2.ZERO
-		for cell in chosen["factory"]:
-			centroid += MapLayer.main.map_to_local(cell)
-		if chosen["factory"].size() > 0:
-			centroid /= float(chosen["factory"].size())
-		camera.position = centroid
-		camera.reset_smoothing()
-
 	Newspaper.on_close.connect(_show_intro_dialogue, CONNECT_ONE_SHOT)
 	Newspaper.show_article(Newspaper.Article.PRICES_LAPTOPS)
+
+
+## Glides camera to show the electricity position choices
+func _frame_electricity_view() -> void:
+	var camera := get_viewport().get_camera_2d()
+	if camera == null:
+		return
+	var t := create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	t.tween_property(camera, "position", _CHOICE_CAMERA_POS, _CAMERA_TRANSITION_DURATION)
+	t.tween_property(camera, "zoom", _CHOICE_CAMERA_ZOOM, _CAMERA_TRANSITION_DURATION)
 
 
 func _show_intro_dialogue() -> void:
@@ -83,6 +87,8 @@ func _show_choices() -> void:
 	var tilemap := MapLayer.main
 	if tilemap == null:
 		return
+
+	_frame_electricity_view()
 
 	_ui_canvas = CanvasLayer.new()
 	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
