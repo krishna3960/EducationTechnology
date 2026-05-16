@@ -1,6 +1,7 @@
 extends Stage
 
 @export var speed: float = 0.06
+@export var _SPEAKER: String = "Prompto"
 var full_text_1: String =  "Welcome to “VibeX”. You are the CEO of the AI datacenter company VibeX, responsible for managing infrastructure, expanding operations, and making critical business decisions. Your choices will shape the future of AI services across the region. \n\n Click Next to start"
 const _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
 const _INTRO_TEXT: String =  "Hello! My name is Prompto, and I’ll be your assistant throughout the game. Before we begin, let me show you the region."
@@ -47,13 +48,13 @@ func start_conversation():
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	opts.auto_close = false
-	Dialogue.show_dialogue(_PORTRAIT, _INTRO_TEXT, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _INTRO_TEXT, opts)
 	
 	await get_tree().create_timer(9.0).timeout
 	Dialogue.dismiss()
 	
 	# show pontia
-	Dialogue.show_dialogue(_PORTRAIT, _text_show_pontia, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_show_pontia, opts)
 	await get_tree().create_timer(4.0).timeout
 	Dialogue.dismiss()
 	opts.dim = false
@@ -71,7 +72,7 @@ func _show_petalia():
 	get_node("Control_arrows/arrow_pointing_pontia").hide()
 	var opts := DialogueOptions.new()
 	opts.dim = true
-	Dialogue.show_dialogue(_PORTRAIT, _text_show_petalia, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_show_petalia, opts)
 	await get_tree().create_timer(4.0).timeout
 	Dialogue.dismiss()
 	opts.dim = false
@@ -84,7 +85,7 @@ func _show_fontania():
 	get_node("Control_arrows/arrow_pointing_petalia").hide()
 	var opts := DialogueOptions.new()
 	opts.dim = true
-	Dialogue.show_dialogue(_PORTRAIT, _text_show_fontania, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_show_fontania, opts)
 	await get_tree().create_timer(4.0).timeout
 	Dialogue.dismiss()
 	opts.dim = false
@@ -97,7 +98,7 @@ func _show_ai_center():
 	get_node("Control_arrows/arrow_pointing_fontania").hide()
 	var opts := DialogueOptions.new()
 	opts.dim = true
-	Dialogue.show_dialogue(_PORTRAIT, _text_show_datacenter, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_show_datacenter, opts)
 	await get_tree().create_timer(10.0).timeout
 	Dialogue.dismiss()
 	opts.dim = false
@@ -111,8 +112,7 @@ func _show_increase_in_demand():
 	get_node("Control_arrows/arrow_pointing_aiCenter").hide()
 	var opts := DialogueOptions.new()
 	opts.dim = true
-	Dialogue.show_dialogue(_PORTRAIT, 
-	_text_observation_demand_increase, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_observation_demand_increase, opts)
 	await get_tree().create_timer(16.0).timeout
 	Dialogue.dismiss()
 	_show_switch_to_stage_1()
@@ -121,7 +121,7 @@ func _show_switch_to_stage_1():
 	#await get_tree().create_timer(2.0).timeout
 	var opts := DialogueOptions.new()
 	opts.dim = true
-	Dialogue.show_dialogue(_PORTRAIT, _text_start_stage_1, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_start_stage_1, opts)
 	await get_tree().create_timer(12.0).timeout
 	Dialogue.dismiss()
 	opts.dim = false
