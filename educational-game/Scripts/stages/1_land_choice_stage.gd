@@ -6,7 +6,7 @@ extends Stage
 
 const _CHOICES: Dictionary = {
 	GameState.LandLocation.FIRST: {
-		"tint": Color(0.0, 1.0, 0.0, 0.518),
+		"tint": Color(0.082, 0.284, 0.0, 0.71),
 		"cells": [Vector2i(3, 2), Vector2i(2, 0), Vector2i(4, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 2), Vector2i(1, 1), Vector2i(2, 2), Vector2i(3, 3), Vector2i(2, 4), Vector2i(2, 3), Vector2i(1, 4), Vector2i(0, 4), Vector2i(0, 3), Vector2i(0, 2), Vector2i(0, 1), Vector2i(1, 2), Vector2i(1, 3)],
 		"signs": [Vector2i(4,1)],
 	},
