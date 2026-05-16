@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://0aarss64ty6f" path="res://Scripts/stages/1_land_choice_stage.gd" id="1"]
 
-[node name="LandChoiceStage" type="Node2D" unique_id=1832124670]
+[node name="LandChoiceStage" type="Node2D" unique_id=503019989]
 script = ExtResource("1")

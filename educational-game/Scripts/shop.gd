@@ -1,47 +1,43 @@
 extends CanvasLayer
+
+signal exit_requested
+
 @onready var dim_overlay = $"Intro PopUp/DimOverLay"
 @onready var color_rect = $"Intro PopUp/ColorRect"
 @onready var label = $"Intro PopUp/LabelExpl1"
 @onready var label2 = $"Intro PopUp/LabelExpl2"
 @onready var button4 = $"Intro PopUp/Button4"
 @onready var counter = $Counter
-# Exit popup
 @onready var exit_popup_dim = $"Exit Pop Up/DimOverLay2"
 @onready var exit_popup_rect = $"Exit Pop Up/ColorRect2"
 @onready var exit_label3 = $"Exit Pop Up/LabelExpl3"
 @onready var exit_label4 = $"Exit Pop Up/LabelExpl4"
 @onready var exit_button = $"Exit Pop Up/Button5"
-# Price hikes
 @onready var price_hikes = [
 	$PriceHike,
 	$PriceHike2,
 	$PriceHike3,
 	$PriceHike4
 ]
-# Phone price labels
 @onready var phone_labels = [
 	$Price/PhonePrices/Label,
 	$Price/PhonePrices/Label2,
 	$Price/PhonePrices/Label3,
 	$Price/PhonePrices/Label4
 ]
-# Tablet price labels
 @onready var tablet_labels = [
 	$Price/TabletPrices/Label11,
 	$Price/TabletPrices/Label10
 ]
-# Laptop price labels
 @onready var laptop_labels = [
 	$Price/LaptopPrices/Label9,
 	$Price/LaptopPrices/Label8
 ]
-# Accessory price labels
 @onready var accessory_labels = [
 	$Price/AsscessoryPrices/Label7,
 	$Price/AsscessoryPrices/Label6,
 	$Price/AsscessoryPrices/Label5
 ]
-# Starting prices
 var phone_prices = [1000, 1200, 600, 800]
 var tablet_prices = [550, 1350]
 var laptop_prices = [2200, 1400]
@@ -54,14 +50,12 @@ func _ready():
 	label.show()
 	label2.show()
 	button4.show()
-	# Hide exit popup at start
 	exit_popup_dim.hide()
 	exit_popup_rect.hide()
 	exit_label3.hide()
 	exit_label4.hide()
 	exit_button.hide()
 	pulse_buttons()
-	# Hide price hikes at start
 	for hike in price_hikes:
 		hike.hide()
 	update_counter()
@@ -136,4 +130,4 @@ func _on_button_3_pressed():
 	buy_server()
 
 func _on_button_5_pressed():
-	get_tree().change_scene_to_file("res://Scenes/game.tscn")
+	exit_requested.emit()
