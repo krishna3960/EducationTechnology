@@ -40,3 +40,29 @@ static func style_choice_button(btn: Button, accent: Color) -> void:
 	btn.add_theme_color_override("font_hover_color", Color.WHITE)
 	btn.add_theme_color_override("font_pressed_color", Color(0.85, 0.85, 0.85))
 	btn.add_theme_font_size_override("font_size", 22)
+
+
+## Plays a brief "look at me" pulse on each button
+static func pulse_choice_buttons(buttons: Array) -> void:
+	const startdelay: float = 0.5
+	const hold: float = 0.26
+	const stagger: float = 0.40
+	for i in buttons.size():
+		var btn: Button = buttons[i]
+		if btn == null:
+			continue
+		var t := btn.create_tween()
+		t.tween_interval(startdelay + stagger * i)
+		t.tween_callback(func() -> void:
+			var prev_normal: StyleBox = btn.get_theme_stylebox("normal")
+			var hover_style: StyleBox = btn.get_theme_stylebox("hover")
+			if prev_normal == null or hover_style == null:
+				return
+			btn.set_meta("_pulse_prev_normal", prev_normal)
+			btn.add_theme_stylebox_override("normal", hover_style))
+		t.tween_interval(hold)
+		t.tween_callback(func() -> void:
+			var prev: StyleBox = btn.get_meta("_pulse_prev_normal", null) as StyleBox
+			if prev:
+				btn.add_theme_stylebox_override("normal", prev)
+				btn.remove_meta("_pulse_prev_normal"))

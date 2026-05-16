@@ -184,6 +184,7 @@ func _show_choices() -> void:
 
 	_current_choice_index = 0
 	_show_only(keys[_current_choice_index])
+	Stage.pulse_choice_buttons([prev_btn, next_btn, _choose_btn])
 
 func _get_available_keys() -> Array:
 	if not _second_round:

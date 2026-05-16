@@ -111,6 +111,7 @@ func _show_choices() -> void:
 
 	_current_choice_index = 0
 	_show_only(_CHOICES.keys()[_current_choice_index])
+	Stage.pulse_choice_buttons([prev_btn, next_btn, _choose_btn])
 
 
 func _cycle_choice(delta: int) -> void:
