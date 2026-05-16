@@ -8,6 +8,7 @@ const _EXPANSION_TILE: String = "res://Assets/tiles/tiles_tree_grass_sheeps/tile
 const _FACTORY_TILE: String = "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6-lights-off.png"
 const _FACTORY_LIT_TILE: String = "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6.png"
 const _ELECTRIC_POLE_TILE: String = "res://Assets/tiles/tile_electric_pole_aiCenter.png"
+const _LIT_MAX_DELAY: float = 1.5
 
 const _CHOICES: Dictionary = {
 	GameState.LandLocation.FIRST: {
@@ -58,8 +59,6 @@ func _stage_start() -> void:
 	_ts_started = Time.get_unix_time_from_system()
 	var chosen = _CHOICES[GameState.land_location]
 	for cell in chosen["cells"]:
-		MapLayer.main.set_cell_by_texture(cell, _EXPANSION_TILE)
-	for cell in chosen["factory"]:
 		MapLayer.main.set_cell_by_texture(cell, _FACTORY_TILE)
 
 	Newspaper.on_close.connect(_show_intro_dialogue, CONNECT_ONE_SHOT)
@@ -181,10 +180,12 @@ func _on_choice(key: String) -> void:
 	await get_tree().create_timer(1.0).timeout
 
 	var chosen = _CHOICES[GameState.land_location]
-	for cell in chosen["factory"]:
-		MapLayer.main.set_cell_by_texture(cell, _FACTORY_LIT_TILE)
+	for cell in chosen["cells"]:
+		var delay: float = randf() * _LIT_MAX_DELAY
+		get_tree().create_timer(delay).timeout.connect(
+			MapLayer.main.set_cell_by_texture.bind(cell, _FACTORY_LIT_TILE), CONNECT_ONE_SHOT)
 
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(_LIT_MAX_DELAY + 0.5).timeout
 
 	var article: int = Newspaper.Article.FARMLAND
 	match key:
