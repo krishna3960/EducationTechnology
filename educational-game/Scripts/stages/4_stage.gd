@@ -7,6 +7,14 @@ extends Stage
 
 const _WATER_TINT: Color = Color(1.0, 1.0, 0.0, 0.706)
 const _HOVER_FADE_DURATION: float = 0.08
+
+# Camera/zoom will slide to this position/zoom when making the river choice
+const _CHOICE_CAMERA_POS: Vector2 = Vector2(742.8752, 765.6159)
+const _CHOICE_CAMERA_ZOOM: Vector2 = Vector2(0.389743, 0.389743)
+const _CAMERA_TRANSITION_DURATION: float = 1.0
+
+
+
 const _RIVER_TARGET_FAMILY: String = "river-1-"
 const _WATER_PUMP_PREFIX: String = "water-pump-"
 const _NEWSPAPER_DELAY: float = 1.0
@@ -127,6 +135,8 @@ func _show_choices() -> void:
 	if tilemap == null:
 		return
 
+	_frame_water_view()
+
 	_ts_choice_started = Time.get_unix_time_from_system()
 	_ui_canvas = CanvasLayer.new()
 	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
@@ -186,6 +196,17 @@ func _show_choices() -> void:
 	_show_only(keys[_current_choice_index])
 	Stage.fade_in_choice_buttons([prev_btn, _choose_btn, next_btn])
 	Stage.pulse_choice_buttons([prev_btn, next_btn, _choose_btn])
+
+
+## Smoothly adjusts camera/zoom to the right pos
+func _frame_water_view() -> void:
+	var camera := get_viewport().get_camera_2d()
+	if camera == null:
+		return
+	var t := create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	t.tween_property(camera, "position", _CHOICE_CAMERA_POS, _CAMERA_TRANSITION_DURATION)
+	t.tween_property(camera, "zoom", _CHOICE_CAMERA_ZOOM, _CAMERA_TRANSITION_DURATION)
+
 
 func _get_available_keys() -> Array:
 	if not _second_round:
