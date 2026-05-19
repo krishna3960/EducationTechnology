@@ -137,12 +137,14 @@ func dismiss() -> void:
 	if _active:
 		_close()
 
-# Click or ui_accept skips to the end of typewriter animation, or dismisses the dialog if already finished (if the dialog is set to automatically dismiss)
+# Left-click or ui_accept skips to the end of typewriter animation, or dismisses the dialog if already finished (when auto_close is true).
 func _unhandled_input(event: InputEvent) -> void:
 	if not _active:
 		return
-	var advance: bool = (event is InputEventMouseButton and event.pressed) \
-		or event.is_action_pressed("ui_accept")
+	var is_left_click: bool = event is InputEventMouseButton \
+		and event.pressed \
+		and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
+	var advance: bool = is_left_click or event.is_action_pressed("ui_accept")
 	if not advance:
 		return
 	if _typing:
@@ -152,10 +154,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		_close()
 
-## Skip to the end of the typewriter effect
+## Skip to the end of the typewriter effect.
 func _finish_typing() -> void:
 	if _tween and _tween.is_valid():
 		_tween.kill()
+	if _enter_tween and _enter_tween.is_valid():
+		_enter_tween.kill()
+		_portrait.position.x = _portrait_rest_x
+		_bubble.modulate.a = 1.0
 	_label.visible_ratio = 1.0
 	_typing = false
 	_stop_squeeze()
