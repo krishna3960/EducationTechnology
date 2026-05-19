@@ -19,6 +19,12 @@ const _FACTORY_VARIANTS: Array = [
 ]
 const _LIT_MAX_DELAY: float = 1.5
 const _POST_LIT_DELAY: float = 1.5
+
+# Village prefixes that change variant when electricity is chosen
+const _VILLAGE_LIGHTS: Dictionary = {
+	"far": ["village-pontia-"],
+	"close": ["village-petalia-", "village-fontania-"],
+}
 const _FACTORY_BUILD_MAX_DELAY: float = 1.5
 const _POST_FACTORY_BUILD_DELAY: float = 1.0
 
@@ -210,6 +216,9 @@ func _on_choice(key: String) -> void:
 		get_tree().create_timer(delay).timeout.connect(
 			MapLayer.main.set_cell_by_texture.bind(cell, lit_path), CONNECT_ONE_SHOT)
 
+	# Swap village lights based on electricity choice
+	_swap_village_lights(key)
+
 	await get_tree().create_timer(_LIT_MAX_DELAY + _POST_LIT_DELAY).timeout
 
 	var article: int = Newspaper.Article.FARMLAND
@@ -282,6 +291,32 @@ func _clear_clumps() -> void:
 			if is_instance_valid(p):
 				p.queue_free()
 	_clump_polygons.clear()
+
+func _swap_village_lights(key: String) -> void:
+	var prefixes: Array = _VILLAGE_LIGHTS.get(key, [])
+	if prefixes.is_empty():
+		return
+	var tilemap := MapLayer.main
+	if tilemap == null:
+		return
+	for cell in tilemap.get_used_cells():
+		var src_id := tilemap.get_cell_source_id(cell)
+		if src_id == -1:
+			continue
+		var atlas := tilemap.tile_set.get_source(src_id) as TileSetAtlasSource
+		if atlas == null or atlas.texture == null:
+			continue
+		var file_name: String = atlas.texture.resource_path.get_file()
+		for prefix in prefixes:
+			if file_name.begins_with(prefix):
+				# Swap variant 0 -> 1: e.g. village-petalia-house-2-0- -> village-petalia-house-2-1-
+				var new_name: String = file_name.replace("-0-400x484", "-1-400x484")
+				if new_name != file_name:
+					var new_path: String = atlas.texture.resource_path.get_base_dir() + "/" + new_name
+					var delay: float = randf() * _LIT_MAX_DELAY
+					get_tree().create_timer(delay).timeout.connect(
+						tilemap.set_cell_by_texture.bind(cell, new_path), CONNECT_ONE_SHOT)
+				break
 
 func _stage_end() -> void:
 	_clear_clumps()
