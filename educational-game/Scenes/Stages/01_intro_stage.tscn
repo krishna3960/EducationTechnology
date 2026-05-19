@@ -19,19 +19,31 @@ bg_color = Color(0.627451, 0.60784316, 0.90588236, 1)
 [node name="2TestHere" type="Node2D" unique_id=885598074]
 script = ExtResource("1_8qp1f")
 
-[node name="Control_intro" type="Control" parent="." unique_id=1903783701]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=2233710001]
+
+[node name="DebugSkipButton" type="Button" parent="UILayer" unique_id=2233710002]
+z_index = 200
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 244.0
+offset_bottom = 72.0
+theme_override_font_sizes/font_size = 22
+modulate = Color(1, 1, 0.4, 1)
+text = "Skip Intro (debug)"
+
+[node name="Control_intro" type="Control" parent="UILayer" unique_id=1903783701]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="IntroBackground" type="Sprite2D" parent="Control_intro" unique_id=594470587]
+[node name="IntroBackground" type="Sprite2D" parent="UILayer/Control_intro" unique_id=594470587]
 z_index = 10
 position = Vector2(1308.0001, 540)
 scale = Vector2(3.9046876, 4.1185184)
 texture = ExtResource("2_0t1ct")
 
-[node name="Button" type="Button" parent="Control_intro" unique_id=1564996088]
+[node name="Button" type="Button" parent="UILayer/Control_intro" unique_id=1564996088]
 z_index = 10
 layout_mode = 0
 offset_left = 836.0
@@ -43,48 +55,48 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_0t1ct")
 theme_override_styles/hover = SubResource("StyleBoxFlat_dumhe")
 text = "Next"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control_intro" unique_id=741221593]
+[node name="RichTextLabel" type="RichTextLabel" parent="UILayer/Control_intro" unique_id=741221593]
 z_index = 10
 layout_mode = 0
-offset_left = -434.0
-offset_top = -410.0
-offset_right = 2716.0
-offset_bottom = 731.0
+offset_left = 280.0
+offset_top = 200.0
+offset_right = 1640.0
+offset_bottom = 800.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 100
+theme_override_font_sizes/normal_font_size = 36
 
-[node name="Control_arrows" type="Control" parent="." unique_id=71581091]
+[node name="Control_arrows" type="Control" parent="UILayer" unique_id=71581091]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="arrow_pointing_pontia" type="Sprite2D" parent="Control_arrows" unique_id=2040229205]
+[node name="arrow_pointing_pontia" type="Sprite2D" parent="UILayer/Control_arrows" unique_id=2040229205]
 z_index = 20
 position = Vector2(-632, 547)
 scale = Vector2(0.39179105, 0.45930234)
 texture = ExtResource("3_dumhe")
 
-[node name="arrow_pointing_fontania" type="Sprite2D" parent="Control_arrows" unique_id=1425549723]
+[node name="arrow_pointing_fontania" type="Sprite2D" parent="UILayer/Control_arrows" unique_id=1425549723]
 z_index = 1
 position = Vector2(1605.9999, 1401.0001)
 rotation = 1.5707964
 scale = Vector2(0.39179105, 0.45930234)
 texture = ExtResource("3_dumhe")
 
-[node name="arrow_pointing_petalia" type="Sprite2D" parent="Control_arrows" unique_id=945177957]
+[node name="arrow_pointing_petalia" type="Sprite2D" parent="UILayer/Control_arrows" unique_id=945177957]
 z_index = 1
 position = Vector2(2306, 547)
 scale = Vector2(0.39179105, 0.45930234)
 texture = ExtResource("3_dumhe")
 
-[node name="arrow_pointing_aiCenter" type="Sprite2D" parent="Control_arrows" unique_id=1666706143]
+[node name="arrow_pointing_aiCenter" type="Sprite2D" parent="UILayer/Control_arrows" unique_id=1666706143]
 z_index = 1
 position = Vector2(1122, 579)
 scale = Vector2(0.39179105, 0.45930234)
 texture = ExtResource("3_dumhe")
 
-[node name="Button_to_stage_1" type="Button" parent="Control_arrows" unique_id=1229068983]
+[node name="Button_to_stage_1" type="Button" parent="UILayer/Control_arrows" unique_id=1229068983]
 z_index = 20
 layout_mode = 0
 offset_left = 630.0
@@ -96,5 +108,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_la30e")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mxvoa")
 text = "Start"
 
-[connection signal="pressed" from="Control_intro/Button" to="." method="_button_pressed"]
-[connection signal="pressed" from="Control_arrows/Button_to_stage_1" to="." method="_start_scene_1"]
+[connection signal="pressed" from="UILayer/Control_intro/Button" to="." method="_button_pressed"]
+[connection signal="pressed" from="UILayer/Control_arrows/Button_to_stage_1" to="." method="_start_scene_1"]
+[connection signal="pressed" from="UILayer/DebugSkipButton" to="." method="_start_scene_1"]

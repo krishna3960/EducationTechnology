@@ -20,13 +20,15 @@ var timer: Timer
 
 func _stage_start() -> void:
 	print("hello, now we are in stage 2")
-	
-	label = get_node("Control_intro/RichTextLabel")
+
+	label = get_node("UILayer/Control_intro/RichTextLabel")
 
 	label.clear()
 
-	get_node("Control_intro/Button").visible = false
-	get_node("Control_arrows").visible = false
+	get_node("UILayer/Control_intro/Button").visible = false
+	get_node("UILayer/Control_arrows").visible = false
+
+	get_node("UILayer/DebugSkipButton").visible = OS.is_debug_build()
 
 	timer = Timer.new()
 	add_child(timer)
@@ -40,7 +42,7 @@ func _stage_start() -> void:
 
 
 func _button_pressed():
-	get_node("Control_intro").hide()
+	get_node("UILayer/Control_intro").hide()
 	start_conversation()
 
 
@@ -58,58 +60,58 @@ func start_conversation():
 	await get_tree().create_timer(4.0).timeout
 	Dialogue.dismiss()
 	opts.dim = false
-	get_node("Control_arrows").show()
-	get_node("Control_arrows/arrow_pointing_fontania").hide()
-	get_node("Control_arrows/arrow_pointing_petalia").hide()
-	get_node("Control_arrows/arrow_pointing_aiCenter").hide()
-	get_node("Control_arrows/Button_to_stage_1").hide()
+	get_node("UILayer/Control_arrows").show()
+	get_node("UILayer/Control_arrows/arrow_pointing_fontania").hide()
+	get_node("UILayer/Control_arrows/arrow_pointing_petalia").hide()
+	get_node("UILayer/Control_arrows/arrow_pointing_aiCenter").hide()
+	get_node("UILayer/Control_arrows/Button_to_stage_1").hide()
 	
 	# show petalia, then call fontania, then show ai center,finally open the dialog leading to stage one
 	_show_petalia()
 	
 func _show_petalia():
 	await get_tree().create_timer(2.0).timeout
-	get_node("Control_arrows/arrow_pointing_pontia").hide()
+	get_node("UILayer/Control_arrows/arrow_pointing_pontia").hide()
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_show_petalia, opts)
 	await get_tree().create_timer(4.0).timeout
 	Dialogue.dismiss()
 	opts.dim = false
-	get_node("Control_arrows/arrow_pointing_petalia").show()
+	get_node("UILayer/Control_arrows/arrow_pointing_petalia").show()
 	
 	_show_fontania()
 	
 func _show_fontania():
 	await get_tree().create_timer(2.0).timeout
-	get_node("Control_arrows/arrow_pointing_petalia").hide()
+	get_node("UILayer/Control_arrows/arrow_pointing_petalia").hide()
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_show_fontania, opts)
 	await get_tree().create_timer(4.0).timeout
 	Dialogue.dismiss()
 	opts.dim = false
-	get_node("Control_arrows/arrow_pointing_fontania").show()
+	get_node("UILayer/Control_arrows/arrow_pointing_fontania").show()
 	
 	_show_ai_center()
 
 func _show_ai_center():
 	await get_tree().create_timer(2.0).timeout
-	get_node("Control_arrows/arrow_pointing_fontania").hide()
+	get_node("UILayer/Control_arrows/arrow_pointing_fontania").hide()
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_show_datacenter, opts)
 	await get_tree().create_timer(10.0).timeout
 	Dialogue.dismiss()
 	opts.dim = false
-	get_node("Control_arrows/arrow_pointing_aiCenter").show()
+	get_node("UILayer/Control_arrows/arrow_pointing_aiCenter").show()
 	
 	_show_increase_in_demand()
 
 	
 func _show_increase_in_demand():
 	await get_tree().create_timer(2.0).timeout
-	get_node("Control_arrows/arrow_pointing_aiCenter").hide()
+	get_node("UILayer/Control_arrows/arrow_pointing_aiCenter").hide()
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_observation_demand_increase, opts)
@@ -125,7 +127,7 @@ func _show_switch_to_stage_1():
 	await get_tree().create_timer(12.0).timeout
 	Dialogue.dismiss()
 	opts.dim = false
-	get_node("Control_arrows/Button_to_stage_1").show()
+	get_node("UILayer/Control_arrows/Button_to_stage_1").show()
 	
 func _start_scene_1():
 	finished.emit()
@@ -141,4 +143,4 @@ func _show_next_char():
 		current_index += 1
 	else:
 		timer.stop()
-		get_node("Control_intro/Button").visible = true
+		get_node("UILayer/Control_intro/Button").visible = true
