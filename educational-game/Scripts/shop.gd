@@ -2,17 +2,12 @@ extends CanvasLayer
 
 signal exit_requested
 
-@onready var dim_overlay = $"Intro PopUp/DimOverLay"
-@onready var color_rect = $"Intro PopUp/ColorRect"
-@onready var label = $"Intro PopUp/LabelExpl1"
-@onready var label2 = $"Intro PopUp/LabelExpl2"
-@onready var button4 = $"Intro PopUp/Button4"
+@export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/salesman.png")
+@export var _SPEAKER: String = "Joe Sellington"
+@export var _INTRO_TEXT: String = "Welcome to Joe's Hardware Shop! You need 5 server racks? No problem, I got the best prices in town... today, anyway. Heh heh. Just so you know, those racks need a lot of the same parts as everything else I sell. Anyway! Point at what you want."
+@export var _EXIT_TEXT: String = "Pleasure doing business! All 5 racks, sold. Did you notice how everything else got pricier while you shopped? Bet you can work out why. Come back soon!"
+
 @onready var counter = $Counter
-@onready var exit_popup_dim = $"Exit Pop Up/DimOverLay2"
-@onready var exit_popup_rect = $"Exit Pop Up/ColorRect2"
-@onready var exit_label3 = $"Exit Pop Up/LabelExpl3"
-@onready var exit_label4 = $"Exit Pop Up/LabelExpl4"
-@onready var exit_button = $"Exit Pop Up/Button5"
 @onready var price_hikes = [
 	$PriceHike,
 	$PriceHike2,
@@ -44,22 +39,82 @@ var laptop_prices = [2200, 1400]
 var accessory_prices = [120, 67, 240]
 var servers_bought = 0
 
+var _ui_canvas: CanvasLayer
+
 func _ready():
-	dim_overlay.show()
-	color_rect.show()
-	label.show()
-	label2.show()
-	button4.show()
-	exit_popup_dim.hide()
-	exit_popup_rect.hide()
-	exit_label3.hide()
-	exit_label4.hide()
-	exit_button.hide()
-	pulse_buttons()
 	for hike in price_hikes:
 		hike.hide()
+	pulse_buttons()
 	update_counter()
 	update_all_prices()
+	_show_intro_dialogue()
+
+
+func _show_intro_dialogue() -> void:
+	Dialogue.on_typewriter_done.connect(func(): _show_action_button("Start Shopping  →", _on_start_pressed), CONNECT_ONE_SHOT)
+	var opts := DialogueOptions.new()
+	opts.dim = true
+	opts.auto_close = false
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _INTRO_TEXT, opts)
+
+
+func _show_exit_dialogue() -> void:
+	Dialogue.on_typewriter_done.connect(func(): _show_action_button("Return to Map  →", _on_return_pressed), CONNECT_ONE_SHOT)
+	var opts := DialogueOptions.new()
+	opts.dim = true
+	opts.auto_close = false
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _EXIT_TEXT, opts)
+
+
+func _show_action_button(text: String, on_pressed: Callable) -> void:
+	_ui_canvas = CanvasLayer.new()
+	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
+	add_child(_ui_canvas)
+
+	var row := HBoxContainer.new()
+	row.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	row.offset_left = 648
+	row.offset_right = -24
+	row.offset_top = -300
+	row.offset_bottom = -220
+	row.alignment = BoxContainer.ALIGNMENT_END
+	row.add_theme_constant_override("separation", 24)
+	_ui_canvas.add_child(row)
+
+	var btn := Button.new()
+	btn.text = text
+	btn.custom_minimum_size = Vector2(360, 64)
+	Stage.style_choice_button(btn, Color(1.0, 0.7, 0.2, 1.0))
+	row.add_child(btn)
+
+	Stage.pulse_choice_buttons([btn])
+	var pulse_timer := Timer.new()
+	pulse_timer.wait_time = 3.0
+	pulse_timer.autostart = true
+	pulse_timer.timeout.connect(func(): Stage.pulse_choice_buttons([btn]))
+	btn.add_child(pulse_timer)
+
+	btn.pressed.connect(func():
+		btn.disabled = true
+		pulse_timer.stop()
+		var fade := btn.create_tween()
+		fade.tween_property(btn, "modulate:a", 0.0, 0.35)
+		await fade.finished
+		Dialogue.dismiss()
+		if _ui_canvas:
+			_ui_canvas.queue_free()
+			_ui_canvas = null
+		on_pressed.call()
+	)
+
+
+func _on_start_pressed() -> void:
+	pass
+
+
+func _on_return_pressed() -> void:
+	exit_requested.emit()
+
 
 func update_counter():
 	counter.text = str(servers_bought)
@@ -97,13 +152,6 @@ func show_price_hikes():
 	for hike in price_hikes:
 		hike.show()
 
-func show_exit_popup():
-	exit_popup_dim.show()
-	exit_popup_rect.show()
-	exit_label3.show()
-	exit_label4.show()
-	exit_button.show()
-
 func buy_server():
 	servers_bought += 1
 	update_counter()
@@ -111,14 +159,7 @@ func buy_server():
 	if servers_bought == 1:
 		show_price_hikes()
 	if servers_bought >= 5:
-		show_exit_popup()
-
-func _on_button_4_pressed():
-	dim_overlay.hide()
-	color_rect.hide()
-	label.hide()
-	label2.hide()
-	button4.hide()
+		_show_exit_dialogue()
 
 func _on_button_pressed():
 	buy_server()
@@ -128,6 +169,3 @@ func _on_button_2_pressed():
 
 func _on_button_3_pressed():
 	buy_server()
-
-func _on_button_5_pressed():
-	exit_requested.emit()
