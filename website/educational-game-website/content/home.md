@@ -93,7 +93,7 @@ The source code of the website and the game can be found [here](https://github.c
 | Introduction to AI infrastructure and sustainability | 5–10 min |
 | Gameplay session | 10–15 min |
 | Reflection and discussion | 10–15 min |
-| Total | 35–60 min |
+| Total | 30–45 min |
 
 #### Recommended Group Size
 - Individual play
