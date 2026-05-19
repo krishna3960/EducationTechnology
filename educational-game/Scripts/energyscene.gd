@@ -5,9 +5,18 @@ extends Stage
 @export var _INTRO_TEXT: String = "Ah thats a shame about the news....but your new hardware looks so good! Now we just need to power them up with electrcity. Where do you want to get electricity from?"
 
 const _EXPANSION_TILE: String = "res://Assets/tiles/tiles_tree_grass_sheeps/tiles_grass_v6.png"
-const _FACTORY_TILE: String = "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6-lights-off.png"
-const _FACTORY_LIT_TILE: String = "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6.png"
 const _ELECTRIC_POLE_TILE: String = "res://Assets/tiles/tile_electric_pole_aiCenter.png"
+
+const _FACTORY_VARIANTS: Array = [
+	{
+		"unlit": "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6-lights-off.png",
+		"lit": "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6.png",
+	},
+	{
+		"unlit": "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v8-lights-off.png",
+		"lit": "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v8.png",
+	},
+]
 const _LIT_MAX_DELAY: float = 1.5
 const _POST_LIT_DELAY: float = 1.5
 const _FACTORY_BUILD_MAX_DELAY: float = 1.5
@@ -52,6 +61,7 @@ var _ui_canvas: CanvasLayer
 var _current_choice_index: int = 0
 var _choose_btn: Button = null
 var _ts_started: float = 0.0
+var _cell_variants: Dictionary = {}
 
 ## Camera target used when the electricity choice buttons appear.
 const _CHOICE_CAMERA_POS: Vector2 = Vector2(599.8859, 849.972)
@@ -61,11 +71,15 @@ const _CAMERA_TRANSITION_DURATION: float = 1.0
 func _stage_start() -> void:
 	_ts_started = Time.get_unix_time_from_system()
 	var chosen = _CHOICES[GameState.land_location]
-	# Animate the factory being built
+	# Animate the factory being built, picking a random variant per cell.
+	_cell_variants.clear()
 	for cell in chosen["cells"]:
+		var variant_idx: int = randi() % _FACTORY_VARIANTS.size()
+		_cell_variants[cell] = variant_idx
+		var unlit_path: String = _FACTORY_VARIANTS[variant_idx]["unlit"]
 		var delay: float = randf() * _FACTORY_BUILD_MAX_DELAY
 		get_tree().create_timer(delay).timeout.connect(
-			MapLayer.main.set_cell_by_texture.bind(cell, _FACTORY_TILE), CONNECT_ONE_SHOT)
+			MapLayer.main.set_cell_by_texture.bind(cell, unlit_path), CONNECT_ONE_SHOT)
 
 	await get_tree().create_timer(_FACTORY_BUILD_MAX_DELAY + _POST_FACTORY_BUILD_DELAY).timeout
 
@@ -189,9 +203,12 @@ func _on_choice(key: String) -> void:
 
 	var chosen = _CHOICES[GameState.land_location]
 	for cell in chosen["cells"]:
+		# Light up the same variant that was placed during construction.
+		var variant_idx: int = _cell_variants.get(cell, 0)
+		var lit_path: String = _FACTORY_VARIANTS[variant_idx]["lit"]
 		var delay: float = randf() * _LIT_MAX_DELAY
 		get_tree().create_timer(delay).timeout.connect(
-			MapLayer.main.set_cell_by_texture.bind(cell, _FACTORY_LIT_TILE), CONNECT_ONE_SHOT)
+			MapLayer.main.set_cell_by_texture.bind(cell, lit_path), CONNECT_ONE_SHOT)
 
 	await get_tree().create_timer(_LIT_MAX_DELAY + _POST_LIT_DELAY).timeout
 
