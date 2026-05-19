@@ -39,17 +39,20 @@ theme_override_constants/separation = 16
 
 [node name="Title" type="Label" parent="UILayer/CenterContainer/VBoxContainer" unique_id=1036657677]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Educational Game"
 horizontal_alignment = 1
 
 [node name="PlayButton" type="Button" parent="UILayer/CenterContainer/VBoxContainer" unique_id=1125806759]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Play"
 
 [node name="QuitButton" type="Button" parent="UILayer/CenterContainer/VBoxContainer" unique_id=678476123]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Quit"
 
 [connection signal="pressed" from="UILayer/CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_pressed"]

@@ -2,7 +2,7 @@ extends Stage
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
 @export var _SPEAKER: String = "Prompto"
-@export var _INTRO_TEXT: String = "Congratulations your education was a success! You have reduced token usage and we now have enough compute and electricity to handle all the incoming promps. However all this now creates a heating issue, we are going to need access to water to cool our server!"
+@export var _INTRO_TEXT: String = "Congratulations your education was a success! You have reduced token usage and we now have enough compute and electricity to handle all the incoming prompts. However all this now creates a heating issue, we are going to need access to water to cool our server!"
 @export var _OUTRO_TEXT: String = "Okay we have access to water now, but it is not sufficient to cool down all our servers, choose another river to get access to more water!"
 
 const _WATER_TINT: Color = Color(1.0, 1.0, 0.0, 0.706)
