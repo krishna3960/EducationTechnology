@@ -82,8 +82,6 @@ The source code of the website and the game can be found [here](https://github.c
 - E.g. Setup
     - How should the tool be set up and run? Describe how students and teachers access the tool, what actions to take, and what devices or requirements are needed. -->
 
-### Practical Usage
-
 #### Recommended Audience
 - University students
 - Introductory AI literacy workshops
