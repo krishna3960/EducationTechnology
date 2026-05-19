@@ -33,7 +33,18 @@ By placing the player in the role of the decision-maker, the game avoids directl
 
 <!-- Which related works informed the design? -->
 ### Related Work
-TODO: no idea on what we should base our work on!
+While there are no works that directly relate to all aspects of this game, there are some works that relate to specific aspects found in VibeX Expansion.
+
+A large source of inspiration in the development of the VibeX Expansion game was taken from the game [Google AI Quests](https://research.google/ai-quests/intl/en_gb). While AI Quests emphasizes explaining how AI is made, VibeX Expansion focuses on describing the environmental impacts of AI. Nevertheless, both games share a similar sequential, stage-like progression. Each stage provides a unique opportunity for users to learn in a controlled yet interactive manner.
+
+On a technical note, both games are accessible via the browser and present themselves using a unique 2.5D camera angle that enhances the user experience without being too stimulating or distracting from the main pedagogical content.
+
+Another notable work related to this game is [Ecoprompt](https://www.ecoprompt.net/). This website encourages users to prompt more efficiently and reduce the size of prompts in order to promote more environmentally sustainable AI usage. This sentiment is echoed in VibeX Expansion’s classroom scene, where users are educated to prompt in a more environmentally conscious manner.
+
+Finally, the game [Datacenter Simulator](https://shapes.inc/datacentersimul) is another work related to VibeX Expansion. While Datacenter Simulator does not account for environmental impacts, it provides an interesting narrative into how datacenters are built and, in this way, is similar to many aspects of how AI centers in VibeX Expansion are developed.
+
+In this way, if one enjoys VibeX Expansion, the above sources can provide further entertainment and educational value.
+
 (TODO: add somewhere this here https://ailiteracyframework.org/wp-content/uploads/2025/05/AILitFramework_ReviewDraft.pdf). 
 
 ### Team Members
