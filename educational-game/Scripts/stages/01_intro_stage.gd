@@ -29,6 +29,7 @@ const _CAM_OVERVIEW_ZOOM: Vector2 = Vector2(0.40, 0.40)
 const _CAM_REGION_ZOOM: Vector2 = Vector2(0.48, 0.48)
 
 const _CAM_PAN_DURATION: float = 1.0
+const _PRE_PAN_DELAY: float = 0.6
 
 func _stage_start() -> void:
 	print("hello, now we are in stage 2")
@@ -68,81 +69,31 @@ func _pan_camera_to_cell(cell: Vector2i, target_zoom: Vector2, duration: float =
 	t.tween_property(camera, "zoom", target_zoom, duration)
 
 
+
+func _show_dialogue_step(text: String) -> void:
+	var opts := DialogueOptions.new()
+	opts.dim = true
+	opts.auto_close = true
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, text, opts)
+	await Dialogue.on_close
+
+
+## Wait some time, then pan the camera to the specified cell and show a dialogue step.
+func _pan_then_show(cell: Vector2i, zoom: Vector2, text: String) -> void:
+	await get_tree().create_timer(_PRE_PAN_DELAY).timeout
+	_pan_camera_to_cell(cell, zoom)
+	await _show_dialogue_step(text)
+
+
 func start_conversation():
-	_pan_camera_to_cell(_OVERVIEW_CELL, _CAM_OVERVIEW_ZOOM)
-	var opts := DialogueOptions.new()
-	opts.dim = true
-	opts.auto_close = false
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _INTRO_TEXT, opts)
+	await _pan_then_show(_OVERVIEW_CELL, _CAM_OVERVIEW_ZOOM, _INTRO_TEXT)
+	await _pan_then_show(_PONTIA_CELL, _CAM_REGION_ZOOM, _text_show_pontia)
+	await _pan_then_show(_PETALIA_CELL, _CAM_REGION_ZOOM, _text_show_petalia)
+	await _pan_then_show(_FONTANIA_CELL, _CAM_REGION_ZOOM, _text_show_fontania)
+	await _pan_then_show(MapLayer.DEFAULT_CAMERA_CELL, _CAM_REGION_ZOOM, _text_show_datacenter)
+	await _pan_then_show(_OVERVIEW_CELL, _CAM_OVERVIEW_ZOOM, _text_observation_demand_increase)
+	await _show_dialogue_step(_text_start_stage_1)
 
-	await get_tree().create_timer(9.0).timeout
-	Dialogue.dismiss()
-
-	# show pontia
-	_pan_camera_to_cell(_PONTIA_CELL, _CAM_REGION_ZOOM)
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_show_pontia, opts)
-	await get_tree().create_timer(4.0).timeout
-	Dialogue.dismiss()
-	opts.dim = false
-
-	# show petalia, then call fontania, then show ai center, finally open the dialog leading to stage one
-	_show_petalia()
-
-func _show_petalia():
-	await get_tree().create_timer(2.0).timeout
-	_pan_camera_to_cell(_PETALIA_CELL, _CAM_REGION_ZOOM)
-	var opts := DialogueOptions.new()
-	opts.dim = true
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_show_petalia, opts)
-	await get_tree().create_timer(4.0).timeout
-	Dialogue.dismiss()
-	opts.dim = false
-
-	_show_fontania()
-
-func _show_fontania():
-	await get_tree().create_timer(2.0).timeout
-	_pan_camera_to_cell(_FONTANIA_CELL, _CAM_REGION_ZOOM)
-	var opts := DialogueOptions.new()
-	opts.dim = true
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_show_fontania, opts)
-	await get_tree().create_timer(4.0).timeout
-	Dialogue.dismiss()
-	opts.dim = false
-
-	_show_ai_center()
-
-func _show_ai_center():
-	await get_tree().create_timer(2.0).timeout
-	_pan_camera_to_cell(MapLayer.DEFAULT_CAMERA_CELL, _CAM_REGION_ZOOM)
-	var opts := DialogueOptions.new()
-	opts.dim = true
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_show_datacenter, opts)
-	await get_tree().create_timer(10.0).timeout
-	Dialogue.dismiss()
-	opts.dim = false
-
-	_show_increase_in_demand()
-
-
-func _show_increase_in_demand():
-	await get_tree().create_timer(2.0).timeout
-	_pan_camera_to_cell(_OVERVIEW_CELL, _CAM_OVERVIEW_ZOOM)
-	var opts := DialogueOptions.new()
-	opts.dim = true
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_observation_demand_increase, opts)
-	await get_tree().create_timer(16.0).timeout
-	Dialogue.dismiss()
-	_show_switch_to_stage_1()
-
-func _show_switch_to_stage_1():
-	#await get_tree().create_timer(2.0).timeout
-	var opts := DialogueOptions.new()
-	opts.dim = true
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _text_start_stage_1, opts)
-	await get_tree().create_timer(12.0).timeout
-	Dialogue.dismiss()
-	opts.dim = false
 	get_node("UILayer/StartButtonHolder").show()
 	get_node("UILayer/StartButtonHolder/Button_to_stage_1").show()
 
