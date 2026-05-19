@@ -20,6 +20,18 @@ const _WATER_PUMP_PREFIX: String = "water-pump-"
 const _NEWSPAPER_DELAY: float = 1.0
 const _SWAP_DELAY_PER_TILE: float = 0.12
 
+const _HIGHLIGHT_CELLS_1: Dictionary = {
+	"north": Vector2i(-1, -1),
+	"west": Vector2i(-3, 5),
+	"east": Vector2i(7, 4),
+}
+
+const _HIGHLIGHT_CELLS_2: Dictionary = {
+	"north": Vector2i(1, -2),
+	"west": Vector2i(-4, 5),
+	"east": Vector2i(8, 4),
+}
+
 # Each river choice: label, highlight cells on map, placeholder tiles (two per river),
 # and the full river cells to swap
 const _WATER_CHOICES: Dictionary = {
@@ -33,6 +45,7 @@ const _WATER_CHOICES: Dictionary = {
 			Vector2i(4, -3), Vector2i(5, -4), Vector2i(6, -3), Vector2i(7, -4),
 			Vector2i(8, -3), Vector2i(9, -3), Vector2i(10, -2), Vector2i(11, -3),
 		],
+		"bridge_cell": Vector2i(-4, 0),
 	},
 	"west": {
 		"label": "West River",
@@ -147,12 +160,8 @@ func _show_choices() -> void:
 	for key in keys:
 		var choice: Dictionary = _WATER_CHOICES[key]
 		var tint: Color = choice["tint"]
-		# Show the second tile if this river was already picked in round 1
-		var pump_list: Array = _pump_cells.get(key, [])
-		if pump_list.is_empty():
-			continue
-		var cell_index: int = 1 if (_second_round and key == _first_choice_key and pump_list.size() > 1) else 0
-		var cell: Vector2i = pump_list[cell_index]
+		var cells_map: Dictionary = _HIGHLIGHT_CELLS_2 if (_second_round and key == _first_choice_key) else _HIGHLIGHT_CELLS_1
+		var cell: Vector2i = cells_map[key]
 		var polys: Array[Polygon2D] = []
 		var overlay: Polygon2D = tilemap.get_cell_overlay(cell)
 		if overlay != null:
@@ -246,17 +255,28 @@ func _on_choice(key: String) -> void:
 	var choice: Dictionary = _WATER_CHOICES[key]
 	var same_as_first: bool = key == _first_choice_key
 
-	# Replace the chosen river tile with a water-pump tile (same shape)
-	var pump_list: Array = _pump_cells.get(key, [])
-	var pump_index: int = 1 if (same_as_first and pump_list.size() > 1) else 0
+	# Replace the highlight tile with a water-pump tile (same shape)
+	var cells_map: Dictionary = _HIGHLIGHT_CELLS_2 if same_as_first else _HIGHLIGHT_CELLS_1
+	var pump_cell: Vector2i = cells_map[key]
 	var pump_version: int = 2 if same_as_first else 1
-	var pump_cell: Vector2i = pump_list[pump_index]
 	_replace_with_pump(pump_cell, pump_version)
+
+	# If same river, also upgrade the first pump to version 2
+	if same_as_first:
+		var first_pump_cell: Vector2i = _HIGHLIGHT_CELLS_1[key]
+		_replace_with_pump(first_pump_cell, 2)
+
+	# Swap bridge variant if this river has one
+	if choice.has("bridge_cell"):
+		var bridge_version: int = 2 if same_as_first else 1
+		_swap_bridge(choice["bridge_cell"], bridge_version)
 
 	# Collect all pump cells to exclude from the river swap
 	var exclude: Dictionary = {pump_cell: true}
-	if same_as_first and pump_list.size() > 1:
-		exclude[pump_list[0]] = true
+	if same_as_first:
+		exclude[_HIGHLIGHT_CELLS_1[key]] = true
+	if choice.has("bridge_cell"):
+		exclude[choice["bridge_cell"]] = true
 
 	# Determine target river family
 	var target_family: String
@@ -302,6 +322,27 @@ func _animate_river_swap(cells: Array, target_family: String, exclude: Dictionar
 		idx += 1
 	return idx * _SWAP_DELAY_PER_TILE
 
+func _swap_bridge(cell: Vector2i, version: int) -> void:
+	var tilemap := MapLayer.main
+	var src_id := tilemap.get_cell_source_id(cell)
+	if src_id == -1:
+		return
+	var atlas := tilemap.tile_set.get_source(src_id) as TileSetAtlasSource
+	if atlas == null or atlas.texture == null:
+		return
+	var current_path: String = atlas.texture.resource_path
+	var file_name: String = current_path.get_file()
+	# village-pontia-bridge-0-400x484.png -> village-pontia-bridge-1-400x484.png
+	var new_name: String = file_name
+	for prefix in ["village-pontia-bridge-0-", "village-pontia-bridge-1-", "village-pontia-bridge-2-"]:
+		if file_name.begins_with(prefix):
+			new_name = "village-pontia-bridge-%d-" % version + file_name.substr(prefix.length())
+			break
+	if new_name == file_name:
+		return
+	var new_path: String = current_path.get_base_dir() + "/" + new_name
+	tilemap.set_cell_by_texture(cell, new_path)
+
 func _replace_with_pump(cell: Vector2i, pump_version: int) -> void:
 	var tilemap := MapLayer.main
 	var src_id := tilemap.get_cell_source_id(cell)
@@ -314,7 +355,7 @@ func _replace_with_pump(cell: Vector2i, pump_version: int) -> void:
 	var file_name: String = current_path.get_file()
 	# river-0-diagL-400x484.png -> water-pump-1-diagL-400x484.png
 	var new_name: String = file_name
-	for prefix in ["river-0-", "river-1-", "river-2-"]:
+	for prefix in ["river-0-", "river-1-", "river-2-", "water-pump-0-", "water-pump-1-", "water-pump-2-"]:
 		if file_name.begins_with(prefix):
 			var shape: String = file_name.substr(prefix.length())
 			new_name = "water-pump-%d-%s" % [pump_version, shape]
