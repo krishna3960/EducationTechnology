@@ -189,7 +189,34 @@ After completing the activity, users should be able to:
 <!-- - to include details of the above information that could not fit into the AboutPage -->
 <!-- - NOT a guide how to use your tool -->
 
-Where does the facts from the classroom scene come from? (TODO: add link to paper here)
+Where does the facts from the classroom scene and other scenes come from? 
+
+[1] Pengfei Li, Jianyi Yang, Mohammad A. Islam, and Shaolei Ren, *Making AI Less “Thirsty”: Uncovering and Addressing the Secret Water Footprint of AI Models*, arXiv, 2023.  
+https://arxiv.org/abs/2304.03271
+
+[2] *Measuring the Environmental Impact of Delivering AI at Google Scale*, arXiv, 2025.  
+https://arxiv.org/abs/2508.15734
+
+[3] *How Hungry is AI? Benchmarking Energy, Water, and Carbon Footprint of LLM Inference*, Sustainable Futures, Elsevier, 2025.  
+https://www.sciencedirect.com/science/article/pii/S2666675825000694
+
+[4] *Environmental Sustainability of Large Language Models and Generative AI Systems*, Elsevier, 2025.  
+https://www.sciencedirect.com/science/article/pii/S2666389925002788
+
+[5] *Data Centers and Water Consumption*, Environmental and Energy Study Institute (EESI).  
+https://www.eesi.org/articles/view/data-centers-and-water-consumption
+
+[6] Morgan Stanley, *On The Markets – Waiting for the Fall*, October 2025.  
+https://advisor.morganstanley.com/broadland-wealth-management/documents/field/b/br/broadland-wealth-management/October_2025_On_The_Markets_-_Waiting_for_the_Fall.pdf
+
+[7] *Power Consumption and Heat Dissipation in AI Data Centers: A Comparative Analysis*, ResearchGate, 2025.  
+https://www.researchgate.net/publication/389270192_Power_Consumption_and_Heat_Dissipation_in_AI_Data_Centers_A_Comparative_Analysis
+
+[8] *AI Infrastructure Sustainability Analysis*, arXiv, 2026.  
+https://arxiv.org/html/2603.27376v1
+
+[9] World Resources Institute, *US Data Center Growth Impacts*.  
+https://www.wri.org/insights/us-data-center-growth-impacts
 
 Where does the facts from the end stats come from? (TODO: add link to paper here)
 
