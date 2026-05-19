@@ -66,8 +66,6 @@ This game is designed for laptop and desktop use and is not optimized for phones
 ## Resource Page
 <!-- Information about Resources: Materials that allow learners/teachers to reuse the tools. Or others to build on your tool -->
 
-TODO
-
 ### Source code repo link
 <!-- repository link containing the source code of your website -->
 The source code of the website and the game can be found [here](https://github.com/krishna3960/EducationTechnology)
@@ -84,7 +82,109 @@ The source code of the website and the game can be found [here](https://github.c
 - E.g. Setup
     - How should the tool be set up and run? Describe how students and teachers access the tool, what actions to take, and what devices or requirements are needed. -->
 
-TODO
+### Practical Usage
+
+#### Recommended Audience
+- University students
+- Introductory AI literacy workshops
+- Sustainability and digital ethics courses
+
+#### Recommended Session Duration
+| Activity | Duration |
+|---|---|
+| Introduction to AI infrastructure and sustainability | 5–10 min |
+| Gameplay session | 10–15 min |
+| Reflection and discussion | 10–15 min |
+| Total | 35–60 min |
+
+#### Recommended Group Size
+- Individual play
+- Small groups of 2–4 students
+- Classroom sessions of 10–30 participants
+
+#### Example Classroom Flow
+
+1. **Introduction and Context Setting (5–10 min)**  
+   The facilitator introduces the topic of AI infrastructure and explains that modern AI systems require significant amounts of electricity, water, computing hardware, and physical datacenter infrastructure to operate. Short examples may be provided, such as:
+   - Cooling systems used in AI datacenters
+   - Electricity usage of large AI models
+   - Growth in AI demand worldwide
+   - Environmental trade-offs of rapid AI expansion
+
+   The facilitator also explains the main objective of the game and how player decisions influence both AI growth and surrounding communities.
+
+2. **Gameplay Session (10–15 min)**  
+   Students play VibeX Expansion individually or in small groups. During gameplay, players act as decision-makers responsible for expanding AI centers while balancing economic growth, environmental sustainability, and public wellbeing.
+
+   Throughout the game, students make decisions regarding:
+   - AI center expansion
+   - Resource allocation
+   - Energy and water usage
+   - Infrastructure placement
+   - Community impact management
+
+   Different choices lead to different gameplay outcomes. Some players may prioritize rapid AI growth and efficiency, while others may attempt to minimize environmental damage or protect nearby communities.
+
+3. **Observation and Reflection During Gameplay**  
+   As the game progresses, students observe how their decisions affect:
+   - Environmental sustainability
+   - Water and energy consumption
+   - Village wellbeing
+   - Infrastructure demand
+   - AI service growth
+   - Public satisfaction and long-term stability
+
+   Since the game allows multiple possible paths, students are encouraged to compare strategies and reflect on the consequences of different decision-making approaches.
+
+4. **Post-Game Discussion and Reflection (10–15 min)**  
+   After gameplay, facilitators guide a classroom discussion where students explain:
+   - Which strategy they followed
+   - Why they made certain decisions
+   - Which trade-offs they encountered
+   - Whether their choices were sustainable in the long term
+   - What surprised them during gameplay
+
+#### Suggested Discussion Topics
+
+- **Energy Consumption of AI Systems**  
+  How much electricity modern AI systems and datacenters require, and why energy demand increases as AI adoption grows.
+
+- **Water Usage in AI Datacenters**  
+  Why datacenters require cooling systems and how water consumption can impact surrounding environments and communities.
+
+- **Hardware and Infrastructure Requirements**  
+  The physical infrastructure behind AI systems, including servers, cooling facilities, networking equipment, and land usage.
+
+- **Ethical Trade-offs in AI Expansion**  
+  The balance between technological progress, economic growth, environmental sustainability, and public wellbeing.
+
+- **Responsible Prompting Habits**  
+  How thoughtful and efficient prompting can reduce unnecessary AI usage and resource consumption.
+
+- **Long-Term Sustainability of AI Technologies**  
+  Whether current AI growth patterns are environmentally sustainable and what future improvements may be necessary.
+
+#### Learning Outcomes
+After completing the activity, users should be able to:
+- Describe the environmental costs of AI systems
+- Understand the infrastructure required to support AI
+- Recognize trade-offs between AI growth and sustainability
+- Reflect on their own AI usage habits
+- Discuss responsible and environmentally conscious AI practices
+
+#### Technical Requirements
+- Modern web browser
+- Laptop or desktop computer
+- Mouse recommended
+- Stable internet connection (if hosted online)
+
+#### Possible Integration into Courses
+- AI Literacy
+- Sustainability Education
+- Digital Responsibility
+- Technology Ethics
+- Human-Computer Interaction
+- Introduction to Artificial Intelligence
 
 
 ## FAQ Page
