@@ -10,6 +10,8 @@ const _FACTORY_LIT_TILE: String = "res://Assets/tiles/tiles-aiCenter/tile-aiCent
 const _ELECTRIC_POLE_TILE: String = "res://Assets/tiles/tile_electric_pole_aiCenter.png"
 const _LIT_MAX_DELAY: float = 1.5
 const _POST_LIT_DELAY: float = 1.5
+const _FACTORY_BUILD_MAX_DELAY: float = 1.5
+const _POST_FACTORY_BUILD_DELAY: float = 1.0
 
 const _CHOICES: Dictionary = {
 	GameState.LandLocation.FIRST: {
@@ -59,8 +61,13 @@ const _CAMERA_TRANSITION_DURATION: float = 1.0
 func _stage_start() -> void:
 	_ts_started = Time.get_unix_time_from_system()
 	var chosen = _CHOICES[GameState.land_location]
+	# Animate the factory being built
 	for cell in chosen["cells"]:
-		MapLayer.main.set_cell_by_texture(cell, _FACTORY_TILE)
+		var delay: float = randf() * _FACTORY_BUILD_MAX_DELAY
+		get_tree().create_timer(delay).timeout.connect(
+			MapLayer.main.set_cell_by_texture.bind(cell, _FACTORY_TILE), CONNECT_ONE_SHOT)
+
+	await get_tree().create_timer(_FACTORY_BUILD_MAX_DELAY + _POST_FACTORY_BUILD_DELAY).timeout
 
 	Newspaper.on_close.connect(_show_intro_dialogue, CONNECT_ONE_SHOT)
 	Newspaper.show_article(Newspaper.Article.PRICES_LAPTOPS)
