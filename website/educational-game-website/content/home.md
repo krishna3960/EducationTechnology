@@ -1,4 +1,87 @@
-# Header 1
-## Header 2
+# VibeX's Expansion
+An Educational tool about AI natural resource consumption
 
-Write me, **write meeeee**
+## About Page
+
+<!-- What is the tool about? -->
+### Game Content
+VibeX Expansion is an educational game experience that explores the hidden environmental and societal costs of AI usage. Through interactive gameplay, users learn how AI centers depend on large amounts of energy, water, and hardware infrastructure. Users also gain an understanding of how to prompt more thoughtfully and how responsible usage can reduce resource consumption.
+
+
+<!-- Who is the tool intended for? -->
+### Target User
+VibeX's primary audience is young adults, who are among the most active users of AI. They regularly interact with AI technologies to ask questions about education, entertainment, and problem-solving in everyday situations. Despite the extensive use of AI, many young adults are unaware of its real-world infrastructure and environmental impact. 
+
+<!-- Despite this high level of usage, many users are unaware of the real-world infrastructure and environmental impact behind AI systems. The game aims to bridge this gap by making these invisible processes easier to understand and relate to in an accessible and interactive way. -->
+
+<!-- What are the learning objectives of the tool? -->
+### Learning Objectives
+The main goal is to raise users' awareness of the consequences of using AI on the world around them. Users should develop a better understanding of the environmental, social and infrastructural consequences of using AI.
+
+At the same time, the game is designed to encourage players to reflect on their own habits and develop more responsible ways of using AI. By linking personal actions to global consequences, the game aims to achieve informed and thoughtful engagement with AI technologies.
+
+
+<!-- What is the design rationale behind the game? -->
+
+### Design Rationale
+In the game, players act as the CEO of a rapidly expanding AI centre. As demand for AI services increases, they must make decisions about expansion, infrastructure and resources. These choices directly affect the lives of nearby villages, resulting in more or less severe negative consequences.
+
+This design approach enables users to consider the topic from two perspectives simultaneously: that of the company managing AI center growth, and that of the people affected by it. The intention is to develop a more in-depth understanding of AI systems and the trade-offs involved in supporting them.
+
+By placing the player in the role of the decision-maker, the game avoids directly accusing users of their AI usage. Instead, it creates a environment in which players can explore the complexity of the issue for themselves and develop a better understanding of their role in the larger AI ecosystem.
+
+
+<!-- Which related works informed the design? -->
+### Related Work
+TODO: no idea on what we should base our work on!
+(TODO: add somewhere this here https://ailiteracyframework.org/wp-content/uploads/2025/05/AILitFramework_ReviewDraft.pdf). 
+
+### Team Members
+This Game is developed by Albert Cerfeda, Alessia Lanini, Alexandra Trofimova, Krishna Le Moing and Shreyas Parida.
+
+## Tool Page
+<!-- Information about the Tool and relevant information on how to access and use the tool -->
+### Access and Setup
+<!-- Provide a button/link/page to access your tool -->
+Click on the button to start the game! (TODO: add here the link to the button)
+
+<!-- What do users need to prepare before using (e.g. device, browser, screen settings, ...) -->
+This game is designed for laptop and desktop use and is not optimized for phones or tablets. For the best experience, we recommend playing with a mouse.
+
+### Demo Video
+- TODO: Short demo video to illustrate the interface and usage. MAX 5MIN !!!
+- TODO: demonstrate how users interact with the tool and provide clear instructions to make the tool easy to understand. 
+
+## Resource Page
+<!-- Information about Resources: Materials that allow learners/teachers to reuse the tools. Or others to build on your tool -->
+
+TODO
+
+### Source code repo link
+<!-- repository link containing the source code of your website -->
+The source code of the website and the game can be found [here](https://github.com/krishna3960/EducationTechnology)
+
+### Practical usage
+<!-- - E.g. Lesson Plan
+    - In what setting can this tool be used (e.g., classroom, workshop)?
+    -  How can a session be structured? Describe the timing and flow of the activity.
+-  E.g. Worksheets
+    - What tasks should students complete?
+    - Materials or prompts that guide student activities.
+- E.g. Facilitation Guide
+    - How should instructors or facilitators guide the session? E.g., suggestions for leading discussions, possible student responses, and common questions.
+- E.g. Setup
+    - How should the tool be set up and run? Describe how students and teachers access the tool, what actions to take, and what devices or requirements are needed. -->
+
+TODO
+
+
+## FAQ Page
+<!-- - to include details of the above information that could not fit into the AboutPage -->
+<!-- - NOT a guide how to use your tool -->
+
+Where does the facts from the classroom scene come from? (TODO: add link to paper here)
+
+Where does the facts from the end stats come from? (TODO: add link to paper here)
+
+<!-- Write me, **write meeeee** -->
