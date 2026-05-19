@@ -96,8 +96,8 @@ func show_dialogue(portrait: Texture2D, speaker: String, text: String, opts: Dia
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	_enter_tween.tween_property(_bubble, "modulate:a", 1.0, _ENTER_DURATION)
 	_active = true
-	_typing = false
-	_auto_close = false
+	_typing = true
+	_auto_close = opts.auto_close
 
 	_ts_started = Time.get_unix_time_from_system()
 	_ts_skipped = null
@@ -124,9 +124,9 @@ func show_dialogue(portrait: Texture2D, speaker: String, text: String, opts: Dia
 	await get_tree().create_timer(_ENTER_DURATION + _POST_ENTRANCE_DELAY).timeout
 	if not _active:
 		return
+	if not _typing:
+		return
 
-	_typing = true
-	_auto_close = opts.auto_close
 	var duration: float = float(text.length()) / maxf(opts.chars_per_sec, 1.0)
 	_tween = create_tween()
 	_tween.tween_method(_on_typewriter_progress, 0.0, 1.0, duration)

@@ -2,7 +2,7 @@ extends Stage
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
 @export var _SPEAKER: String = "Prompto"
-@export var _INTRO_TEXT: String = "We need to start by buying some land for the datacenter. Where should we build it?"
+@export var _INTRO_TEXT: String = "This is our datacenter today. It won't keep up much longer, we need to expand! The first call is yours: show me where to build!"
 
 const _CHOICES: Dictionary = {
 	GameState.LandLocation.FIRST: {
@@ -43,11 +43,14 @@ var _ts_started: float = 0.0
 
 
 const _DATACENTER_CELL: Vector2i = Vector2i(3, 0)
+const _BRIDGE_CAMERA_ZOOM: Vector2 = Vector2(0.48, 0.48)
+const _OVERVIEW_CAMERA_ZOOM: Vector2 = Vector2(0.40, 0.40)
+const _CAM_PAN_DURATION: float = 1.0
 
 
 func _stage_start() -> void:
 	_ts_started = Time.get_unix_time_from_system()
-
+	_pan_camera_to_cell(_DATACENTER_CELL, _BRIDGE_CAMERA_ZOOM)
 	Dialogue.on_typewriter_done.connect(_show_choices, CONNECT_ONE_SHOT)
 	var opts := DialogueOptions.new()
 	opts.dim = false
@@ -55,10 +58,22 @@ func _stage_start() -> void:
 	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _INTRO_TEXT, opts)
 
 
+func _pan_camera_to_cell(cell: Vector2i, target_zoom: Vector2, duration: float = _CAM_PAN_DURATION) -> void:
+	var camera := get_viewport().get_camera_2d()
+	if camera == null or MapLayer.main == null:
+		return
+	var target_pos: Vector2 = MapLayer.main.map_to_local(cell)
+	var t := create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	t.tween_property(camera, "position", target_pos, duration)
+	t.tween_property(camera, "zoom", target_zoom, duration)
+
+
 func _show_choices() -> void:
 	var tilemap := MapLayer.main
 	if tilemap == null:
 		return
+
+	_pan_camera_to_cell(_DATACENTER_CELL, _OVERVIEW_CAMERA_ZOOM)
 
 	_ui_canvas = CanvasLayer.new()
 	_ui_canvas.layer = RenderLayers.STAGE_CHOICE

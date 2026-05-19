@@ -2,15 +2,14 @@ extends Stage
 
 @export var speed: float = 0.06
 @export var _SPEAKER: String = "Prompto"
-var full_text_1: String =  "Welcome to “VibeX”. You are the CEO of the AI datacenter company VibeX, responsible for managing infrastructure, expanding operations, and making critical business decisions. Your choices will shape the future of AI services across the region. \n\n Click Next to start"
+@export var full_text_1: String =  "Welcome to “VibeX”. You are the CEO of the AI datacenter company VibeX, responsible for managing infrastructure, expanding operations, and making critical business decisions. Your choices will shape the future of AI services across the region. \n\n Click Next to start"
 const _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
-const _INTRO_TEXT: String =  "Hello! My name is Prompto, and I’ll be your assistant throughout the game. Before we begin, let me show you the region."
-var _text_show_pontia: String = "In the top left is the village of Pontia."
-var _text_show_petalia: String = "In the top center you'll find Petalia."
-var _text_show_fontania: String = "And on the bottom right is Fontania."
-var _text_show_datacenter: String = "Your AI datacenter is located in the center. Any buildings, infrastructure, or assets you own will be highlighted in your company's colors."
-var _text_observation_demand_increase: String = "I monitor AI demand across the region. Recently, I detected a dramatic increase in requests coming from all three villages. Our current infrastructure can no longer keep up with demand. If we do nothing, requests will fail."
-var _text_start_stage_1: String = "To secure the future of VibeX, we’ll need to expand the datacenter and carefully manage our resources. The decisions won’t be easy. Are you ready to take on the challenge?"
+@export var _INTRO_TEXT: String =  "Hello! My name is Prompto, and I’ll be your assistant throughout the game. Before we begin, let me show you the region."
+@export var _text_show_pontia: String = "In the top left is the village of Pontia."
+@export var _text_show_petalia: String = "In the top center you'll find Petalia."
+@export var _text_show_fontania: String = "And on the bottom right is Fontania."
+@export var _text_show_datacenter: String = "Your AI datacenter is located in the center. Any buildings, infrastructure, or assets you own will be highlighted in your company's colors."
+@export var _text_observation_demand_increase: String = "I monitor AI demand across the region. Recently, I detected a dramatic increase in requests coming from all three villages. Our current infrastructure can no longer keep up with demand. If we do nothing, requests will fail."
 
 var can_continue := false
 
@@ -92,10 +91,7 @@ func start_conversation():
 	await _pan_then_show(_FONTANIA_CELL, _CAM_REGION_ZOOM, _text_show_fontania)
 	await _pan_then_show(MapLayer.DEFAULT_CAMERA_CELL, _CAM_REGION_ZOOM, _text_show_datacenter)
 	await _pan_then_show(_OVERVIEW_CELL, _CAM_OVERVIEW_ZOOM, _text_observation_demand_increase)
-	await _show_dialogue_step(_text_start_stage_1)
-
-	get_node("UILayer/StartButtonHolder").show()
-	get_node("UILayer/StartButtonHolder/Button_to_stage_1").show()
+	finished.emit()
 
 func _start_scene_1():
 	finished.emit()
