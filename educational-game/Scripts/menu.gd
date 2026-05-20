@@ -26,10 +26,10 @@ func _on_play_pressed() -> void:
 	var ui_tween := create_tween()
 	ui_tween.tween_property(ui, "modulate:a", 0.0, _UI_FADE_DURATION)
 	await ui_tween.finished
-	await get_tree().create_timer(_TINT_FADE_DELAY).timeout
-	var tint_tween := create_tween()
-	tint_tween.tween_property(tint, "color:a", 0.0, _TINT_FADE_DURATION)
-	await tint_tween.finished
+	#await get_tree().create_timer(_TINT_FADE_DELAY).timeout
+	#var tint_tween := create_tween()
+	#tint_tween.tween_property(tint, "color:a", 0.0, _TINT_FADE_DURATION)
+	#await tint_tween.finished
 	_start_game()
 
 
