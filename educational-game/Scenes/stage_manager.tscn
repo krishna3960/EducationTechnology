@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bstgmgr00001"]
+
+[ext_resource type="Script" uid="uid://bajygpwkaiy0a" path="res://Scripts/managers/stage_manager.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://bfloo87wqlsxl" path="res://Scenes/Stages/1_land_choice_stage.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bfeifdovbrou3" path="res://Scenes/Stages/01_intro_stage.tscn" id="2_yfyfq"]
+[ext_resource type="PackedScene" uid="uid://gc6o6egtrg4x" path="res://Scenes/Stages/02_shop_stage.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://byknwb42a7u4c" path="res://Scenes/Stages/03_energy_scene.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://cv2rmvjykploa" path="res://Scenes/Stages/04_classroom_tscn.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://Scenes/Stages/4_stage.tscn" id="6"]
+
+[node name="StageManager" type="Node" unique_id=830780553]
+script = ExtResource("1")
+stages = Array[PackedScene]([ExtResource("2_yfyfq"), ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

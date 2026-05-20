@@ -5,9 +5,28 @@ extends Stage
 @export var _INTRO_TEXT: String = "Ah thats a shame about the news....but your new hardware looks so good! Now we just need to power them up with electrcity. Where do you want to get electricity from?"
 
 const _EXPANSION_TILE: String = "res://Assets/tiles/tiles_tree_grass_sheeps/tiles_grass_v6.png"
-const _FACTORY_TILE: String = "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6-lights-off.png"
-const _FACTORY_LIT_TILE: String = "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6.png"
 const _ELECTRIC_POLE_TILE: String = "res://Assets/tiles/tile_electric_pole_aiCenter.png"
+
+const _FACTORY_VARIANTS: Array = [
+	{
+		"unlit": "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6-lights-off.png",
+		"lit": "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v6.png",
+	},
+	{
+		"unlit": "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v8-lights-off.png",
+		"lit": "res://Assets/tiles/tiles-aiCenter/tile-aiCenter-expansion-v8.png",
+	},
+]
+const _LIT_MAX_DELAY: float = 1.5
+const _POST_LIT_DELAY: float = 1.5
+
+# Village prefixes that change variant when electricity is chosen
+const _VILLAGE_LIGHTS: Dictionary = {
+	"far": ["village-pontia-"],
+	"close": ["village-petalia-", "village-fontania-"],
+}
+const _FACTORY_BUILD_MAX_DELAY: float = 1.5
+const _POST_FACTORY_BUILD_DELAY: float = 1.0
 
 const _CHOICES: Dictionary = {
 	GameState.LandLocation.FIRST: {
@@ -48,28 +67,40 @@ var _ui_canvas: CanvasLayer
 var _current_choice_index: int = 0
 var _choose_btn: Button = null
 var _ts_started: float = 0.0
+var _cell_variants: Dictionary = {}
+
+## Camera target used when the electricity choice buttons appear.
+const _CHOICE_CAMERA_POS: Vector2 = Vector2(599.8859, 849.972)
+const _CHOICE_CAMERA_ZOOM: Vector2 = Vector2(0.402628, 0.402628)
+const _CAMERA_TRANSITION_DURATION: float = 1.0
 
 func _stage_start() -> void:
 	_ts_started = Time.get_unix_time_from_system()
 	var chosen = _CHOICES[GameState.land_location]
+	# Animate the factory being built, picking a random variant per cell.
+	_cell_variants.clear()
 	for cell in chosen["cells"]:
-		MapLayer.main.set_cell_by_texture(cell, _EXPANSION_TILE)
-	for cell in chosen["factory"]:
-		MapLayer.main.set_cell_by_texture(cell, _FACTORY_TILE)
+		var variant_idx: int = randi() % _FACTORY_VARIANTS.size()
+		_cell_variants[cell] = variant_idx
+		var unlit_path: String = _FACTORY_VARIANTS[variant_idx]["unlit"]
+		var delay: float = randf() * _FACTORY_BUILD_MAX_DELAY
+		get_tree().create_timer(delay).timeout.connect(
+			MapLayer.main.set_cell_by_texture.bind(cell, unlit_path), CONNECT_ONE_SHOT)
 
-	var camera := get_viewport().get_camera_2d()
-	if MapLayer.main and camera:
-		camera.zoom = Vector2(0.2, 0.2)
-		var centroid := Vector2.ZERO
-		for cell in chosen["factory"]:
-			centroid += MapLayer.main.map_to_local(cell)
-		if chosen["factory"].size() > 0:
-			centroid /= float(chosen["factory"].size())
-		camera.position = centroid
-		camera.reset_smoothing()
+	await get_tree().create_timer(_FACTORY_BUILD_MAX_DELAY + _POST_FACTORY_BUILD_DELAY).timeout
 
 	Newspaper.on_close.connect(_show_intro_dialogue, CONNECT_ONE_SHOT)
 	Newspaper.show_article(Newspaper.Article.PRICES_LAPTOPS)
+
+
+## Glides camera to show the electricity position choices
+func _frame_electricity_view() -> void:
+	var camera := get_viewport().get_camera_2d()
+	if camera == null:
+		return
+	var t := create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	t.tween_property(camera, "position", _CHOICE_CAMERA_POS, _CAMERA_TRANSITION_DURATION)
+	t.tween_property(camera, "zoom", _CHOICE_CAMERA_ZOOM, _CAMERA_TRANSITION_DURATION)
 
 
 func _show_intro_dialogue() -> void:
@@ -83,6 +114,8 @@ func _show_choices() -> void:
 	var tilemap := MapLayer.main
 	if tilemap == null:
 		return
+
+	_frame_electricity_view()
 
 	_ui_canvas = CanvasLayer.new()
 	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
@@ -117,7 +150,7 @@ func _show_choices() -> void:
 	var prev_btn := Button.new()
 	prev_btn.text = "◀"
 	prev_btn.custom_minimum_size = Vector2(80, 56)
-	_style_button(prev_btn, Color(1, 1, 1, 0.25))
+	Stage.style_choice_button(prev_btn, Color(1, 1, 1, 0.25))
 	row.add_child(prev_btn)
 	prev_btn.pressed.connect(func(): _cycle_choice(-1))
 
@@ -129,37 +162,14 @@ func _show_choices() -> void:
 	var next_btn := Button.new()
 	next_btn.text = "▶"
 	next_btn.custom_minimum_size = Vector2(80, 56)
-	_style_button(next_btn, Color(1, 1, 1, 0.25))
+	Stage.style_choice_button(next_btn, Color(1, 1, 1, 0.25))
 	row.add_child(next_btn)
 	next_btn.pressed.connect(func(): _cycle_choice(1))
 
 	_current_choice_index = 0
 	_show_only(_ELECTRICITY_CHOICES.keys()[_current_choice_index])
-
-
-func _style_button(btn: Button, accent: Color) -> void:
-	var make_sb := func(bg: Color, border: Color) -> StyleBoxFlat:
-		var sb := StyleBoxFlat.new()
-		sb.bg_color = bg
-		sb.set_corner_radius_all(8)
-		sb.set_border_width_all(4)
-		sb.border_color = border
-		sb.content_margin_left = 14
-		sb.content_margin_right = 14
-		sb.content_margin_top = 6
-		sb.content_margin_bottom = 6
-		return sb
-	var bg := Color(0.08, 0.10, 0.15, 0.92)
-	var bg_hover := Color(0.14, 0.17, 0.24, 0.95)
-	var bg_pressed := Color(0.05, 0.06, 0.10, 0.95)
-	btn.add_theme_stylebox_override("normal", make_sb.call(bg, accent))
-	btn.add_theme_stylebox_override("hover", make_sb.call(bg_hover, Color(accent.r, accent.g, accent.b, min(accent.a + 0.4, 1.0))))
-	btn.add_theme_stylebox_override("pressed", make_sb.call(bg_pressed, accent))
-	btn.add_theme_stylebox_override("focus", make_sb.call(bg, accent))
-	btn.add_theme_color_override("font_color", Color(0.96, 0.96, 0.96))
-	btn.add_theme_color_override("font_hover_color", Color.WHITE)
-	btn.add_theme_color_override("font_pressed_color", Color(0.85, 0.85, 0.85))
-	btn.add_theme_font_size_override("font_size", 22)
+	Stage.fade_in_choice_buttons([prev_btn, _choose_btn, next_btn])
+	Stage.pulse_choice_buttons([prev_btn, next_btn, _choose_btn])
 
 
 func _cycle_choice(delta: int) -> void:
@@ -175,7 +185,7 @@ func _show_only(active_key) -> void:
 	var tint: Color = _ELECTRICITY_CHOICES[active_key]["tint"]
 	var accent := Color(tint.r, tint.g, tint.b, 1.0)
 	_choose_btn.text = "Choose %s" % _ELECTRICITY_CHOICES[active_key]["label"]
-	_style_button(_choose_btn, accent)
+	Stage.style_choice_button(_choose_btn, accent)
 
 func _on_choice(key: String) -> void:
 	GameState.electricity_choice = key
@@ -197,6 +207,20 @@ func _on_choice(key: String) -> void:
 
 	await get_tree().create_timer(1.0).timeout
 
+	var chosen = _CHOICES[GameState.land_location]
+	for cell in chosen["cells"]:
+		# Light up the same variant that was placed during construction.
+		var variant_idx: int = _cell_variants.get(cell, 0)
+		var lit_path: String = _FACTORY_VARIANTS[variant_idx]["lit"]
+		var delay: float = randf() * _LIT_MAX_DELAY
+		get_tree().create_timer(delay).timeout.connect(
+			MapLayer.main.set_cell_by_texture.bind(cell, lit_path), CONNECT_ONE_SHOT)
+
+	# Swap village lights based on electricity choice
+	_swap_village_lights(key)
+
+	await get_tree().create_timer(_LIT_MAX_DELAY + _POST_LIT_DELAY).timeout
+
 	var article: int = Newspaper.Article.FARMLAND
 	match key:
 		"far":
@@ -205,10 +229,6 @@ func _on_choice(key: String) -> void:
 			article = Newspaper.Article.WINTER
 
 	Newspaper.on_close.connect(func():
-		var chosen = _CHOICES[GameState.land_location]
-		for cell in chosen["factory"]:
-			MapLayer.main.set_cell_by_texture(cell, _FACTORY_LIT_TILE)
-
 		await get_tree().create_timer(1.0).timeout
 		_show_prompt_dialogue()
 	, CONNECT_ONE_SHOT)
@@ -271,6 +291,32 @@ func _clear_clumps() -> void:
 			if is_instance_valid(p):
 				p.queue_free()
 	_clump_polygons.clear()
+
+func _swap_village_lights(key: String) -> void:
+	var prefixes: Array = _VILLAGE_LIGHTS.get(key, [])
+	if prefixes.is_empty():
+		return
+	var tilemap := MapLayer.main
+	if tilemap == null:
+		return
+	for cell in tilemap.get_used_cells():
+		var src_id := tilemap.get_cell_source_id(cell)
+		if src_id == -1:
+			continue
+		var atlas := tilemap.tile_set.get_source(src_id) as TileSetAtlasSource
+		if atlas == null or atlas.texture == null:
+			continue
+		var file_name: String = atlas.texture.resource_path.get_file()
+		for prefix in prefixes:
+			if file_name.begins_with(prefix):
+				# Swap variant 0 -> 1: e.g. village-petalia-house-2-0- -> village-petalia-house-2-1-
+				var new_name: String = file_name.replace("-0-400x484", "-1-400x484")
+				if new_name != file_name:
+					var new_path: String = atlas.texture.resource_path.get_base_dir() + "/" + new_name
+					var delay: float = randf() * _LIT_MAX_DELAY
+					get_tree().create_timer(delay).timeout.connect(
+						tilemap.set_cell_by_texture.bind(cell, new_path), CONNECT_ONE_SHOT)
+				break
 
 func _stage_end() -> void:
 	_clear_clumps()

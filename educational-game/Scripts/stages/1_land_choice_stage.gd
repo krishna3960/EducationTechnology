@@ -2,11 +2,11 @@ extends Stage
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
 @export var _SPEAKER: String = "Prompto"
-@export var _INTRO_TEXT: String = "We need to start by buying some land for the datacenter. Where should we build it?"
+@export var _INTRO_TEXT: String = "This is our datacenter today. It won't keep up much longer, we need to expand! The first call is yours: show me where to build!"
 
 const _CHOICES: Dictionary = {
 	GameState.LandLocation.FIRST: {
-		"tint": Color(0.0, 1.0, 0.0, 0.518),
+		"tint": Color(0.082, 0.284, 0.0, 0.71),
 		"cells": [Vector2i(3, 2), Vector2i(2, 0), Vector2i(4, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 2), Vector2i(1, 1), Vector2i(2, 2), Vector2i(3, 3), Vector2i(2, 4), Vector2i(2, 3), Vector2i(1, 4), Vector2i(0, 4), Vector2i(0, 3), Vector2i(0, 2), Vector2i(0, 1), Vector2i(1, 2), Vector2i(1, 3)],
 		"signs": [Vector2i(4,1)],
 	},
@@ -43,15 +43,14 @@ var _ts_started: float = 0.0
 
 
 const _DATACENTER_CELL: Vector2i = Vector2i(3, 0)
+const _BRIDGE_CAMERA_ZOOM: Vector2 = Vector2(0.48, 0.48)
+const _OVERVIEW_CAMERA_ZOOM: Vector2 = Vector2(0.40, 0.40)
+const _CAM_PAN_DURATION: float = 1.0
 
 
 func _stage_start() -> void:
 	_ts_started = Time.get_unix_time_from_system()
-	var camera := get_viewport().get_camera_2d()
-	if MapLayer.main and camera:
-		camera.position = MapLayer.main.map_to_local(_DATACENTER_CELL)
-		camera.reset_smoothing()
-
+	_pan_camera_to_cell(_DATACENTER_CELL, _BRIDGE_CAMERA_ZOOM)
 	Dialogue.on_typewriter_done.connect(_show_choices, CONNECT_ONE_SHOT)
 	var opts := DialogueOptions.new()
 	opts.dim = false
@@ -59,10 +58,22 @@ func _stage_start() -> void:
 	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _INTRO_TEXT, opts)
 
 
+func _pan_camera_to_cell(cell: Vector2i, target_zoom: Vector2, duration: float = _CAM_PAN_DURATION) -> void:
+	var camera := get_viewport().get_camera_2d()
+	if camera == null or MapLayer.main == null:
+		return
+	var target_pos: Vector2 = MapLayer.main.map_to_local(cell)
+	var t := create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	t.tween_property(camera, "position", target_pos, duration)
+	t.tween_property(camera, "zoom", target_zoom, duration)
+
+
 func _show_choices() -> void:
 	var tilemap := MapLayer.main
 	if tilemap == null:
 		return
+
+	_pan_camera_to_cell(_DATACENTER_CELL, _OVERVIEW_CAMERA_ZOOM)
 
 	_ui_canvas = CanvasLayer.new()
 	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
@@ -97,7 +108,7 @@ func _show_choices() -> void:
 	var prev_btn := Button.new()
 	prev_btn.text = "◀"
 	prev_btn.custom_minimum_size = Vector2(80, 56)
-	_style_button(prev_btn, Color(1, 1, 1, 0.25))
+	Stage.style_choice_button(prev_btn, Color(1, 1, 1, 0.25))
 	row.add_child(prev_btn)
 	prev_btn.pressed.connect(func(): _cycle_choice(-1))
 
@@ -109,37 +120,14 @@ func _show_choices() -> void:
 	var next_btn := Button.new()
 	next_btn.text = "▶"
 	next_btn.custom_minimum_size = Vector2(80, 56)
-	_style_button(next_btn, Color(1, 1, 1, 0.25))
+	Stage.style_choice_button(next_btn, Color(1, 1, 1, 0.25))
 	row.add_child(next_btn)
 	next_btn.pressed.connect(func(): _cycle_choice(1))
 
 	_current_choice_index = 0
 	_show_only(_CHOICES.keys()[_current_choice_index])
-
-
-func _style_button(btn: Button, accent: Color) -> void:
-	var make_sb := func(bg: Color, border: Color) -> StyleBoxFlat:
-		var sb := StyleBoxFlat.new()
-		sb.bg_color = bg
-		sb.set_corner_radius_all(8)
-		sb.set_border_width_all(4)
-		sb.border_color = border
-		sb.content_margin_left = 14
-		sb.content_margin_right = 14
-		sb.content_margin_top = 6
-		sb.content_margin_bottom = 6
-		return sb
-	var bg := Color(0.08, 0.10, 0.15, 0.92)
-	var bg_hover := Color(0.14, 0.17, 0.24, 0.95)
-	var bg_pressed := Color(0.05, 0.06, 0.10, 0.95)
-	btn.add_theme_stylebox_override("normal", make_sb.call(bg, accent))
-	btn.add_theme_stylebox_override("hover", make_sb.call(bg_hover, Color(accent.r, accent.g, accent.b, min(accent.a + 0.4, 1.0))))
-	btn.add_theme_stylebox_override("pressed", make_sb.call(bg_pressed, accent))
-	btn.add_theme_stylebox_override("focus", make_sb.call(bg, accent))
-	btn.add_theme_color_override("font_color", Color(0.96, 0.96, 0.96))
-	btn.add_theme_color_override("font_hover_color", Color.WHITE)
-	btn.add_theme_color_override("font_pressed_color", Color(0.85, 0.85, 0.85))
-	btn.add_theme_font_size_override("font_size", 22)
+	Stage.fade_in_choice_buttons([prev_btn, _choose_btn, next_btn])
+	Stage.pulse_choice_buttons([prev_btn, next_btn, _choose_btn])
 
 
 func _cycle_choice(delta: int) -> void:
@@ -156,7 +144,7 @@ func _show_only(active_value) -> void:
 	# Use tint as accent border (saturated, opaque), not as text color.
 	var accent := Color(tint.r, tint.g, tint.b, 1.0)
 	_choose_btn.text = "Choose %s" % GameState.LandLocation.keys()[active_value]
-	_style_button(_choose_btn, accent)
+	Stage.style_choice_button(_choose_btn, accent)
 
 
 func _on_choice(value: GameState.LandLocation) -> void:
@@ -238,24 +226,32 @@ func _show_continue_button() -> void:
 	row.offset_right = -24
 	row.offset_top = -300
 	row.offset_bottom = -220
-	row.alignment = BoxContainer.ALIGNMENT_BEGIN
+	row.alignment = BoxContainer.ALIGNMENT_END
 	row.add_theme_constant_override("separation", 24)
 	_ui_canvas.add_child(row)
 
 	var btn := Button.new()
-	btn.text = "To the Hardware Shop!"
-	btn.custom_minimum_size = Vector2(250, 56)
+	btn.text = "Go to the Hardware Shop  →"
+	btn.custom_minimum_size = Vector2(360, 64)
+	Stage.style_choice_button(btn, Color(1.0, 0.7, 0.2, 1.0))
 	row.add_child(btn)
 
+	Stage.pulse_choice_buttons([btn])
+	var pulse_timer := Timer.new()
+	pulse_timer.wait_time = 3.0
+	pulse_timer.autostart = true
+	pulse_timer.timeout.connect(func(): Stage.pulse_choice_buttons([btn]))
+	btn.add_child(pulse_timer)
+
 	btn.pressed.connect(func():
+		btn.disabled = true
+		pulse_timer.stop()
+		var fade := btn.create_tween()
+		fade.tween_property(btn, "modulate:a", 0.0, 0.35)
+		await fade.finished
+		Dialogue.dismiss()
 		finished.emit()
 		btn.queue_free()
-		Dialogue.dismiss()
-		var lbl := Label.new()
-		lbl.text = "Click on map to continue"
-		lbl.custom_minimum_size = Vector2(500, 250)
-		lbl.add_theme_color_override("font_color", Color(1.0, 0.0, 0.0, 1.0))
-		row.add_child(lbl)
 	)
 
 func _fade_clump(polys: Array, target_alpha: float) -> void:

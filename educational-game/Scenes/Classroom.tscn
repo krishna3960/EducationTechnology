@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://bll7htfgsvu6x"]
 
 [ext_resource type="Script" uid="uid://c2xcrr3yiapnc" path="res://Scripts/classroom.gd" id="1_jjrax"]
-[ext_resource type="Texture2D" uid="uid://b0vi2f0ab62ab" path="res://Assets/scene_png/Classroom_v1.png" id="2_2b2wp"]
+[ext_resource type="Texture2D" uid="uid://conncmesu4vnp" path="res://Assets/scene_png/classroom_background.png" id="2_2b2wp"]
 [ext_resource type="Texture2D" uid="uid://cayk3osc0j0f2" path="res://Assets/speech_bubble_v0.png" id="3_285xf"]
+[ext_resource type="Texture2D" uid="uid://855tvicjhbnb" path="res://Assets/scene_png/teacher_crop.png" id="4_teach"]
+[ext_resource type="Texture2D" uid="uid://b3btx16ebprf5" path="res://Assets/scene_png/student_1_crop.png" id="5_s1"]
+[ext_resource type="Texture2D" uid="uid://cnempi5w58fud" path="res://Assets/scene_png/student_2_crop.png" id="6_s2"]
+[ext_resource type="Texture2D" uid="uid://tvn2rjhwtwue" path="res://Assets/scene_png/student_3_crop.png" id="7_s3"]
+[ext_resource type="Texture2D" uid="uid://cfl6psmwypnlq" path="res://Assets/scene_png/student_4_crop.png" id="8_s4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jjrax"]
 
@@ -77,8 +82,17 @@
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1243070111]
 script = ExtResource("1_jjrax")
 
+[node name="Background" type="ColorRect" parent="." unique_id=1243070113]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [node name="ClassroomV1" type="Sprite2D" parent="." unique_id=1224570099]
-position = Vector2(964, 533)
+position = Vector2(958, 540)
 scale = Vector2(0.99791664, 1)
 texture = ExtResource("2_2b2wp")
 
@@ -95,14 +109,39 @@ offset_bottom = -831.99994
 color = Color(0.03529412, 0.25490198, 0.12156863, 1)
 metadata/_edit_use_anchors_ = true
 
+[node name="Teacher" type="Sprite2D" parent="." unique_id=1224570100]
+z_index = 1
+position = Vector2(400.99997, 1079.598)
+scale = Vector2(0.78834075, 0.78834075)
+texture = ExtResource("4_teach")
+centered = false
+offset = Vector2(-498, -892)
+
+[node name="Student1" type="Sprite2D" parent="." unique_id=1224570101]
+z_index = 1
+position = Vector2(849, 946)
+texture = ExtResource("5_s1")
+
+[node name="Student2" type="Sprite2D" parent="." unique_id=1224570102]
+z_index = 1
+position = Vector2(1139, 922)
+texture = ExtResource("6_s2")
+
+[node name="Student3" type="Sprite2D" parent="." unique_id=1224570103]
+z_index = 1
+position = Vector2(1446, 950)
+texture = ExtResource("7_s3")
+
+[node name="Student4" type="Sprite2D" parent="." unique_id=1224570104]
+z_index = 1
+position = Vector2(1749, 928)
+texture = ExtResource("8_s4")
+
 [node name="Sub-scene1" type="Node" parent="." unique_id=1264604971]
 
-[node name="Speechbubble" type="Sprite2D" parent="Sub-scene1" unique_id=1908926924]
-position = Vector2(1581, 678.99994)
-scale = Vector2(0.39791667, 0.46458334)
-texture = ExtResource("3_285xf")
+[node name="Node2D2" type="Node2D" parent="Sub-scene1" unique_id=154285817]
 
-[node name="Label" type="Label" parent="Sub-scene1" unique_id=790963778]
+[node name="Label" type="Label" parent="Sub-scene1/Node2D2" unique_id=790963778]
 offset_left = 739.0
 offset_top = 179.0
 offset_right = 1731.0
@@ -113,7 +152,15 @@ text = "Welcome to Mrs. Susan's lecture on using AI sustainably!
 Are you excited?"
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="Sub-scene1" unique_id=1341746185]
+[node name="Option" type="Node2D" parent="Sub-scene1/Node2D2" unique_id=146306218]
+position = Vector2(39, -58)
+
+[node name="Speechbubble" type="Sprite2D" parent="Sub-scene1/Node2D2/Option" unique_id=1908926924]
+position = Vector2(1581, 678.99994)
+scale = Vector2(0.39791667, 0.46458334)
+texture = ExtResource("3_285xf")
+
+[node name="Button" type="Button" parent="Sub-scene1/Node2D2/Option" unique_id=1341746185]
 offset_left = 1382.0
 offset_top = 497.0
 offset_right = 1777.0
@@ -128,13 +175,17 @@ text = "Yes!"
 
 [node name="Sub-scene2" type="Node" parent="." unique_id=1208461160]
 
-[node name="Speechbubble" type="Sprite2D" parent="Sub-scene2" unique_id=713911064]
+[node name="Node2D" type="Node2D" parent="Sub-scene2" unique_id=1052243979]
+
+[node name="Bubble" type="Node2D" parent="Sub-scene2/Node2D" unique_id=1208461161]
+
+[node name="Speechbubble" type="Sprite2D" parent="Sub-scene2/Node2D/Bubble" unique_id=713911064]
 position = Vector2(877.49994, 713.5)
 scale = Vector2(0.39253184, 0.41311854)
 texture = ExtResource("3_285xf")
 flip_h = true
 
-[node name="Label" type="Label" parent="Sub-scene2" unique_id=1872792843]
+[node name="Label" type="Label" parent="Sub-scene2/Node2D/Bubble" unique_id=1872792843]
 offset_left = 724.0
 offset_top = 102.0
 offset_right = 1752.0
@@ -147,7 +198,7 @@ So please be mindful of what you ask.
 Let’s work through some examples together!"
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="Sub-scene2" unique_id=1260750910]
+[node name="Button" type="Button" parent="Sub-scene2/Node2D" unique_id=1260750910]
 offset_left = 686.0
 offset_top = 545.0
 offset_right = 1073.0
@@ -162,7 +213,9 @@ text = "I am ready"
 
 [node name="Sub-scene3" type="Node" parent="." unique_id=1412052143]
 
-[node name="Label" type="Label" parent="Sub-scene3" unique_id=1630217145]
+[node name="Node2D3" type="Node2D" parent="Sub-scene3" unique_id=1363928626]
+
+[node name="Label" type="Label" parent="Sub-scene3/Node2D3" unique_id=1630217145]
 offset_left = 724.0
 offset_top = 102.0
 offset_right = 1716.0
@@ -172,13 +225,26 @@ text = "You need to summarize a 3-page document. What's the most energy-consciou
 "
 autowrap_mode = 2
 
-[node name="Speechbubble" type="Sprite2D" parent="Sub-scene3" unique_id=1160017875]
+[node name="Wrong" type="Label" parent="Sub-scene3/Node2D3" unique_id=1721362001]
+offset_left = 718.0
+offset_top = 145.0
+offset_right = 1710.0
+offset_bottom = 359.0
+theme_override_colors/font_color = Color(0.9601241, 0.49037087, 0.47765654, 1)
+theme_override_font_sizes/font_size = 47
+text = "Not exactly"
+autowrap_mode = 2
+
+[node name="Node2D3" type="Node2D" parent="Sub-scene3/Node2D3" unique_id=894879356]
+position = Vector2(21, -19)
+
+[node name="Speechbubble" type="Sprite2D" parent="Sub-scene3/Node2D3/Node2D3" unique_id=1160017875]
 position = Vector2(868.5, 655)
 scale = Vector2(0.41985422, 0.55235904)
 texture = ExtResource("3_285xf")
 flip_h = true
 
-[node name="Button2" type="Button" parent="Sub-scene3" unique_id=1369264617]
+[node name="Button2" type="Button" parent="Sub-scene3/Node2D3/Node2D3" unique_id=1369264617]
 offset_left = 661.0
 offset_top = 439.0
 offset_right = 1077.0
@@ -192,12 +258,15 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_cp7ml")
 text = "Ask AI to summarize everything."
 autowrap_mode = 2
 
-[node name="Speechbubble2" type="Sprite2D" parent="Sub-scene3" unique_id=148331147]
+[node name="Node2D2" type="Node2D" parent="Sub-scene3/Node2D3" unique_id=462292778]
+position = Vector2(70, -47)
+
+[node name="Speechbubble2" type="Sprite2D" parent="Sub-scene3/Node2D3/Node2D2" unique_id=148331147]
 position = Vector2(1583.5, 653)
 scale = Vector2(0.41438985, 0.56156504)
 texture = ExtResource("3_285xf")
 
-[node name="Button" type="Button" parent="Sub-scene3" unique_id=683791412]
+[node name="Button" type="Button" parent="Sub-scene3/Node2D3/Node2D2" unique_id=683791412]
 offset_left = 1375.0
 offset_top = 434.0
 offset_right = 1794.0
@@ -211,17 +280,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ru2x7")
 text = "Read first. Pick 2–3 key points. Ask one clear question."
 autowrap_mode = 2
 
-[node name="Wrong" type="Label" parent="Sub-scene3" unique_id=1721362001]
-offset_left = 718.0
-offset_top = 145.0
-offset_right = 1710.0
-offset_bottom = 359.0
-theme_override_colors/font_color = Color(0.9601241, 0.49037087, 0.47765654, 1)
-theme_override_font_sizes/font_size = 47
-text = "Not exactly"
-autowrap_mode = 2
-
-[node name="Correct" type="Label" parent="Sub-scene3" unique_id=1571431702]
+[node name="Correct" type="Label" parent="Sub-scene3/Node2D3" unique_id=1571431702]
 offset_left = 719.0
 offset_top = 147.0
 offset_right = 1711.0
@@ -231,23 +290,26 @@ theme_override_font_sizes/font_size = 47
 text = "Correct"
 autowrap_mode = 2
 
-[node name="Lesson" type="Label" parent="Sub-scene3" unique_id=1384944592]
+[node name="Lesson" type="Label" parent="Sub-scene3/Node2D3" unique_id=1384944592]
 offset_left = 720.0
 offset_top = 248.0
 offset_right = 1712.0
-offset_bottom = 517.0
+offset_bottom = 585.0
 theme_override_font_sizes/font_size = 47
 text = "When using AI, think first and ask after :)
 
 Just one AI prompt can use enough electricity to power an LED bulb for 2 minutes"
 autowrap_mode = 2
 
-[node name="Speechbubble3" type="Sprite2D" parent="Sub-scene3" unique_id=1298233512]
+[node name="Node2D" type="Node2D" parent="Sub-scene3/Node2D3" unique_id=24146952]
+position = Vector2(73, -14)
+
+[node name="Speechbubble3" type="Sprite2D" parent="Sub-scene3/Node2D3/Node2D" unique_id=1298233512]
 position = Vector2(1573, 715)
 scale = Vector2(0.35924974, 0.39815885)
 texture = ExtResource("3_285xf")
 
-[node name="Button3" type="Button" parent="Sub-scene3" unique_id=1213306482]
+[node name="Button3" type="Button" parent="Sub-scene3/Node2D3/Node2D" unique_id=1213306482]
 offset_left = 1385.0
 offset_top = 556.0
 offset_right = 1756.0
@@ -262,7 +324,9 @@ text = "Understood!"
 
 [node name="Sub-scene4" type="Node" parent="." unique_id=1380066738]
 
-[node name="Label" type="Label" parent="Sub-scene4" unique_id=2140986105]
+[node name="Node2D3" type="Node2D" parent="Sub-scene4" unique_id=792124830]
+
+[node name="Label" type="Label" parent="Sub-scene4/Node2D3" unique_id=2140986105]
 offset_left = 724.0
 offset_top = 102.0
 offset_right = 1716.0
@@ -272,13 +336,16 @@ text = "You want AI to help write a work email. Which prompt approach saves the 
 "
 autowrap_mode = 2
 
-[node name="Speechbubble" type="Sprite2D" parent="Sub-scene4" unique_id=1958102113]
+[node name="Node2D3" type="Node2D" parent="Sub-scene4/Node2D3" unique_id=979442055]
+position = Vector2(63, -75)
+
+[node name="Speechbubble" type="Sprite2D" parent="Sub-scene4/Node2D3/Node2D3" unique_id=1958102113]
 position = Vector2(866.5, 641)
 scale = Vector2(0.42896172, 0.53164554)
 texture = ExtResource("3_285xf")
 flip_h = true
 
-[node name="Button" type="Button" parent="Sub-scene4" unique_id=564824244]
+[node name="Button" type="Button" parent="Sub-scene4/Node2D3/Node2D3" unique_id=564824244]
 offset_left = 638.0
 offset_top = 438.0
 offset_right = 1086.0
@@ -292,12 +359,25 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_76anp")
 text = "Ask AI to write 5 versions, then pick the best one."
 autowrap_mode = 2
 
-[node name="Speechbubble2" type="Sprite2D" parent="Sub-scene4" unique_id=1774045640]
+[node name="Wrong" type="Label" parent="Sub-scene4/Node2D3" unique_id=263427620]
+offset_left = 719.0
+offset_top = 147.0
+offset_right = 1711.0
+offset_bottom = 361.0
+theme_override_colors/font_color = Color(0.9601241, 0.49037087, 0.47765654, 1)
+theme_override_font_sizes/font_size = 47
+text = "Not exactly"
+autowrap_mode = 2
+
+[node name="Node2D2" type="Node2D" parent="Sub-scene4/Node2D3" unique_id=1862367409]
+position = Vector2(76, -55)
+
+[node name="Speechbubble2" type="Sprite2D" parent="Sub-scene4/Node2D3/Node2D2" unique_id=1774045640]
 position = Vector2(1597, 665)
 scale = Vector2(0.47157907, 0.4987806)
 texture = ExtResource("3_285xf")
 
-[node name="Button2" type="Button" parent="Sub-scene4" unique_id=1535663037]
+[node name="Button2" type="Button" parent="Sub-scene4/Node2D3/Node2D2" unique_id=1535663037]
 offset_left = 1372.0
 offset_top = 473.0
 offset_right = 1827.0
@@ -311,17 +391,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_038c3")
 text = "Write it yourself. Ask AI to fix unclear parts."
 autowrap_mode = 2
 
-[node name="Wrong" type="Label" parent="Sub-scene4" unique_id=263427620]
-offset_left = 719.0
-offset_top = 147.0
-offset_right = 1711.0
-offset_bottom = 361.0
-theme_override_colors/font_color = Color(0.9601241, 0.49037087, 0.47765654, 1)
-theme_override_font_sizes/font_size = 47
-text = "Not exactly"
-autowrap_mode = 2
-
-[node name="Correct" type="Label" parent="Sub-scene4" unique_id=1330302652]
+[node name="Correct" type="Label" parent="Sub-scene4/Node2D3" unique_id=1330302652]
 offset_left = 720.0
 offset_top = 146.0
 offset_right = 1712.0
@@ -331,23 +401,26 @@ theme_override_font_sizes/font_size = 47
 text = "Correct"
 autowrap_mode = 2
 
-[node name="Lesson" type="Label" parent="Sub-scene4" unique_id=139184044]
+[node name="Lesson" type="Label" parent="Sub-scene4/Node2D3" unique_id=139184044]
 offset_left = 724.0
 offset_top = 269.0
 offset_right = 1716.0
-offset_bottom = 483.0
+offset_bottom = 538.0
 theme_override_font_sizes/font_size = 47
 text = "Use AI as an editor rather than a full author
 
 One AI query can use about 500 ml of freshwater (an entire bottle!)"
 autowrap_mode = 2
 
-[node name="Speechbubble3" type="Sprite2D" parent="Sub-scene4" unique_id=1268069501]
+[node name="Node2D" type="Node2D" parent="Sub-scene4/Node2D3" unique_id=1544663052]
+position = Vector2(27, -51)
+
+[node name="Speechbubble3" type="Sprite2D" parent="Sub-scene4/Node2D3/Node2D" unique_id=1268069501]
 position = Vector2(1578, 707)
 scale = Vector2(0.38110775, 0.3956979)
 texture = ExtResource("3_285xf")
 
-[node name="Button3" type="Button" parent="Sub-scene4" unique_id=85282041]
+[node name="Button3" type="Button" parent="Sub-scene4/Node2D3/Node2D" unique_id=85282041]
 offset_left = 1392.0
 offset_top = 544.0
 offset_right = 1769.0
@@ -362,7 +435,9 @@ text = "Understood!"
 
 [node name="Sub-scene5" type="Node" parent="." unique_id=717242570]
 
-[node name="Label" type="Label" parent="Sub-scene5" unique_id=1332304671]
+[node name="Node2D4" type="Node2D" parent="Sub-scene5" unique_id=1601747676]
+
+[node name="Label" type="Label" parent="Sub-scene5/Node2D4" unique_id=1332304671]
 offset_left = 724.0
 offset_top = 102.0
 offset_right = 1716.0
@@ -372,13 +447,16 @@ text = "You need to brainstorm ideas for a project. How do you prompt AI most su
 "
 autowrap_mode = 2
 
-[node name="Speechbubble" type="Sprite2D" parent="Sub-scene5" unique_id=1864856312]
+[node name="Node2D" type="Node2D" parent="Sub-scene5/Node2D4" unique_id=1079322418]
+position = Vector2(36, -43)
+
+[node name="Speechbubble" type="Sprite2D" parent="Sub-scene5/Node2D4/Node2D" unique_id=1864856312]
 position = Vector2(853, 648.00006)
 scale = Vector2(0.44353372, 0.53739935)
 texture = ExtResource("3_285xf")
 flip_h = true
 
-[node name="Button" type="Button" parent="Sub-scene5" unique_id=1502392372]
+[node name="Button" type="Button" parent="Sub-scene5/Node2D4/Node2D" unique_id=1502392372]
 offset_left = 651.0
 offset_top = 441.0
 offset_right = 1072.0
@@ -392,12 +470,25 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_jhis0")
 text = "Ask for 50 ideas. Regenerate until one fits."
 autowrap_mode = 2
 
-[node name="Speechbubble2" type="Sprite2D" parent="Sub-scene5" unique_id=932487753]
+[node name="Wrong" type="Label" parent="Sub-scene5/Node2D4" unique_id=1478380029]
+offset_left = 728.0
+offset_top = 146.0
+offset_right = 1720.0
+offset_bottom = 360.0
+theme_override_colors/font_color = Color(0.9601241, 0.49037087, 0.47765654, 1)
+theme_override_font_sizes/font_size = 47
+text = "Not exactly"
+autowrap_mode = 2
+
+[node name="Node2D3" type="Node2D" parent="Sub-scene5/Node2D4" unique_id=2006621190]
+position = Vector2(73, -64)
+
+[node name="Speechbubble2" type="Sprite2D" parent="Sub-scene5/Node2D4/Node2D3" unique_id=932487753]
 position = Vector2(1590.0001, 653)
 scale = Vector2(0.4269525, 0.5321523)
 texture = ExtResource("3_285xf")
 
-[node name="Button2" type="Button" parent="Sub-scene5" unique_id=509816283]
+[node name="Button2" type="Button" parent="Sub-scene5/Node2D4/Node2D3" unique_id=509816283]
 offset_left = 1372.0
 offset_top = 437.0
 offset_right = 1809.0
@@ -411,17 +502,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_lb6lu")
 text = "Brainstorm 5 mins. Ask AI to expand your top 2–3 ideas."
 autowrap_mode = 2
 
-[node name="Wrong" type="Label" parent="Sub-scene5" unique_id=1478380029]
-offset_left = 728.0
-offset_top = 146.0
-offset_right = 1720.0
-offset_bottom = 360.0
-theme_override_colors/font_color = Color(0.9601241, 0.49037087, 0.47765654, 1)
-theme_override_font_sizes/font_size = 47
-text = "Not exactly"
-autowrap_mode = 2
-
-[node name="Correct" type="Label" parent="Sub-scene5" unique_id=1394565251]
+[node name="Correct" type="Label" parent="Sub-scene5/Node2D4" unique_id=1394565251]
 offset_left = 728.0
 offset_top = 147.0
 offset_right = 1720.0
@@ -431,7 +512,7 @@ theme_override_font_sizes/font_size = 47
 text = "Correct"
 autowrap_mode = 2
 
-[node name="Lesson" type="Label" parent="Sub-scene5" unique_id=824712179]
+[node name="Lesson" type="Label" parent="Sub-scene5/Node2D4" unique_id=824712179]
 offset_left = 726.0
 offset_top = 245.0
 offset_right = 1718.0
@@ -442,12 +523,15 @@ text = "AI works best as a human amplifier, and we are the best idea generators 
 One AI query produces CO₂ similar to one human breath"
 autowrap_mode = 2
 
-[node name="Speechbubble3" type="Sprite2D" parent="Sub-scene5" unique_id=372880477]
+[node name="Node2D2" type="Node2D" parent="Sub-scene5/Node2D4" unique_id=1727583235]
+position = Vector2(68, -30)
+
+[node name="Speechbubble3" type="Sprite2D" parent="Sub-scene5/Node2D4/Node2D2" unique_id=372880477]
 position = Vector2(1573.9999, 700)
 scale = Vector2(0.36471432, 0.41065764)
 texture = ExtResource("3_285xf")
 
-[node name="Button3" type="Button" parent="Sub-scene5" unique_id=329958544]
+[node name="Button3" type="Button" parent="Sub-scene5/Node2D4/Node2D2" unique_id=329958544]
 offset_left = 1384.0
 offset_top = 529.0
 offset_right = 1769.0
@@ -460,14 +544,14 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_lbiga")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_3uk48")
 text = "Understood!"
 
-[connection signal="pressed" from="Sub-scene1/Button" to="." method="on_scene1_button_pressed"]
-[connection signal="pressed" from="Sub-scene2/Button" to="." method="on_scene2_button_pressed"]
-[connection signal="pressed" from="Sub-scene3/Button2" to="." method="on_scene3_button_pressed"]
-[connection signal="pressed" from="Sub-scene3/Button" to="." method="on_scene3_button2_pressed"]
-[connection signal="pressed" from="Sub-scene3/Button3" to="." method="on_scene3_button3_pressed"]
-[connection signal="pressed" from="Sub-scene4/Button" to="." method="on_scene4_button_pressed"]
-[connection signal="pressed" from="Sub-scene4/Button2" to="." method="on_scene4_button2_pressed"]
-[connection signal="pressed" from="Sub-scene4/Button3" to="." method="on_scene4_button3_pressed"]
-[connection signal="pressed" from="Sub-scene5/Button" to="." method="on_scene5_button_pressed"]
-[connection signal="pressed" from="Sub-scene5/Button2" to="." method="on_scene5_button2_pressed"]
-[connection signal="pressed" from="Sub-scene5/Button3" to="." method="on_scene5_button3_pressed"]
+[connection signal="pressed" from="Sub-scene1/Node2D2/Option/Button" to="." method="on_scene1_button_pressed"]
+[connection signal="pressed" from="Sub-scene2/Node2D/Button" to="." method="on_scene2_button_pressed"]
+[connection signal="pressed" from="Sub-scene3/Node2D3/Node2D3/Button2" to="." method="on_scene3_button_pressed"]
+[connection signal="pressed" from="Sub-scene3/Node2D3/Node2D2/Button" to="." method="on_scene3_button2_pressed"]
+[connection signal="pressed" from="Sub-scene3/Node2D3/Node2D/Button3" to="." method="on_scene3_button3_pressed"]
+[connection signal="pressed" from="Sub-scene4/Node2D3/Node2D3/Button" to="." method="on_scene4_button_pressed"]
+[connection signal="pressed" from="Sub-scene4/Node2D3/Node2D2/Button2" to="." method="on_scene4_button2_pressed"]
+[connection signal="pressed" from="Sub-scene4/Node2D3/Node2D/Button3" to="." method="on_scene4_button3_pressed"]
+[connection signal="pressed" from="Sub-scene5/Node2D4/Node2D/Button" to="." method="on_scene5_button_pressed"]
+[connection signal="pressed" from="Sub-scene5/Node2D4/Node2D3/Button2" to="." method="on_scene5_button2_pressed"]
+[connection signal="pressed" from="Sub-scene5/Node2D4/Node2D2/Button3" to="." method="on_scene5_button3_pressed"]

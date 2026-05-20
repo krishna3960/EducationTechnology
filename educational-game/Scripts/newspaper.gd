@@ -122,7 +122,10 @@ func _finalize_close() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not _active:
 		return
-	var advance: bool = (event is InputEventMouseButton and event.pressed) \
+	var is_left_click: bool = event is InputEventMouseButton \
+		and event.pressed \
+		and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
+	var advance: bool = is_left_click \
 		or event.is_action_pressed("ui_accept") \
 		or event.is_action_pressed("ui_cancel")
 	if not advance:

@@ -2,15 +2,35 @@ extends Stage
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
 @export var _SPEAKER: String = "Prompto"
-@export var _INTRO_TEXT: String = "Congratulations your education was a success! You have reduced token usage and we now have enough compute and electricity to handle all the incoming promps. However all this now creates a heating issue, we are going to need access to water to cool our server!"
+@export var _INTRO_TEXT: String = "Congratulations your education was a success! You have reduced token usage and we now have enough compute and electricity to handle all the incoming prompts. However all this now creates a heating issue, we are going to need access to water to cool our server!"
 @export var _OUTRO_TEXT: String = "Okay we have access to water now, but it is not sufficient to cool down all our servers, choose another river to get access to more water!"
 
 const _WATER_TINT: Color = Color(1.0, 1.0, 0.0, 0.706)
 const _HOVER_FADE_DURATION: float = 0.08
+
+# Camera/zoom will slide to this position/zoom when making the river choice
+const _CHOICE_CAMERA_POS: Vector2 = Vector2(742.8752, 765.6159)
+const _CHOICE_CAMERA_ZOOM: Vector2 = Vector2(0.389743, 0.389743)
+const _CAMERA_TRANSITION_DURATION: float = 1.0
+
+
+
 const _RIVER_TARGET_FAMILY: String = "river-1-"
 const _WATER_PUMP_PREFIX: String = "water-pump-"
 const _NEWSPAPER_DELAY: float = 1.0
 const _SWAP_DELAY_PER_TILE: float = 0.12
+
+const _HIGHLIGHT_CELLS_1: Dictionary = {
+	"north": Vector2i(-1, -1),
+	"west": Vector2i(-3, 5),
+	"east": Vector2i(7, 4),
+}
+
+const _HIGHLIGHT_CELLS_2: Dictionary = {
+	"north": Vector2i(1, -2),
+	"west": Vector2i(-4, 5),
+	"east": Vector2i(8, 4),
+}
 
 # Each river choice: label, highlight cells on map, placeholder tiles (two per river),
 # and the full river cells to swap
@@ -25,6 +45,7 @@ const _WATER_CHOICES: Dictionary = {
 			Vector2i(4, -3), Vector2i(5, -4), Vector2i(6, -3), Vector2i(7, -4),
 			Vector2i(8, -3), Vector2i(9, -3), Vector2i(10, -2), Vector2i(11, -3),
 		],
+		"bridge_cell": Vector2i(-4, 0),
 	},
 	"west": {
 		"label": "West River",
@@ -127,6 +148,8 @@ func _show_choices() -> void:
 	if tilemap == null:
 		return
 
+	_frame_water_view()
+
 	_ts_choice_started = Time.get_unix_time_from_system()
 	_ui_canvas = CanvasLayer.new()
 	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
@@ -137,12 +160,8 @@ func _show_choices() -> void:
 	for key in keys:
 		var choice: Dictionary = _WATER_CHOICES[key]
 		var tint: Color = choice["tint"]
-		# Show the second tile if this river was already picked in round 1
-		var pump_list: Array = _pump_cells.get(key, [])
-		if pump_list.is_empty():
-			continue
-		var cell_index: int = 1 if (_second_round and key == _first_choice_key and pump_list.size() > 1) else 0
-		var cell: Vector2i = pump_list[cell_index]
+		var cells_map: Dictionary = _HIGHLIGHT_CELLS_2 if (_second_round and key == _first_choice_key) else _HIGHLIGHT_CELLS_1
+		var cell: Vector2i = cells_map[key]
 		var polys: Array[Polygon2D] = []
 		var overlay: Polygon2D = tilemap.get_cell_overlay(cell)
 		if overlay != null:
@@ -166,7 +185,7 @@ func _show_choices() -> void:
 	var prev_btn := Button.new()
 	prev_btn.text = "◀"
 	prev_btn.custom_minimum_size = Vector2(80, 56)
-	_style_button(prev_btn, Color(1, 1, 1, 0.25))
+	Stage.style_choice_button(prev_btn, Color(1, 1, 1, 0.25))
 	row.add_child(prev_btn)
 	prev_btn.pressed.connect(func(): _cycle_choice(-1))
 
@@ -178,12 +197,25 @@ func _show_choices() -> void:
 	var next_btn := Button.new()
 	next_btn.text = "▶"
 	next_btn.custom_minimum_size = Vector2(80, 56)
-	_style_button(next_btn, Color(1, 1, 1, 0.25))
+	Stage.style_choice_button(next_btn, Color(1, 1, 1, 0.25))
 	row.add_child(next_btn)
 	next_btn.pressed.connect(func(): _cycle_choice(1))
 
 	_current_choice_index = 0
 	_show_only(keys[_current_choice_index])
+	Stage.fade_in_choice_buttons([prev_btn, _choose_btn, next_btn])
+	Stage.pulse_choice_buttons([prev_btn, next_btn, _choose_btn])
+
+
+## Smoothly adjusts camera/zoom to the right pos
+func _frame_water_view() -> void:
+	var camera := get_viewport().get_camera_2d()
+	if camera == null:
+		return
+	var t := create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	t.tween_property(camera, "position", _CHOICE_CAMERA_POS, _CAMERA_TRANSITION_DURATION)
+	t.tween_property(camera, "zoom", _CHOICE_CAMERA_ZOOM, _CAMERA_TRANSITION_DURATION)
+
 
 func _get_available_keys() -> Array:
 	if not _second_round:
@@ -203,7 +235,7 @@ func _show_only(active_key) -> void:
 	var tint: Color = _WATER_CHOICES[active_key]["tint"]
 	var accent := Color(tint.r, tint.g, tint.b, 1.0)
 	_choose_btn.text = "Choose %s" % _WATER_CHOICES[active_key]["label"]
-	_style_button(_choose_btn, accent)
+	Stage.style_choice_button(_choose_btn, accent)
 
 func _on_choice(key: String) -> void:
 	var ts_chosen: float = Time.get_unix_time_from_system()
@@ -223,17 +255,28 @@ func _on_choice(key: String) -> void:
 	var choice: Dictionary = _WATER_CHOICES[key]
 	var same_as_first: bool = key == _first_choice_key
 
-	# Replace the chosen river tile with a water-pump tile (same shape)
-	var pump_list: Array = _pump_cells.get(key, [])
-	var pump_index: int = 1 if (same_as_first and pump_list.size() > 1) else 0
+	# Replace the highlight tile with a water-pump tile (same shape)
+	var cells_map: Dictionary = _HIGHLIGHT_CELLS_2 if same_as_first else _HIGHLIGHT_CELLS_1
+	var pump_cell: Vector2i = cells_map[key]
 	var pump_version: int = 2 if same_as_first else 1
-	var pump_cell: Vector2i = pump_list[pump_index]
 	_replace_with_pump(pump_cell, pump_version)
+
+	# If same river, also upgrade the first pump to version 2
+	if same_as_first:
+		var first_pump_cell: Vector2i = _HIGHLIGHT_CELLS_1[key]
+		_replace_with_pump(first_pump_cell, 2)
+
+	# Swap bridge variant if this river has one
+	if choice.has("bridge_cell"):
+		var bridge_version: int = 2 if same_as_first else 1
+		_swap_bridge(choice["bridge_cell"], bridge_version)
 
 	# Collect all pump cells to exclude from the river swap
 	var exclude: Dictionary = {pump_cell: true}
-	if same_as_first and pump_list.size() > 1:
-		exclude[pump_list[0]] = true
+	if same_as_first:
+		exclude[_HIGHLIGHT_CELLS_1[key]] = true
+	if choice.has("bridge_cell"):
+		exclude[choice["bridge_cell"]] = true
 
 	# Determine target river family
 	var target_family: String
@@ -279,6 +322,27 @@ func _animate_river_swap(cells: Array, target_family: String, exclude: Dictionar
 		idx += 1
 	return idx * _SWAP_DELAY_PER_TILE
 
+func _swap_bridge(cell: Vector2i, version: int) -> void:
+	var tilemap := MapLayer.main
+	var src_id := tilemap.get_cell_source_id(cell)
+	if src_id == -1:
+		return
+	var atlas := tilemap.tile_set.get_source(src_id) as TileSetAtlasSource
+	if atlas == null or atlas.texture == null:
+		return
+	var current_path: String = atlas.texture.resource_path
+	var file_name: String = current_path.get_file()
+	# village-pontia-bridge-0-400x484.png -> village-pontia-bridge-1-400x484.png
+	var new_name: String = file_name
+	for prefix in ["village-pontia-bridge-0-", "village-pontia-bridge-1-", "village-pontia-bridge-2-"]:
+		if file_name.begins_with(prefix):
+			new_name = "village-pontia-bridge-%d-" % version + file_name.substr(prefix.length())
+			break
+	if new_name == file_name:
+		return
+	var new_path: String = current_path.get_base_dir() + "/" + new_name
+	tilemap.set_cell_by_texture(cell, new_path)
+
 func _replace_with_pump(cell: Vector2i, pump_version: int) -> void:
 	var tilemap := MapLayer.main
 	var src_id := tilemap.get_cell_source_id(cell)
@@ -291,7 +355,7 @@ func _replace_with_pump(cell: Vector2i, pump_version: int) -> void:
 	var file_name: String = current_path.get_file()
 	# river-0-diagL-400x484.png -> water-pump-1-diagL-400x484.png
 	var new_name: String = file_name
-	for prefix in ["river-0-", "river-1-", "river-2-"]:
+	for prefix in ["river-0-", "river-1-", "river-2-", "water-pump-0-", "water-pump-1-", "water-pump-2-"]:
 		if file_name.begins_with(prefix):
 			var shape: String = file_name.substr(prefix.length())
 			new_name = "water-pump-%d-%s" % [pump_version, shape]
@@ -320,30 +384,6 @@ func _swap_river_tile_to(cell: Vector2i, target_family: String) -> void:
 		return
 	var new_path: String = current_path.get_base_dir() + "/" + new_name
 	tilemap.set_cell_by_texture(cell, new_path)
-
-func _style_button(btn: Button, accent: Color) -> void:
-	var make_sb := func(bg: Color, border: Color) -> StyleBoxFlat:
-		var sb := StyleBoxFlat.new()
-		sb.bg_color = bg
-		sb.set_corner_radius_all(8)
-		sb.set_border_width_all(4)
-		sb.border_color = border
-		sb.content_margin_left = 14
-		sb.content_margin_right = 14
-		sb.content_margin_top = 6
-		sb.content_margin_bottom = 6
-		return sb
-	var bg := Color(0.08, 0.10, 0.15, 0.92)
-	var bg_hover := Color(0.14, 0.17, 0.24, 0.95)
-	var bg_pressed := Color(0.05, 0.06, 0.10, 0.95)
-	btn.add_theme_stylebox_override("normal", make_sb.call(bg, accent))
-	btn.add_theme_stylebox_override("hover", make_sb.call(bg_hover, Color(accent.r, accent.g, accent.b, min(accent.a + 0.4, 1.0))))
-	btn.add_theme_stylebox_override("pressed", make_sb.call(bg_pressed, accent))
-	btn.add_theme_stylebox_override("focus", make_sb.call(bg, accent))
-	btn.add_theme_color_override("font_color", Color(0.96, 0.96, 0.96))
-	btn.add_theme_color_override("font_hover_color", Color.WHITE)
-	btn.add_theme_color_override("font_pressed_color", Color(0.85, 0.85, 0.85))
-	btn.add_theme_font_size_override("font_size", 22)
 
 func _fade_clump(polys: Array, target_alpha: float) -> void:
 	for p in polys:

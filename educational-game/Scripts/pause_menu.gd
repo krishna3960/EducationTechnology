@@ -1,9 +1,15 @@
 extends CanvasLayer
 
+const _FADE_DURATION: float = 0.2
+
+@onready var _background: ColorRect = $Background
+var _tween: Tween
+
 
 func _ready() -> void:
 	layer = RenderLayers.PAUSE_MENU
 	visible = false
+	_background.modulate.a = 0.0
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -13,17 +19,23 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _set_paused(paused: bool) -> void:
-	get_tree().paused = paused
-	visible = paused
+	if _tween and _tween.is_valid():
+		_tween.kill()
+	if paused:
+		get_tree().paused = true
+		visible = true
+		_tween = create_tween()
+		_tween.tween_property(_background, "modulate:a", 1.0, _FADE_DURATION)
+	else:
+		_tween = create_tween()
+		_tween.tween_property(_background, "modulate:a", 0.0, _FADE_DURATION)
+		await _tween.finished
+		visible = false
+		get_tree().paused = false
 
 
 func _on_resume_pressed() -> void:
 	_set_paused(false)
-
-
-func _on_settings_pressed() -> void:
-	# TODO: open settings
-	print("Settings pressed")
 
 
 func _on_quit_pressed() -> void:

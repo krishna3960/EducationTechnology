@@ -1,0 +1,190 @@
+[gd_scene format=3 uid="uid://bfeifdovbrou3"]
+
+[ext_resource type="Script" uid="uid://c1oygk8gvnwj2" path="res://Scripts/stages/01_intro_stage.gd" id="1_8qp1f"]
+[ext_resource type="Texture2D" uid="uid://2v81b8hgucwn" path="res://Assets/intro-background.png" id="2_0t1ct"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0t1ct"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dumhe"]
+bg_color = Color(0.32941177, 0.25882354, 0.5568628, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_la30e"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxvoa"]
+bg_color = Color(0.32941177, 0.25882354, 0.5568628, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2015y"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqqes"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tseg5"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 70
+corner_radius_top_right = 70
+corner_radius_bottom_right = 70
+corner_radius_bottom_left = 70
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecit4"]
+corner_radius_top_left = 70
+corner_radius_top_right = 70
+corner_radius_bottom_right = 70
+corner_radius_bottom_left = 70
+
+[node name="2TestHere" type="Node2D" unique_id=885598074]
+script = ExtResource("1_8qp1f")
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=-2061257295]
+
+[node name="DebugSkipButton" type="Button" parent="UILayer" unique_id=-2061257294]
+modulate = Color(1, 1, 0.4, 1)
+z_index = 200
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 244.0
+offset_bottom = 72.0
+theme_override_font_sizes/font_size = 22
+text = "Skip Intro (debug)"
+
+[node name="Control_intro" type="Control" parent="UILayer" unique_id=1903783701]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DarkTint" type="ColorRect" parent="UILayer/Control_intro" unique_id=631610284]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -2.0
+offset_right = 1909.0
+offset_bottom = 1048.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.85)
+
+[node name="IntroBackground" type="Sprite2D" parent="UILayer/Control_intro" unique_id=594470587]
+visible = false
+z_index = 10
+position = Vector2(1308.0001, 540)
+scale = Vector2(3.9046876, 4.1185184)
+texture = ExtResource("2_0t1ct")
+
+[node name="Button" type="Button" parent="UILayer/Control_intro" unique_id=1564996088]
+z_index = 10
+layout_mode = 0
+offset_left = 699.0
+offset_top = 754.0
+offset_right = 1148.0
+offset_bottom = 883.0
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_0t1ct")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dumhe")
+text = "Next"
+
+[node name="UserConsentButton" type="Button" parent="UILayer/Control_intro" unique_id=1826785600]
+z_index = 10
+layout_mode = 0
+offset_left = 689.0
+offset_top = 750.0
+offset_right = 1138.0
+offset_bottom = 879.0
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_0t1ct")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dumhe")
+text = "Continue"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UILayer/Control_intro" unique_id=741221593]
+z_index = 10
+layout_mode = 0
+offset_left = 280.0
+offset_top = 200.0
+offset_right = 1640.0
+offset_bottom = 737.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 36
+
+[node name="UserConsentLabel" type="RichTextLabel" parent="UILayer/Control_intro" unique_id=1111337615]
+z_index = 10
+layout_mode = 0
+offset_left = 280.0
+offset_top = 200.0
+offset_right = 1640.0
+offset_bottom = 680.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 36
+
+[node name="StartButtonHolder" type="Control" parent="UILayer" unique_id=71581091]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button_to_stage_1" type="Button" parent="UILayer/StartButtonHolder" unique_id=1229068983]
+z_index = 20
+layout_mode = 0
+offset_left = 630.0
+offset_top = 769.0
+offset_right = 1550.0
+offset_bottom = 1176.0
+theme_override_font_sizes/font_size = 200
+theme_override_styles/normal = SubResource("StyleBoxFlat_la30e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mxvoa")
+text = "Start"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=342351131]
+layer = 30
+
+[node name="HintButton" type="Button" parent="CanvasLayer" unique_id=957956890]
+z_index = 30
+offset_left = 665.0
+offset_top = 431.0
+offset_right = 1237.0
+offset_bottom = 683.0
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_2015y")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aqqes")
+text = "Click somewhere on the screen to continue after the dialog finishes."
+autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Button" type="Button" parent="CanvasLayer/HintButton" unique_id=1772132401]
+layout_mode = 0
+offset_left = 542.0
+offset_top = -19.0
+offset_right = 589.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_tseg5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ecit4")
+text = "X"
+
+[connection signal="pressed" from="UILayer/DebugSkipButton" to="." method="_start_scene_1"]
+[connection signal="pressed" from="UILayer/Control_intro/Button" to="." method="_button_pressed"]
+[connection signal="pressed" from="UILayer/Control_intro/UserConsentButton" to="." method="_on_user_consent_button_pressed"]
+[connection signal="pressed" from="UILayer/StartButtonHolder/Button_to_stage_1" to="." method="_start_scene_1"]
+[connection signal="pressed" from="CanvasLayer/HintButton/Button" to="." method="_on_cross_button_pressed"]
