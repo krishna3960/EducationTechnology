@@ -6,6 +6,7 @@ const _TINT_FADE_DELAY: float = 0.4
 const _TINT_FADE_DURATION: float = 0.8
 
 func _ready() -> void:
+	RenderingServer.set_default_clear_color(Color(0.7529412, 0.88235295, 0.3647059))
 	var world := get_node_or_null("World")
 	if world == null:
 		return
