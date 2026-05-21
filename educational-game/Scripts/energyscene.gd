@@ -1,8 +1,11 @@
 extends Stage
 
+const _SFX_CYCLE: AudioStream = preload("res://Assets/Music/Just A 1 Second Woosh Sound.mp3")
+const _SFX_ELECTRIC: AudioStream = preload("res://Assets/Music/Electricity Short Circuit Sound Effect 1.mp3")
+
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
 @export var _SPEAKER: String = "Prompto"
-@export var _INTRO_TEXT: String = "Ah thats a shame about the news....but your new hardware looks so good! Now we just need to power them up with electrcity. Where do you want to get electricity from?"
+@export var _INTRO_TEXT: String = "Ah thats a shame about the students....but your new hardware looks so good! Now we just need to power them up with electrcity. Where do you want to get electricity from?"
 
 const _EXPANSION_TILE: String = "res://Assets/tiles/tiles_tree_grass_sheeps/tiles_grass_v6.png"
 const _ELECTRIC_POLE_TILE: String = "res://Assets/tiles/tile_electric_pole_aiCenter.png"
@@ -176,7 +179,7 @@ func _cycle_choice(delta: int) -> void:
 	var keys: Array = _ELECTRICITY_CHOICES.keys()
 	_current_choice_index = (_current_choice_index + delta + keys.size()) % keys.size()
 	_show_only(keys[_current_choice_index])
-
+	MusicManager.play_sfx(_SFX_CYCLE)
 
 func _show_only(active_key) -> void:
 	for key in _clump_polygons:
@@ -202,6 +205,7 @@ func _on_choice(key: String) -> void:
 		_ui_canvas = null
 	_clear_clumps()
 
+	MusicManager.play_sfx(_SFX_ELECTRIC)
 	for cell in _ELECTRICITY_CHOICES[key]["cells"]:
 		MapLayer.main.set_cell_by_texture(cell, _ELECTRIC_POLE_TILE)
 

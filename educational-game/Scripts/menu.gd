@@ -5,7 +5,6 @@ const _UI_FADE_DURATION: float = 0.5
 const _TINT_FADE_DELAY: float = 0.4
 const _TINT_FADE_DURATION: float = 0.8
 
-
 func _ready() -> void:
 	var world := get_node_or_null("World")
 	if world == null:
