@@ -4,6 +4,7 @@ signal exit_requested
 
 const _SFX_SHOP_ENTER: AudioStream = preload("res://Assets/Music/SellingTonHello.mp3")
 const _SFX_BUY: AudioStream = preload("res://Assets/Music/Cash Register Sound Effect.mp3")
+const _SFX_WHOOSH: AudioStream = preload("res://Assets/Music/Transition - Sound Effect HD.mp3")
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/salesman.png")
 @export var _SPEAKER: String = "Joe Sellington"
@@ -105,6 +106,7 @@ func _show_action_button(text: String, on_pressed: Callable) -> void:
 	btn.add_child(pulse_timer)
 
 	btn.pressed.connect(func():
+		MusicManager.play_sfx(_SFX_WHOOSH)
 		btn.disabled = true
 		pulse_timer.stop()
 		var fade := btn.create_tween()

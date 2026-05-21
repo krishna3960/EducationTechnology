@@ -1,6 +1,7 @@
 extends Stage
 
 const _SFX_CYCLE: AudioStream = preload("res://Assets/Music/Just A 1 Second Woosh Sound.mp3")
+const _SFX_TRANSITION: AudioStream = preload("res://Assets/Music/Transition - Sound Effect HD.mp3")
 const _SFX_CHOOSE: AudioStream = preload("res://Assets/Music/NewspaperExit.mp3")
 const _SFX_CONSTRUCTION: AudioStream = preload("res://Assets/Music/Construction Site Sound Effects  Free Sound Clips  City Sounds.mp3")
 
@@ -152,7 +153,6 @@ func _show_only(active_value) -> void:
 
 
 func _on_choice(value: GameState.LandLocation) -> void:
-	MusicManager.play_sfx(_SFX_CHOOSE)
 	GameState.land_location = value
 	var ts_chosen: float = Time.get_unix_time_from_system()
 	var entry := Metrics.ChoiceEntry.new()
@@ -216,7 +216,8 @@ func _show_continue_dialogue() -> void:
 		_PORTRAIT,
 		_SPEAKER,
 		"Wow, that is terrible news. But we must move forward. Let us buy some hardware!",
-		opts
+		opts,
+		null
 	)
 	Dialogue.on_typewriter_done.connect(_show_continue_button, CONNECT_ONE_SHOT)
 
@@ -250,6 +251,7 @@ func _show_continue_button() -> void:
 	btn.add_child(pulse_timer)
 
 	btn.pressed.connect(func():
+		MusicManager.play_sfx(_SFX_TRANSITION)
 		btn.disabled = true
 		pulse_timer.stop()
 		var fade := btn.create_tween()

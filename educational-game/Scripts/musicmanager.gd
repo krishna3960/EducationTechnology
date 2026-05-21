@@ -40,6 +40,12 @@ func stop_ambient() -> void:
 	if ambient_player == null:
 		return
 	ambient_player.stop()
+	
+func set_master_volume(value: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value))
+
+func get_master_volume() -> float:
+	return db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
 
 
 func play(stream: AudioStream, volume_db: float = 0.0) -> void:
