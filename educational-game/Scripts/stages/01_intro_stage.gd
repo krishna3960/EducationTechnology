@@ -40,7 +40,7 @@ func _stage_start() -> void:
 	var consent_button: Button = get_node("UILayer/Control_intro/UserConsentButton")
 	var welcome_label: RichTextLabel = get_node("UILayer/Control_intro/RichTextLabel")
 	var welcome_button: Button = get_node("UILayer/Control_intro/Button")
-	var dark_tint: Control = get_node("UILayer/Control_intro/DarkTint")
+	var dark_tint: Control = get_node("UILayer/DarkTint")
 
 	consent_label.clear()
 	welcome_label.clear()

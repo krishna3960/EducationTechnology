@@ -41,15 +41,10 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="DarkTint" type="ColorRect" parent="UILayer/Control_intro" unique_id=631610284]
-layout_mode = 1
+[node name="DarkTint" type="ColorRect" parent="UILayer" unique_id=631610284]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -56.0
-offset_top = -2.0
-offset_right = 1909.0
-offset_bottom = 1048.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
