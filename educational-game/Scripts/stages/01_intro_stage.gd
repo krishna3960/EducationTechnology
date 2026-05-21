@@ -48,8 +48,6 @@ func _stage_start() -> void:
 	get_node("UILayer/Control_intro/UserConsentButton").visible = false
 	get_node("CanvasLayer/HintButton").visible = false
 
-	get_node("UILayer/DebugSkipButton").visible = OS.is_debug_build()
-
 	timer = Timer.new()
 	add_child(timer)
 
@@ -70,6 +68,7 @@ func _button_pressed():
 
 	
 func _on_user_consent_button_pressed() -> void:
+	GameState.user_consented = true
 	label = get_node("UILayer/Control_intro/RichTextLabel")
 
 	label.clear()

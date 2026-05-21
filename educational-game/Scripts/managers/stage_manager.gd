@@ -12,10 +12,70 @@ var _index: int = -1
 var _ts_started: float = 0.0
 var _debug_label_current: Label
 var _debug_label_next: Label
+
+var _skip_canvas: CanvasLayer
+var _skip_btn: Button
+const _SKIP_TARGETS: Array = [
+	{"label": "Skip Intro", "stage_name": "1_land_choice_stage"},
+	{"label": "Skip to Classroom", "stage_name": "04_classroom_tscn"},
+]
+var _skip_index: int = 0
+
 func _ready() -> void:
 	var section : VBoxContainer = Debug.add_section("Stage Manager")
 	_debug_label_current = Debug.add_label("", section)
 	_debug_label_next = Debug.add_label("", section)
+	if GameState.skip_scenes_enabled:
+		_create_skip_button()
+	_advance()
+
+func _create_skip_button() -> void:
+	_skip_canvas = CanvasLayer.new()
+	_skip_canvas.layer = 100
+	add_child(_skip_canvas)
+	_skip_btn = Button.new()
+	_skip_btn.text = _SKIP_TARGETS[0]["label"]
+	_skip_btn.modulate = Color(1, 1, 0.4, 1)
+	_skip_btn.z_index = 200
+	_skip_btn.offset_left = 24.0
+	_skip_btn.offset_top = 24.0
+	_skip_btn.offset_right = 244.0
+	_skip_btn.offset_bottom = 72.0
+	_skip_btn.add_theme_font_size_override("font_size", 22)
+	_skip_btn.disabled = not GameState.user_consented
+	_skip_canvas.add_child(_skip_btn)
+	_skip_btn.pressed.connect(_on_skip_pressed)
+
+func _process(_delta: float) -> void:
+	if _skip_btn != null and _skip_btn.disabled and GameState.user_consented:
+		_skip_btn.disabled = false
+
+func _on_skip_pressed() -> void:
+	if _skip_index >= _SKIP_TARGETS.size():
+		return
+	var target_name: String = _SKIP_TARGETS[_skip_index]["stage_name"]
+	var target_idx: int = -1
+	for i in stages.size():
+		if stages[i].resource_path.get_file().get_basename() == target_name:
+			target_idx = i
+			break
+	if target_idx == -1 or target_idx <= _index:
+		return
+	_skip_to(target_idx)
+	_skip_index += 1
+	if _skip_index < _SKIP_TARGETS.size():
+		_skip_btn.text = _SKIP_TARGETS[_skip_index]["label"]
+	else:
+		_skip_btn.hide()
+
+func _skip_to(target_idx: int) -> void:
+	if _current:
+		if _current.finished.is_connected(_advance):
+			_current.finished.disconnect(_advance)
+		_current._stage_end()
+		_current.queue_free()
+		_current = null
+	_index = target_idx - 1
 	_advance()
 ## Move to the next stage
 func _advance() -> void:

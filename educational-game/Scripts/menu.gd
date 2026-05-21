@@ -47,5 +47,30 @@ func _start_game() -> void:
 	add_child(_STAGE_MANAGER_SCENE.instantiate())
 
 
+func _on_settings_pressed() -> void:
+	$UILayer/CenterContainer/VBoxContainer.visible = false
+	$UILayer/CenterContainer/SettingsPanel.visible = true
+	_update_skip_buttons()
+
+func _on_settings_back_pressed() -> void:
+	$UILayer/CenterContainer/SettingsPanel.visible = false
+	$UILayer/CenterContainer/VBoxContainer.visible = true
+
+func _on_skip_false() -> void:
+	GameState.skip_scenes_enabled = false
+	_update_skip_buttons()
+
+func _on_skip_true() -> void:
+	GameState.skip_scenes_enabled = true
+	_update_skip_buttons()
+
+func _update_skip_buttons() -> void:
+	var false_btn: Button = $UILayer/CenterContainer/SettingsPanel/VBox/SkipRow/FalseButton
+	var true_btn: Button = $UILayer/CenterContainer/SettingsPanel/VBox/SkipRow/TrueButton
+	var active := Color(1.0, 1.0, 0.4, 1.0)
+	var inactive := Color(0.6, 0.6, 0.6, 1.0)
+	false_btn.modulate = inactive if GameState.skip_scenes_enabled else active
+	true_btn.modulate = active if GameState.skip_scenes_enabled else inactive
+
 func _on_quit_pressed() -> void:
 	get_tree().quit()
