@@ -49,11 +49,66 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Play"
 
+[node name="SettingsButton" type="Button" parent="UILayer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+
 [node name="QuitButton" type="Button" parent="UILayer/CenterContainer/VBoxContainer" unique_id=678476123]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Quit"
 
+[node name="SettingsPanel" type="PanelContainer" parent="UILayer/CenterContainer"]
+visible = false
+layout_mode = 2
+custom_minimum_size = Vector2(500, 0)
+
+[node name="VBox" type="VBoxContainer" parent="UILayer/CenterContainer/SettingsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Title" type="Label" parent="UILayer/CenterContainer/SettingsPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="SkipRow" type="HBoxContainer" parent="UILayer/CenterContainer/SettingsPanel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 50)
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+text = "Enable skipping scenes:"
+
+[node name="FalseButton" type="Button" parent="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(100, 40)
+theme_override_font_sizes/font_size = 28
+text = "Off"
+
+[node name="TrueButton" type="Button" parent="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(100, 40)
+theme_override_font_sizes/font_size = 28
+text = "On"
+
+[node name="BackButton" type="Button" parent="UILayer/CenterContainer/SettingsPanel/VBox"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Back"
+
 [connection signal="pressed" from="UILayer/CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UILayer/CenterContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UILayer/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow/FalseButton" to="." method="_on_skip_false"]
+[connection signal="pressed" from="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow/TrueButton" to="." method="_on_skip_true"]
+[connection signal="pressed" from="UILayer/CenterContainer/SettingsPanel/VBox/BackButton" to="." method="_on_settings_back_pressed"]

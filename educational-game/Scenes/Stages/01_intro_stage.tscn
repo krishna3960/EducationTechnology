@@ -55,15 +55,6 @@ script = ExtResource("1_8qp1f")
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=-2061257295]
 
-[node name="DebugSkipButton" type="Button" parent="UILayer" unique_id=-2061257294]
-modulate = Color(1, 1, 0.4, 1)
-z_index = 200
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 244.0
-offset_bottom = 72.0
-theme_override_font_sizes/font_size = 22
-text = "Skip Intro (debug)"
 
 [node name="Control_intro" type="Control" parent="UILayer" unique_id=1903783701]
 layout_mode = 3
@@ -183,7 +174,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_tseg5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ecit4")
 text = "X"
 
-[connection signal="pressed" from="UILayer/DebugSkipButton" to="." method="_start_scene_1"]
 [connection signal="pressed" from="UILayer/Control_intro/Button" to="." method="_button_pressed"]
 [connection signal="pressed" from="UILayer/Control_intro/UserConsentButton" to="." method="_on_user_consent_button_pressed"]
 [connection signal="pressed" from="UILayer/StartButtonHolder/Button_to_stage_1" to="." method="_start_scene_1"]
