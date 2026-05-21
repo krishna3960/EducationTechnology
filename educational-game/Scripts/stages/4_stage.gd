@@ -5,6 +5,9 @@ extends Stage
 @export var _INTRO_TEXT: String = "Congratulations your education was a success! You have reduced token usage and we now have enough compute and electricity to handle all the incoming prompts. However all this now creates a heating issue, we are going to need access to water to cool our server!"
 @export var _OUTRO_TEXT: String = "Okay we have access to water now, but it is not sufficient to cool down all our servers, choose another river to get access to more water!"
 
+const _SFX_CYCLE: AudioStream = preload("res://Assets/Music/Just A 1 Second Woosh Sound.mp3")
+const _SFX_WATER: AudioStream = preload("res://Assets/Music/Flowing Water - Sound Effect.mp3")
+
 const _WATER_TINT: Color = Color(1.0, 1.0, 0.0, 0.706)
 const _HOVER_FADE_DURATION: float = 0.08
 
@@ -12,8 +15,6 @@ const _HOVER_FADE_DURATION: float = 0.08
 const _CHOICE_CAMERA_POS: Vector2 = Vector2(742.8752, 765.6159)
 const _CHOICE_CAMERA_ZOOM: Vector2 = Vector2(0.389743, 0.389743)
 const _CAMERA_TRANSITION_DURATION: float = 1.0
-
-
 
 const _RIVER_TARGET_FAMILY: String = "river-1-"
 const _WATER_PUMP_PREFIX: String = "water-pump-"
@@ -227,6 +228,7 @@ func _cycle_choice(delta: int) -> void:
 	var keys: Array = _get_available_keys()
 	_current_choice_index = (_current_choice_index + delta + keys.size()) % keys.size()
 	_show_only(keys[_current_choice_index])
+	MusicManager.play_sfx(_SFX_CYCLE)
 
 func _show_only(active_key) -> void:
 	for key in _clump_polygons:
@@ -255,6 +257,8 @@ func _on_choice(key: String) -> void:
 	var choice: Dictionary = _WATER_CHOICES[key]
 	var same_as_first: bool = key == _first_choice_key
 
+	MusicManager.play_sfx(_SFX_WATER)
+	
 	# Replace the highlight tile with a water-pump tile (same shape)
 	var cells_map: Dictionary = _HIGHLIGHT_CELLS_2 if same_as_first else _HIGHLIGHT_CELLS_1
 	var pump_cell: Vector2i = cells_map[key]
@@ -303,7 +307,7 @@ func _show_outro() -> void:
 	opts.dim = false
 	opts.auto_close = false
 	Dialogue.on_typewriter_done.connect(_show_choices, CONNECT_ONE_SHOT)
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _OUTRO_TEXT, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _OUTRO_TEXT, opts, null)
 
 func _show_newspaper() -> void:
 	Newspaper.on_close.connect(func(): finished.emit(), CONNECT_ONE_SHOT)

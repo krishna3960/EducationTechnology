@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bx1nii1q6f0x3"
+path="res://.godot/imported/Unique Cinematic Impact SFX.mp3-9619828eef05167ed6ffc8bc46b3d16d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Unique Cinematic Impact SFX.mp3"
+dest_files=["res://.godot/imported/Unique Cinematic Impact SFX.mp3-9619828eef05167ed6ffc8bc46b3d16d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

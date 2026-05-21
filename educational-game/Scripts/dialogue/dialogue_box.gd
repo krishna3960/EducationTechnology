@@ -1,6 +1,8 @@
 # Renders a portrait + speech bubble in the bottom-left.
 extends Node
 
+const _SFX_ENTER: AudioStream = preload("res://Assets/Music/PromptoOhhh.mp3")
+
 const DIM_ALPHA: float = 0.6
 const DIM_FADE_TIME: float = 0.25
 const SQUEEZE_AMOUNT_RANGE := Vector2(0.02, 0.04)  # 1.0 - scale_y at peak squash
@@ -11,7 +13,7 @@ const _SILENT_CHARS: String = " \t\n.,!?;:-—\""
 const _ENTER_DURATION: float = 0.35
 const _EXIT_DURATION: float = 0.25
 const _ENTER_SLIDE_OFFSET: float = -800.0
-const _POST_ENTRANCE_DELAY: float = 0.25
+const _POST_ENTRANCE_DELAY: float = 0.0
 
 const _DEBUG_DEFAULT_PORTRAIT: Texture2D = preload("res://icon.svg")
 const _DEBUG_DEFAULT_TEXT: String = "Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla"
@@ -74,7 +76,7 @@ func is_active() -> bool:
 	return _active
 
 ## Renders the conversation bubble. If a dialogue is already active, this does nothing.
-func show_dialogue(portrait: Texture2D, speaker: String, text: String, opts: DialogueOptions = null) -> void:
+func show_dialogue(portrait: Texture2D, speaker: String, text: String, opts: DialogueOptions = null, sfx: AudioStream = _SFX_ENTER) -> void:
 	if _active:
 		return
 	if opts == null:
@@ -91,6 +93,8 @@ func show_dialogue(portrait: Texture2D, speaker: String, text: String, opts: Dia
 	_bubble.modulate.a = 0.0
 
 	_ui.visible = true
+	if sfx:
+		MusicManager.play_sfx(sfx)
 	_enter_tween = create_tween().set_parallel(true)
 	_enter_tween.tween_property(_portrait, "position:x", _portrait_rest_x, _ENTER_DURATION) \
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
@@ -137,22 +141,34 @@ func dismiss() -> void:
 	if _active:
 		_close()
 
-# Left-click or ui_accept skips to the end of typewriter animation, or dismisses the dialog if already finished (when auto_close is true).
-func _unhandled_input(event: InputEvent) -> void:
-	if not _active:
+func _input(event: InputEvent) -> void:
+	if not _active or not _auto_close:
 		return
+	if _handle_advance(event):
+		get_viewport().set_input_as_handled()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not _active or _auto_close:
+		return
+	if _handle_advance(event):
+		get_viewport().set_input_as_handled()
+
+
+# Returns true if the event triggered an advance (skip typing or close).
+func _handle_advance(event: InputEvent) -> bool:
 	var is_left_click: bool = event is InputEventMouseButton \
 		and event.pressed \
 		and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
-	var advance: bool = is_left_click or event.is_action_pressed("ui_accept")
-	if not advance:
-		return
+	if not (is_left_click or event.is_action_pressed("ui_accept")):
+		return false
 	if _typing:
-		get_viewport().set_input_as_handled()
 		_finish_typing()
+		return true
 	elif _auto_close:
-		get_viewport().set_input_as_handled()
 		_close()
+		return true
+	return false
 
 ## Skip to the end of the typewriter effect.
 func _finish_typing() -> void:

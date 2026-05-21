@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ctkjoosn2rijt"
+path="res://.godot/imported/Transition - Sound Effect HD.mp3-6ac749193b410abdcf32d94f23f06b38.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Transition - Sound Effect HD.mp3"
+dest_files=["res://.godot/imported/Transition - Sound Effect HD.mp3-6ac749193b410abdcf32d94f23f06b38.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

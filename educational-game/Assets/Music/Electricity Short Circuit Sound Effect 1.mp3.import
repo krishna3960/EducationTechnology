@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://djmsek2erg4py"
+path="res://.godot/imported/Electricity Short Circuit Sound Effect 1.mp3-82a7d456e30985257ac0d36434bdddc7.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Electricity Short Circuit Sound Effect 1.mp3"
+dest_files=["res://.godot/imported/Electricity Short Circuit Sound Effect 1.mp3-82a7d456e30985257ac0d36434bdddc7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

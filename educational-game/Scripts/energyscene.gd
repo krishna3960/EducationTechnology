@@ -1,8 +1,14 @@
 extends Stage
 
+const _SFX_CYCLE: AudioStream = preload("res://Assets/Music/Just A 1 Second Woosh Sound.mp3")
+const _SFX_ELECTRIC: AudioStream = preload("res://Assets/Music/Electricity Short Circuit Sound Effect 1.mp3")
+const _SFX_TRANSITION: AudioStream = preload("res://Assets/Music/Transition - Sound Effect HD.mp3")
+const _SFX_BUILDING: AudioStream = preload("res://Assets/Music/Unique Cinematic Impact SFX.mp3")
+const _SFX_LIGHTING: AudioStream = preload("res://Assets/Music/Big switch sound effect.mp3")
+
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
 @export var _SPEAKER: String = "Prompto"
-@export var _INTRO_TEXT: String = "Ah thats a shame about the news....but your new hardware looks so good! Now we just need to power them up with electrcity. Where do you want to get electricity from?"
+@export var _INTRO_TEXT: String = "Ah thats a shame about the students....but your new hardware looks so good! Now we just need to power them up with electrcity. Where do you want to get electricity from?"
 
 const _EXPANSION_TILE: String = "res://Assets/tiles/tiles_tree_grass_sheeps/tiles_grass_v6.png"
 const _ELECTRIC_POLE_TILE: String = "res://Assets/tiles/tile_electric_pole_aiCenter.png"
@@ -77,6 +83,7 @@ const _CAMERA_TRANSITION_DURATION: float = 1.0
 func _stage_start() -> void:
 	_ts_started = Time.get_unix_time_from_system()
 	var chosen = _CHOICES[GameState.land_location]
+	MusicManager.play_sfx(_SFX_BUILDING)
 	# Animate the factory being built, picking a random variant per cell.
 	_cell_variants.clear()
 	for cell in chosen["cells"]:
@@ -176,7 +183,7 @@ func _cycle_choice(delta: int) -> void:
 	var keys: Array = _ELECTRICITY_CHOICES.keys()
 	_current_choice_index = (_current_choice_index + delta + keys.size()) % keys.size()
 	_show_only(keys[_current_choice_index])
-
+	MusicManager.play_sfx(_SFX_CYCLE)
 
 func _show_only(active_key) -> void:
 	for key in _clump_polygons:
@@ -202,6 +209,7 @@ func _on_choice(key: String) -> void:
 		_ui_canvas = null
 	_clear_clumps()
 
+	MusicManager.play_sfx(_SFX_ELECTRIC)
 	for cell in _ELECTRICITY_CHOICES[key]["cells"]:
 		MapLayer.main.set_cell_by_texture(cell, _ELECTRIC_POLE_TILE)
 
@@ -242,7 +250,8 @@ func _show_prompt_dialogue() -> void:
 		_PORTRAIT,
 		_SPEAKER,
 		"The news hurts me, but seeing our datacenter light up makes me happy!...However we now have a new problem. We are getting a lot of wasteful prompts. Should we educate our users on how to prompt better?",
-		opts
+		opts,
+		null
 	)
 	Dialogue.on_typewriter_done.connect(_show_prompt_choice_button, CONNECT_ONE_SHOT)
 
@@ -267,6 +276,7 @@ func _show_prompt_choice_button() -> void:
 	row.add_child(btn)
 
 	btn.pressed.connect(func():
+		MusicManager.play_sfx(_SFX_TRANSITION)
 		Dialogue.dismiss()
 		if _ui_canvas:
 			_ui_canvas.queue_free()
@@ -307,6 +317,8 @@ func _swap_village_lights(key: String) -> void:
 		if atlas == null or atlas.texture == null:
 			continue
 		var file_name: String = atlas.texture.resource_path.get_file()
+		if file_name.find("bridge") != -1:
+			continue
 		for prefix in prefixes:
 			if file_name.begins_with(prefix):
 				# Swap variant 0 -> 1: e.g. village-petalia-house-2-0- -> village-petalia-house-2-1-

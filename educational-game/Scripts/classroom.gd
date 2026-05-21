@@ -1,8 +1,11 @@
 extends Node
 
+const _SFX_CORRECT: AudioStream = preload("res://Assets/Music/Kids Cheering - Sound Effect (HD).mp3")
+const _SFX_WRONG: AudioStream = preload("res://Assets/Music/aww sound effect ( 4K ).mp3")
+
 signal exit_requested
 
-@export var speed: float = 0.05
+@export var speed: float = 0.025
 
 var full_text_1: String = "Welcome to Mrs. Susan's lecture on using AI sustainably!\n\nAre you excited?"
 var full_text_2: String = "Larger, more complex prompts use lot of resources.\n\nSo please be mindful of what you ask.\n\nLet's work through some examples together!"
@@ -228,6 +231,7 @@ func _record_quiz_choice(scene: String, correct: bool, button_path: String) -> v
 
 
 func on_quiz_wrong_pressed(scene: String) -> void:
+	MusicManager.play_sfx(_SFX_WRONG)
 	var p: Dictionary = _QUIZ_PATHS[scene]
 	var root: String = p["root"]
 	_record_quiz_choice(scene, false, p["wrong_button"])
@@ -243,6 +247,7 @@ func on_quiz_wrong_pressed(scene: String) -> void:
 
 
 func on_quiz_correct_pressed(scene: String) -> void:
+	MusicManager.play_sfx(_SFX_CORRECT)
 	var p: Dictionary = _QUIZ_PATHS[scene]
 	var root: String = p["root"]
 	_record_quiz_choice(scene, true, p["correct_button"])
@@ -268,6 +273,7 @@ func clear_quiz_result(scene: String) -> void:
 
 
 func on_scene1_button_pressed() -> void:
+	MusicManager.play_sfx(_SFX_CORRECT)
 	get_node("Sub-scene1/Node2D2/Label").visible = false
 	get_node("Sub-scene1/Node2D2/Option/Button").visible = false
 	get_node("Sub-scene1/Node2D2/Option/Speechbubble").visible = false
@@ -281,6 +287,7 @@ func on_scene1_button_pressed() -> void:
 
 
 func on_scene2_button_pressed() -> void:
+	MusicManager.play_sfx(_SFX_CORRECT)
 	get_node("Sub-scene2/Node2D/Bubble/Label").visible = false
 	get_node("Sub-scene2/Node2D/Button").visible = false
 	get_node("Sub-scene2/Node2D/Bubble/Speechbubble").visible = false

@@ -1,12 +1,15 @@
 extends Control
 
+const _SFX_CYCLE: AudioStream = preload("res://Assets/Music/Transition - Sound Effect HD.mp3")
+const _SFX_TOGGLE: AudioStream = preload("res://Assets/Music/NewspaperExit.mp3")
+
 const _STAGE_MANAGER_SCENE: PackedScene = preload("res://Scenes/stage_manager.tscn")
 const _UI_FADE_DURATION: float = 0.5
 const _TINT_FADE_DELAY: float = 0.4
 const _TINT_FADE_DURATION: float = 0.8
 
-
 func _ready() -> void:
+	RenderingServer.set_default_clear_color(Color(0.7529412, 0.88235295, 0.3647059))
 	var world := get_node_or_null("World")
 	if world == null:
 		return
@@ -20,6 +23,7 @@ func _ready() -> void:
 
 
 func _on_play_pressed() -> void:
+	MusicManager.play_sfx(_SFX_CYCLE)
 	var ui: Control = $UILayer/CenterContainer
 	var tint: ColorRect = $UILayer/DarkTint
 	ui.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -46,7 +50,35 @@ func _start_game() -> void:
 	$UILayer.queue_free()
 	GameState.metrics.session.ts_started = Time.get_unix_time_from_system()
 	add_child(_STAGE_MANAGER_SCENE.instantiate())
+	
+func _on_settings_pressed() -> void:
+	MusicManager.play_sfx(_SFX_CYCLE)
+	$UILayer/CenterContainer/Node2D.visible = false
+	$UILayer/CenterContainer/SettingsPanel.visible = true
+	_update_skip_buttons()
 
+func _on_settings_back_pressed() -> void:
+	MusicManager.play_sfx(_SFX_CYCLE)
+	$UILayer/CenterContainer/SettingsPanel.visible = false
+	$UILayer/CenterContainer/Node2D.visible = true
+
+func _on_skip_false() -> void:
+	GameState.skip_scenes_enabled = false
+	_update_skip_buttons()
+
+func _on_skip_true() -> void:
+	GameState.skip_scenes_enabled = true
+	_update_skip_buttons()
+	
+func _update_skip_buttons() -> void:
+	MusicManager.play_sfx(_SFX_TOGGLE)
+	var false_btn: Button = $UILayer/CenterContainer/SettingsPanel/VBox/SkipRow/FalseButton
+	var true_btn: Button = $UILayer/CenterContainer/SettingsPanel/VBox/SkipRow/TrueButton
+	var active := Color(1.0, 1.0, 0.4, 1.0)
+	var inactive := Color(0.6, 0.6, 0.6, 1.0)
+	false_btn.modulate = inactive if GameState.skip_scenes_enabled else active
+	true_btn.modulate = active if GameState.skip_scenes_enabled else inactive
 
 func _on_quit_pressed() -> void:
+	MusicManager.play_sfx(_SFX_CYCLE)
 	get_tree().quit()

@@ -2,7 +2,6 @@ extends Stage
 
 var _debug_section: VBoxContainer
 
-
 func _stage_start() -> void:
 
 	# Example: adding UI to the debug panel

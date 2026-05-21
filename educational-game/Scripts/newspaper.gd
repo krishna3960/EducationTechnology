@@ -1,6 +1,9 @@
 # Renders a newspaper article centered on screen with an entrance/exit animation.
 extends Node
 
+const _SFX_OPEN: AudioStream = preload("res://Assets/Music/NewspaperPingEnter.mp3")
+const _SFX_AMBIENT: AudioStream = preload("res://Assets/Music/NewspaperAmbient.mp3")
+
 enum Article {
 	FARMLAND,
 	FOREST,
@@ -70,6 +73,8 @@ func show_article(article: Article) -> void:
 	_ts_opened = Time.get_unix_time_from_system()
 	_current_article = article
 	_animate_in()
+	MusicManager.play_sfx(_SFX_OPEN)
+	MusicManager.play_ambient(_SFX_AMBIENT)
 
 
 ## Close the article.
@@ -116,8 +121,8 @@ func _finalize_close() -> void:
 	entry.ts_closed = ts_closed
 	entry.ts_duration = ts_closed - _ts_opened
 	GameState.metrics.newspapers.append(entry)
+	MusicManager.stop_ambient()
 	on_close.emit()
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not _active:
