@@ -2,6 +2,9 @@ extends CanvasLayer
 
 signal exit_requested
 
+const _SFX_SHOP_ENTER: AudioStream = preload("res://Assets/Music/SellingTonHello.mp3")
+const _SFX_BUY: AudioStream = preload("res://Assets/Music/Cash Register Sound Effect.mp3")
+
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/salesman.png")
 @export var _SPEAKER: String = "Joe Sellington"
 @export var _INTRO_TEXT: String = "Welcome to Joe's Hardware Shop! You need 5 server racks? No problem, I got the best prices in town... today, anyway. Heh heh. Just so you know, those racks need a lot of the same parts as everything else I sell. Anyway! Point at what you want."
@@ -49,21 +52,28 @@ func _ready():
 	update_all_prices()
 	_show_intro_dialogue()
 
+func _get_buy_buttons() -> Array:
+	return [$BuyServerButtons/Button, $BuyServerButtons/Button2, $BuyServerButtons/Button3]
+
+func _set_buy_buttons_enabled(enabled: bool) -> void:
+	for btn in _get_buy_buttons():
+		btn.disabled = !enabled
 
 func _show_intro_dialogue() -> void:
+	_set_buy_buttons_enabled(false)
 	Dialogue.on_typewriter_done.connect(func(): _show_action_button("Start Shopping  →", _on_start_pressed), CONNECT_ONE_SHOT)
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	opts.auto_close = false
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _INTRO_TEXT, opts)
-
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _INTRO_TEXT, opts, _SFX_SHOP_ENTER)
 
 func _show_exit_dialogue() -> void:
+	_set_buy_buttons_enabled(false)
 	Dialogue.on_typewriter_done.connect(func(): _show_action_button("Return to Map  →", _on_return_pressed), CONNECT_ONE_SHOT)
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	opts.auto_close = false
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _EXIT_TEXT, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _EXIT_TEXT, opts,  _SFX_SHOP_ENTER)
 
 
 func _show_action_button(text: String, on_pressed: Callable) -> void:
@@ -109,8 +119,8 @@ func _show_action_button(text: String, on_pressed: Callable) -> void:
 
 
 func _on_start_pressed() -> void:
+	_set_buy_buttons_enabled(true)
 	pass
-
 
 func _on_return_pressed() -> void:
 	exit_requested.emit()
@@ -153,6 +163,7 @@ func show_price_hikes():
 		hike.show()
 
 func buy_server():
+	MusicManager.play_sfx(_SFX_BUY)
 	servers_bought += 1
 	update_counter()
 	raise_prices()

@@ -1,6 +1,8 @@
 # Renders a portrait + speech bubble in the bottom-left.
 extends Node
 
+const _SFX_ENTER: AudioStream = preload("res://Assets/Music/PromptoOhhh.mp3")
+
 const DIM_ALPHA: float = 0.6
 const DIM_FADE_TIME: float = 0.25
 const SQUEEZE_AMOUNT_RANGE := Vector2(0.02, 0.04)  # 1.0 - scale_y at peak squash
@@ -74,7 +76,7 @@ func is_active() -> bool:
 	return _active
 
 ## Renders the conversation bubble. If a dialogue is already active, this does nothing.
-func show_dialogue(portrait: Texture2D, speaker: String, text: String, opts: DialogueOptions = null) -> void:
+func show_dialogue(portrait: Texture2D, speaker: String, text: String, opts: DialogueOptions = null, sfx: AudioStream = _SFX_ENTER) -> void:
 	if _active:
 		return
 	if opts == null:
@@ -91,6 +93,8 @@ func show_dialogue(portrait: Texture2D, speaker: String, text: String, opts: Dia
 	_bubble.modulate.a = 0.0
 
 	_ui.visible = true
+	if sfx:
+		MusicManager.play_sfx(sfx)
 	_enter_tween = create_tween().set_parallel(true)
 	_enter_tween.tween_property(_portrait, "position:x", _portrait_rest_x, _ENTER_DURATION) \
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)

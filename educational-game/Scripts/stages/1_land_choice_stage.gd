@@ -1,5 +1,9 @@
 extends Stage
 
+const _SFX_CYCLE: AudioStream = preload("res://Assets/Music/Just A 1 Second Woosh Sound.mp3")
+const _SFX_CHOOSE: AudioStream = preload("res://Assets/Music/NewspaperExit.mp3")
+const _SFX_CONSTRUCTION: AudioStream = preload("res://Assets/Music/Construction Site Sound Effects  Free Sound Clips  City Sounds.mp3")
+
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
 @export var _SPEAKER: String = "Prompto"
 @export var _INTRO_TEXT: String = "This is our datacenter today. It won't keep up much longer, we need to expand! The first call is yours: show me where to build!"
@@ -134,7 +138,7 @@ func _cycle_choice(delta: int) -> void:
 	var keys: Array = _CHOICES.keys()
 	_current_choice_index = (_current_choice_index + delta + keys.size()) % keys.size()
 	_show_only(keys[_current_choice_index])
-
+	MusicManager.play_sfx(_SFX_CYCLE)
 
 func _show_only(active_value) -> void:
 	for value in _clump_polygons:
@@ -148,6 +152,7 @@ func _show_only(active_value) -> void:
 
 
 func _on_choice(value: GameState.LandLocation) -> void:
+	MusicManager.play_sfx(_SFX_CHOOSE)
 	GameState.land_location = value
 	var ts_chosen: float = Time.get_unix_time_from_system()
 	var entry := Metrics.ChoiceEntry.new()
@@ -168,9 +173,10 @@ func _on_choice(value: GameState.LandLocation) -> void:
 	for c in sign_cells:
 		sign_set[c] = true
 
+	MusicManager.play_sfx(_SFX_CONSTRUCTION)
 	for cell in sign_cells:
 		MapLayer.main.set_cell_by_texture(cell, _CONSTRUCTION_SIGN)
-
+		
 	for cell in chosen["cells"]:
 		if sign_set.has(cell):
 			continue

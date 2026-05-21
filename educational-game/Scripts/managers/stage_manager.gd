@@ -5,6 +5,8 @@ signal stage_changed(index: int, stage: Stage)
 ## Emitted when there are no more stages to advance to.
 signal no_more_stages
 @export var stages: Array[PackedScene] = []
+@export var stage_music: Array[AudioStream] = []
+
 var _current: Stage
 var _index: int = -1
 var _ts_started: float = 0.0
@@ -44,6 +46,8 @@ func _advance() -> void:
 	_update_debug_labels()
 	_ts_started = Time.get_unix_time_from_system()
 	stage_changed.emit(_index, _current)
+	if stage_music.size() > _index and stage_music[_index] != null:
+		MusicManager.play(stage_music[_index])
 func _update_debug_labels() -> void:
 	_debug_label_current.text = "Current: %s" % _stage_label(_index)
 	_debug_label_next.text = "Next:    %s" % _stage_label(_index + 1)
