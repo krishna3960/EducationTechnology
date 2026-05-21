@@ -311,6 +311,8 @@ func _swap_village_lights(key: String) -> void:
 		if atlas == null or atlas.texture == null:
 			continue
 		var file_name: String = atlas.texture.resource_path.get_file()
+		if file_name.find("bridge") != -1:
+			continue
 		for prefix in prefixes:
 			if file_name.begins_with(prefix):
 				# Swap variant 0 -> 1: e.g. village-petalia-house-2-0- -> village-petalia-house-2-1-
