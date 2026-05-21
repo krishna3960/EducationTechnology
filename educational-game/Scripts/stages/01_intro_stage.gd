@@ -21,7 +21,7 @@ const _OVERVIEW_CELL: Vector2i = Vector2i(3, 0)
 const _CAM_OVERVIEW_ZOOM: Vector2 = Vector2(0.4, 0.4)
 const _CAM_REGION_ZOOM: Vector2 = Vector2(0.48, 0.48)
 const _CAM_PAN_DURATION: float = 1.0
-const _PRE_PAN_DELAY: float = 0.0
+const _PRE_PAN_DELAY: float = 1.0
 const _HINT_DELAY: float = 10.0
 
 # Set by _input while the consent/welcome typewriter runs — _run_typewriter
@@ -110,11 +110,16 @@ func _show_dialogue_step(text: String) -> void:
 		if hint:
 			hint.show()
 	await Dialogue.on_close
+	# The hint disappears when the player dismisses the dialogue
+	var hint_to_hide := get_node_or_null("CanvasLayer/HintButton")
+	if hint_to_hide and hint_to_hide.visible:
+		hint_to_hide.hide()
 
 
-## Wait some time, then pan the camera to the specified cell and show a dialogue step.
+## Wait `_PRE_PAN_DELAY` seconds, then pan the camera to the specified cell and show a dialogue step. The wait lets the previous dialogue's view sit a moment before the next pan starts.
 func _pan_then_show(cell: Vector2i, zoom: Vector2, text: String) -> void:
-	await get_tree().create_timer(_PRE_PAN_DELAY).timeout
+	if _PRE_PAN_DELAY > 0.0:
+		await get_tree().create_timer(_PRE_PAN_DELAY).timeout
 	_pan_camera_to_cell(cell, zoom)
 	await _show_dialogue_step(text)
 
@@ -129,20 +134,17 @@ func start_conversation():
 	finished.emit()
 
 
-## Left-click or ui_accept:
-##   - Hides the click-anywhere hint after its first click.
-##   - Fast-forwards the consent/welcome typewriter if one is running.
-## The Dialogue autoload handles its own click-to-skip for the region dialogues.
+## Left-click or ui_accept fast-forwards the consent/welcome typewriter
+## if one is running. The Dialogue autoload handles its own click-to-skip
+## for the region dialogues. The click-anywhere hint is dismissed inside
+## _show_dialogue_step when the dialogue is actually closed, not on every click.
 func _input(event: InputEvent) -> void:
+	if not _typing_active:
+		return
 	var is_left_click: bool = event is InputEventMouseButton \
 		and event.pressed \
 		and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
-	if not (is_left_click or event.is_action_pressed("ui_accept")):
-		return
-	var hint := get_node_or_null("CanvasLayer/HintButton")
-	if hint and hint.visible:
-		hint.hide()
-	if _typing_active:
+	if is_left_click or event.is_action_pressed("ui_accept"):
 		get_viewport().set_input_as_handled()
 		_typing_skip_requested = true
 

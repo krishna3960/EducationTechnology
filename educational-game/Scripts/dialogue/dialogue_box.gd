@@ -141,22 +141,34 @@ func dismiss() -> void:
 	if _active:
 		_close()
 
-# Left-click or ui_accept skips to the end of typewriter animation, or dismisses the dialog if already finished (when auto_close is true).
-func _unhandled_input(event: InputEvent) -> void:
-	if not _active:
+func _input(event: InputEvent) -> void:
+	if not _active or not _auto_close:
 		return
+	if _handle_advance(event):
+		get_viewport().set_input_as_handled()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not _active or _auto_close:
+		return
+	if _handle_advance(event):
+		get_viewport().set_input_as_handled()
+
+
+# Returns true if the event triggered an advance (skip typing or close).
+func _handle_advance(event: InputEvent) -> bool:
 	var is_left_click: bool = event is InputEventMouseButton \
 		and event.pressed \
 		and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
-	var advance: bool = is_left_click or event.is_action_pressed("ui_accept")
-	if not advance:
-		return
+	if not (is_left_click or event.is_action_pressed("ui_accept")):
+		return false
 	if _typing:
-		get_viewport().set_input_as_handled()
 		_finish_typing()
+		return true
 	elif _auto_close:
-		get_viewport().set_input_as_handled()
 		_close()
+		return true
+	return false
 
 ## Skip to the end of the typewriter effect.
 func _finish_typing() -> void:
