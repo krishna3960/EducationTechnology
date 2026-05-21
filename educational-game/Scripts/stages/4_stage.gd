@@ -307,7 +307,7 @@ func _show_outro() -> void:
 	opts.dim = false
 	opts.auto_close = false
 	Dialogue.on_typewriter_done.connect(_show_choices, CONNECT_ONE_SHOT)
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _OUTRO_TEXT, opts)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _OUTRO_TEXT, opts, null)
 
 func _show_newspaper() -> void:
 	Newspaper.on_close.connect(func(): finished.emit(), CONNECT_ONE_SHOT)

@@ -49,7 +49,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Play"
 
-[node name="SettingsButton" type="Button" parent="UILayer/CenterContainer/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="UILayer/CenterContainer/VBoxContainer" unique_id=1558918710]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
@@ -61,46 +61,46 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Quit"
 
-[node name="SettingsPanel" type="PanelContainer" parent="UILayer/CenterContainer"]
+[node name="SettingsPanel" type="PanelContainer" parent="UILayer/CenterContainer" unique_id=331327507]
 visible = false
-layout_mode = 2
 custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="UILayer/CenterContainer/SettingsPanel"]
+[node name="VBox" type="VBoxContainer" parent="UILayer/CenterContainer/SettingsPanel" unique_id=1810428287]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="Title" type="Label" parent="UILayer/CenterContainer/SettingsPanel/VBox"]
+[node name="Title" type="Label" parent="UILayer/CenterContainer/SettingsPanel/VBox" unique_id=1427335430]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="SkipRow" type="HBoxContainer" parent="UILayer/CenterContainer/SettingsPanel/VBox"]
-layout_mode = 2
+[node name="SkipRow" type="HBoxContainer" parent="UILayer/CenterContainer/SettingsPanel/VBox" unique_id=794701370]
 custom_minimum_size = Vector2(0, 50)
-alignment = 1
-theme_override_constants/separation = 16
-
-[node name="Label" type="Label" parent="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow" unique_id=1407573579]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 32
 text = "Enable skipping scenes:"
 
-[node name="FalseButton" type="Button" parent="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow"]
-layout_mode = 2
+[node name="FalseButton" type="Button" parent="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow" unique_id=1231273973]
 custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Off"
 
-[node name="TrueButton" type="Button" parent="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow"]
-layout_mode = 2
+[node name="TrueButton" type="Button" parent="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow" unique_id=457307326]
 custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "On"
 
-[node name="BackButton" type="Button" parent="UILayer/CenterContainer/SettingsPanel/VBox"]
+[node name="BackButton" type="Button" parent="UILayer/CenterContainer/SettingsPanel/VBox" unique_id=681466902]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
