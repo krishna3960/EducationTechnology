@@ -30,31 +30,10 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqqes"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tseg5"]
-bg_color = Color(1, 0, 0, 1)
-corner_radius_top_left = 70
-corner_radius_top_right = 70
-corner_radius_bottom_right = 70
-corner_radius_bottom_left = 70
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecit4"]
-corner_radius_top_left = 70
-corner_radius_top_right = 70
-corner_radius_bottom_right = 70
-corner_radius_bottom_left = 70
-
 [node name="2TestHere" type="Node2D" unique_id=885598074]
 script = ExtResource("1_8qp1f")
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=-2061257295]
-
 
 [node name="Control_intro" type="Control" parent="UILayer" unique_id=1903783701]
 layout_mode = 3
@@ -114,6 +93,7 @@ offset_left = 280.0
 offset_top = 200.0
 offset_right = 1640.0
 offset_bottom = 737.0
+mouse_filter = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/normal_font_size = 36
 
@@ -124,6 +104,7 @@ offset_left = 280.0
 offset_top = 200.0
 offset_right = 1640.0
 offset_bottom = 680.0
+mouse_filter = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/normal_font_size = 36
 
@@ -151,30 +132,17 @@ layer = 30
 
 [node name="HintButton" type="Button" parent="CanvasLayer" unique_id=957956890]
 z_index = 30
-offset_left = 665.0
-offset_top = 431.0
-offset_right = 1237.0
-offset_bottom = 683.0
+offset_left = 1153.0
+offset_top = 524.0
+offset_right = 1890.0
+offset_bottom = 776.0
+mouse_filter = 2
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_2015y")
-theme_override_styles/hover = SubResource("StyleBoxFlat_aqqes")
-text = "Click somewhere on the screen to continue after the dialog finishes."
+disabled = true
+text = "Click anywhere on the screen to continue after the dialog finishes."
 autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="Button" type="Button" parent="CanvasLayer/HintButton" unique_id=1772132401]
-layout_mode = 0
-offset_left = 542.0
-offset_top = -19.0
-offset_right = 589.0
-offset_bottom = 26.0
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_tseg5")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ecit4")
-text = "X"
-
-[connection signal="pressed" from="UILayer/Control_intro/Button" to="." method="_button_pressed"]
-[connection signal="pressed" from="UILayer/Control_intro/UserConsentButton" to="." method="_on_user_consent_button_pressed"]
 [connection signal="pressed" from="UILayer/StartButtonHolder/Button_to_stage_1" to="." method="_start_scene_1"]
-[connection signal="pressed" from="CanvasLayer/HintButton/Button" to="." method="_on_cross_button_pressed"]

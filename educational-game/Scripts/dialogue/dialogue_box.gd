@@ -13,7 +13,7 @@ const _SILENT_CHARS: String = " \t\n.,!?;:-—\""
 const _ENTER_DURATION: float = 0.35
 const _EXIT_DURATION: float = 0.25
 const _ENTER_SLIDE_OFFSET: float = -800.0
-const _POST_ENTRANCE_DELAY: float = 0.25
+const _POST_ENTRANCE_DELAY: float = 0.0
 
 const _DEBUG_DEFAULT_PORTRAIT: Texture2D = preload("res://icon.svg")
 const _DEBUG_DEFAULT_TEXT: String = "Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla"
