@@ -48,8 +48,11 @@ func _create_skip_button() -> void:
 	_skip_btn.pressed.connect(_on_skip_pressed)
 
 func _process(_delta: float) -> void:
-	if _skip_btn != null and _skip_btn.disabled and GameState.user_consented:
+	if _skip_btn != null and _skip_btn.disabled and _can_skip_now():
 		_skip_btn.disabled = false
+
+func _can_skip_now() -> bool:
+	return GameState.user_consented
 
 func _on_skip_pressed() -> void:
 	if _skip_index >= _SKIP_TARGETS.size():
