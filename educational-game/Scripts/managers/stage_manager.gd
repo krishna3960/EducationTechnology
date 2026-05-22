@@ -17,6 +17,8 @@ var _skip_canvas: CanvasLayer
 var _skip_btn: Button
 const _SKIP_TARGETS: Array = [
 	{"label": "Skip Intro", "stage_name": "1_land_choice_stage"},
+	{"label": "Skip to Classroom", "stage_name": "04_classroom_tscn"},
+	{"label": "Skip to Statistics", "stage_name": "DashboardStage"},
 ]
 var _skip_index: int = 0
 
