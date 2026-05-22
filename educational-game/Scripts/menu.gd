@@ -53,14 +53,14 @@ func _start_game() -> void:
 	
 func _on_settings_pressed() -> void:
 	MusicManager.play_sfx(_SFX_CYCLE)
-	$UILayer/CenterContainer/VBoxContainer.visible = false
+	$UILayer/CenterContainer/Node2D.visible = false
 	$UILayer/CenterContainer/SettingsPanel.visible = true
 	_update_skip_buttons()
-	
+
 func _on_settings_back_pressed() -> void:
 	MusicManager.play_sfx(_SFX_CYCLE)
 	$UILayer/CenterContainer/SettingsPanel.visible = false
-	$UILayer/CenterContainer/VBoxContainer.visible = true
+	$UILayer/CenterContainer/Node2D.visible = true
 
 func _on_skip_false() -> void:
 	GameState.skip_scenes_enabled = false

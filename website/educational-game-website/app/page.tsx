@@ -10,14 +10,21 @@ import { ThemeToggle } from "@/components/theme-toggle"
 
 async function getHomeContent() {
   const file = path.join(process.cwd(), "content", "home.md")
-  return fs.readFile(file, "utf8")
+  const raw = await fs.readFile(file, "utf8")
+  // Strip comments (<!-- ... -->
+  return raw.replace(/<!--[\s\S]*?-->/g, "")
 }
 
 const markdownComponents: Components = {
   h1: ({ children }) => (
-    <h1 className="relative mb-2 pb-3 text-4xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 after:absolute after:bottom-0 after:left-0 after:h-1 after:w-12 after:rounded after:bg-rose-400">
+    <h1 className="relative mb-2 pb-3 text-4xl font-semibold tracking-tight text-stone-900 after:absolute after:bottom-0 after:left-0 after:h-1 after:w-12 after:rounded after:bg-rose-400 dark:text-stone-100">
       {children}
     </h1>
+  ),
+  a: ({ children, href, ...props }) => (
+    <a {...props} href={href} className="[overflow-wrap:anywhere] break-all">
+      {children}
+    </a>
   ),
 }
 
@@ -26,12 +33,15 @@ export default async function Page() {
 
   return (
     <main className="relative flex min-h-svh flex-col items-center bg-rose-50/60 px-6 py-16 dark:bg-stone-950">
-      <div className="absolute right-4 top-4">
+      <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
 
-      <article className="prose prose-stone w-full max-w-2xl dark:prose-invert prose-a:text-rose-600 prose-a:decoration-rose-300 hover:prose-a:decoration-rose-500 dark:prose-a:text-rose-400 dark:prose-a:decoration-rose-500">
-        <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+      <article className="prose w-full max-w-2xl prose-stone dark:prose-invert prose-a:text-rose-600 prose-a:decoration-rose-300 hover:prose-a:decoration-rose-500 dark:prose-a:text-rose-400 dark:prose-a:decoration-rose-500">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={markdownComponents}
+        >
           {content}
         </ReactMarkdown>
       </article>
@@ -44,7 +54,9 @@ export default async function Page() {
         >
           <Link href="/play">▶ Play</Link>
         </Button>
-        <p className="text-xs text-stone-500 dark:text-stone-400">Runs in your browser</p>
+        <p className="text-xs text-stone-500 dark:text-stone-400">
+          Runs in your browser
+        </p>
       </div>
     </main>
   )

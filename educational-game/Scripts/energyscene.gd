@@ -281,7 +281,7 @@ func _show_prompt_choice_button() -> void:
 		if _ui_canvas:
 			_ui_canvas.queue_free()
 			_ui_canvas = null
-		_stage_end()
+		finished.emit()
 	)
 
 func _fade_clump(polys: Array, target_alpha: float) -> void:
