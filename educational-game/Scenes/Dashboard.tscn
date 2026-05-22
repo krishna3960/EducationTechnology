@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dashboard_final01"]
+
+[ext_resource type="Script" path="res://Scripts/dashboard.gd" id="1_dash"]
+
+[node name="Dashboard" type="CanvasLayer"]
+script = ExtResource("1_dash")

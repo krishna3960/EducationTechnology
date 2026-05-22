@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://gc6o6egtrg4x" path="res://Scenes/Stages/02_shop_stage.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://byknwb42a7u4c" path="res://Scenes/Stages/03_energy_scene.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://cv2rmvjykploa" path="res://Scenes/Stages/04_classroom_tscn.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://Scenes/Stages/4_stage.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://dam3a6o266ul4" path="res://Scenes/Stages/4_stage.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://dfjgbvfbwpleq" path="res://Scenes/DashboardStage.tscn" id="8_ank4r"]
 [ext_resource type="AudioStream" uid="uid://bikn02harsu13" path="res://Assets/Music/BackgroundThemeAll.mp3" id="8_e7nqm"]
 [ext_resource type="AudioStream" uid="uid://dxm6we1yq3yx6" path="res://Assets/Music/BackgroundThemeShop.mp3" id="9_88vbr"]
 [ext_resource type="AudioStream" uid="uid://bt82jhjm4g46a" path="res://Assets/Music/Documentary Cinematic Drone Chill by Infraction [Copyright Free Music]  New World.mp3" id="10_88vbr"]
@@ -16,5 +17,5 @@ data = PackedByteArray("SUQzBAAAAAABAFRYWFgAAAASAAADbWFqb3JfYnJhbmQAZGFzaABUWFhY
 
 [node name="StageManager" type="Node" unique_id=830780553]
 script = ExtResource("1")
-stages = Array[PackedScene]([ExtResource("2_yfyfq"), ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])
+stages = Array[PackedScene]([ExtResource("2_yfyfq"), ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("8_ank4r")])
 stage_music = Array[AudioStream]([SubResource("AudioStreamMP3_e7nqm"), ExtResource("8_e7nqm"), ExtResource("9_88vbr"), SubResource("AudioStreamMP3_e7nqm"), ExtResource("10_88vbr"), SubResource("AudioStreamMP3_e7nqm")])

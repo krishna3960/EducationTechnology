@@ -416,3 +416,4 @@ func _stage_end() -> void:
 		Dialogue.on_typewriter_done.disconnect(_show_choices)
 	Dialogue.dismiss()
 	Newspaper.dismiss()
+	finished.emit()
