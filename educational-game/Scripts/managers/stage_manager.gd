@@ -120,6 +120,29 @@ func _advance() -> void:
 	stage_changed.emit(_index, _current)
 	if stage_music.size() > _index and stage_music[_index] != null:
 		MusicManager.play(stage_music[_index])
+	_update_skip_button_for_stage()
+
+func _update_skip_button_for_stage() -> void:
+	if _skip_btn == null:
+		return
+	# Advance skip targets that we've already passed
+	while _skip_index < _SKIP_TARGETS.size():
+		var target_name: String = _SKIP_TARGETS[_skip_index]["stage_name"]
+		var target_idx: int = -1
+		for i in stages.size():
+			if stages[i].resource_path.get_file().get_basename() == target_name:
+				target_idx = i
+				break
+		if target_idx != -1 and target_idx <= _index:
+			_skip_index += 1
+		else:
+			break
+	if _skip_index < _SKIP_TARGETS.size():
+		_skip_btn.text = _SKIP_TARGETS[_skip_index]["label"]
+		_skip_btn.show()
+	else:
+		_skip_btn.hide()
+
 func _update_debug_labels() -> void:
 	_debug_label_current.text = "Current: %s" % _stage_label(_index)
 	_debug_label_next.text = "Next:    %s" % _stage_label(_index + 1)
