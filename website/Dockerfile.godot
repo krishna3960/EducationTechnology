@@ -1,0 +1,40 @@
+FROM ubuntu:24.04
+
+ARG GODOT_VERSION=4.6-stable
+# Templates live under a `<version>.stable` directory (e.g. `4.6.stable`),
+# not `<version>-stable`, so keep both forms.
+ARG GODOT_TEMPLATE_VERSION=4.6.stable
+ENV GODOT_VERSION=${GODOT_VERSION}
+ENV GODOT_TEMPLATE_VERSION=${GODOT_TEMPLATE_VERSION}
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget unzip ca-certificates bash \
+    && rm -rf /var/lib/apt/lists/*
+
+# BuildKit injects TARGETARCH (e.g. amd64, arm64) so the image matches the
+# host architecture instead of forcing Rosetta on Apple Silicon.
+ARG TARGETARCH
+ENV TARGETARCH=${TARGETARCH}
+
+# Godot binary — Godot publishes both x86_64 and arm64 Linux builds.
+RUN case "${TARGETARCH}" in \
+        arm64) GODOT_ARCH=arm64 ;; \
+        amd64|"") GODOT_ARCH=x86_64 ;; \
+        *) echo "Unsupported TARGETARCH=${TARGETARCH}" >&2; exit 1 ;; \
+    esac \
+    && GODOT_ASSET="Godot_v${GODOT_VERSION}_linux.${GODOT_ARCH}" \
+    && wget -q "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/${GODOT_ASSET}.zip" \
+    && unzip -q "${GODOT_ASSET}.zip" \
+    && mv "${GODOT_ASSET}" /usr/local/bin/godot \
+    && chmod +x /usr/local/bin/godot \
+    && rm "${GODOT_ASSET}.zip"
+
+# Export templates (must live under ~/.local/share/godot/export_templates/<version>.stable/)
+RUN GODOT_TPL_DIR="/root/.local/share/godot/export_templates/${GODOT_TEMPLATE_VERSION}" \
+    && mkdir -p "${GODOT_TPL_DIR}" \
+    && wget -q "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz" \
+    && unzip -q "Godot_v${GODOT_VERSION}_export_templates.tpz" \
+    && mv templates/* "${GODOT_TPL_DIR}/" \
+    && rm -rf "Godot_v${GODOT_VERSION}_export_templates.tpz" templates
+
+WORKDIR /project
