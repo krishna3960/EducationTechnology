@@ -56,12 +56,12 @@ const _CHOICES: Dictionary = {
 const _ELECTRICITY_CHOICES: Dictionary = {
 	"far": {
 		"label": "Further from village",
-		"tint": Color(1.0, 1.0, 0.0, 0.706),
+		"tint": Color(1.0, 0.0, 0.0, 0.706),
 		"cells": [Vector2i(-5, 2)],
 	},
 	"close": {
 		"label": "Close to village",
-		"tint": Color(1.0, 1.0, 0.0, 0.706),
+		"tint": Color(1.0, 0.0, 0.0, 0.706),
 		"cells": [Vector2i(8, 0)],
 	},
 }

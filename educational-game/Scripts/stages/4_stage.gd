@@ -8,7 +8,6 @@ extends Stage
 const _SFX_CYCLE: AudioStream = preload("res://Assets/Music/Just A 1 Second Woosh Sound.mp3")
 const _SFX_WATER: AudioStream = preload("res://Assets/Music/Flowing Water - Sound Effect.mp3")
 
-const _WATER_TINT: Color = Color(1.0, 1.0, 0.0, 0.706)
 const _HOVER_FADE_DURATION: float = 0.08
 
 # Camera/zoom will slide to this position/zoom when making the river choice
@@ -38,7 +37,7 @@ const _HIGHLIGHT_CELLS_2: Dictionary = {
 const _WATER_CHOICES: Dictionary = {
 	"north": {
 		"label": "North River",
-		"tint": Color(1.0, 1.0, 0.0, 0.706),
+		"tint": Color(1.0, 0.0, 0.0, 0.706),
 		"river_cells": [
 			Vector2i(-6, -2), Vector2i(-5, -2), Vector2i(-5, -1), Vector2i(-4, 0),
 			Vector2i(-3, 0), Vector2i(-2, 0), Vector2i(-1, -1), Vector2i(0, -1),
@@ -50,7 +49,7 @@ const _WATER_CHOICES: Dictionary = {
 	},
 	"west": {
 		"label": "West River",
-		"tint": Color(1.0, 1.0, 0.0, 0.706),
+		"tint": Color(1.0, 0.0, 0.0, 0.706),
 		"river_cells": [
 			Vector2i(-6, 5), Vector2i(-5, 4), Vector2i(-4, 5),
 			Vector2i(-3, 5), Vector2i(-2, 6), Vector2i(-2, 7), Vector2i(-2, 8),
@@ -58,7 +57,7 @@ const _WATER_CHOICES: Dictionary = {
 	},
 	"east": {
 		"label": "East River",
-		"tint": Color(1.0, 1.0, 0.0, 0.706),
+		"tint": Color(1.0, 0.0, 0.0, 0.706),
 		"river_cells": [
 			Vector2i(6, 8), Vector2i(6, 7), Vector2i(5, 6), Vector2i(5, 5),
 			Vector2i(6, 5), Vector2i(7, 4), Vector2i(8, 4), Vector2i(9, 3),
@@ -258,7 +257,7 @@ func _on_choice(key: String) -> void:
 	var same_as_first: bool = key == _first_choice_key
 
 	MusicManager.play_sfx(_SFX_WATER)
-	
+
 	# Replace the highlight tile with a water-pump tile (same shape)
 	var cells_map: Dictionary = _HIGHLIGHT_CELLS_2 if same_as_first else _HIGHLIGHT_CELLS_1
 	var pump_cell: Vector2i = cells_map[key]
