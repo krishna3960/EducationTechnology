@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://3t042w7rjyv5"]
+
+[ext_resource type="Script" uid="uid://bi7esw4fjaq43" path="res://Scripts/stages/05_dashboard_stage.gd" id="1_stg"]
+
+[node name="DashboardStage" type="Node2D" unique_id=156025046]
+script = ExtResource("1_stg")
