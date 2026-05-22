@@ -88,15 +88,15 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7o5ro"]
-bg_color = Color(0.43137255, 0.6039216, 0.18431373, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5sflr"]
+bg_color = Color(0.68368864, 0.47599018, 0.33824927, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5sflr"]
-bg_color = Color(0.68368864, 0.47599018, 0.33824927, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7o5ro"]
+bg_color = Color(0.43137255, 0.6039216, 0.18431373, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -107,13 +107,15 @@ script = ExtResource("1_1q6fv")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=614214521]
 
-[node name="Background" type="ColorRect" parent="CanvasLayer" unique_id=1574107429]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=311304852]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.7433718, 0.7378066, 0.9155975, 1)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.74509805, 0.7372549, 0.9137255, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=934391211]
 anchors_preset = 15
@@ -121,14 +123,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 64
-theme_override_constants/margin_bottom = 64
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
 
 [node name="MainLayout" type="VBoxContainer" parent="CanvasLayer/MarginContainer" unique_id=639105216]
 layout_mode = 2
-theme_override_constants/separation = 32
 
 [node name="HeaderContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout" unique_id=1289966559]
 layout_mode = 2
@@ -136,74 +137,73 @@ layout_mode = 2
 [node name="Title" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/HeaderContainer" unique_id=554151532]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1254902, 0.08627451, 0.1882353, 1)
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 44
 text = "Final Report"
 
 [node name="Subtitle" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/HeaderContainer" unique_id=952166593]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.24194136, 0.17833862, 0.3441383, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 text = "You have made choices that impacted the environment and the lives of people living in the area."
 
-[node name="PanelGrid" type="GridContainer" parent="CanvasLayer/MarginContainer/MainLayout" unique_id=303973597]
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout" unique_id=972488747]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/h_separation = 32
-theme_override_constants/v_separation = 32
-columns = 3
+size_flags_stretch_ratio = 3.0
 
-[node name="LandPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid" unique_id=2144545307]
+[node name="LandPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow" unique_id=2144545307]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_bv3rt")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel" unique_id=1088415384]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel" unique_id=1088415384]
 layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
 
-[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer" unique_id=583997428]
+[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer" unique_id=583997428]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox" unique_id=1011226155]
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox" unique_id=1011226155]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox/TopRow" unique_id=675241280]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox/TopRow" unique_id=675241280]
 layout_mode = 2
 texture = ExtResource("2_qtnvp")
 expand_mode = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox/TopRow" unique_id=1760414144]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox/TopRow" unique_id=1760414144]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Land Usage"
 
-[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox" unique_id=1131601919]
+[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox" unique_id=1131601919]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_orfab")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=1629763066]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=1629763066]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=896778724]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=896778724]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 17
 text = "You have built your AI centre on land that includes farmland."
 
-[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox" unique_id=1619876389]
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox" unique_id=1619876389]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=1375353140]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=1375353140]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 16
@@ -213,83 +213,88 @@ theme_override_font_sizes/italics_font_size = 17
 theme_override_font_sizes/mono_font_size = 17
 text = "AI center campuses require a lot of land. While the main buildings range in size from 7-40 hectares, which corresponds to 10-55 football fields, the entire campus can span between 30 and 350 hectares, which corresponds to 30-500 football fields. They not only take up a lot of space, but also transform the land they occupy. Often, peri-urban and agricultural landscapes are used for these specialised industrial zones, which can result in the loss of productive farmland."
 
-[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=1603559357]
+[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=1603559357]
 visible = false
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 
-[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox" unique_id=967035733]
+[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox" unique_id=967035733]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_orfab")
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox/InfoBox" unique_id=705538993]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox/InfoBox" unique_id=705538993]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/LandPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=1942607171]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/LandPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=1942607171]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "other info"
 
-[node name="HWPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid" unique_id=1806441111]
+[node name="HWPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow" unique_id=1806441111]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_bv3rt")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel" unique_id=1072734863]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel" unique_id=1072734863]
 layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
 
-[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer" unique_id=1460400847]
+[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer" unique_id=1460400847]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox" unique_id=1445630054]
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox" unique_id=1445630054]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox/TopRow" unique_id=521188706]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/TopRow" unique_id=521188706]
 layout_mode = 2
 texture = ExtResource("3_ct33i")
 expand_mode = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox/TopRow" unique_id=220485497]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/TopRow" unique_id=220485497]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Hardware"
 
-[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox" unique_id=1387666573]
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox" unique_id=469820977]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=1017356156]
+layout_mode = 2
+
+[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/MiddleRow/VBoxContainer" unique_id=1387666573]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_un0h3")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=331512517]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/MiddleRow/VBoxContainer/ChoiceBox" unique_id=331512517]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=659688096]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/MiddleRow/VBoxContainer/ChoiceBox/MarginContainer" unique_id=659688096]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1254902, 0.08627451, 0.1882353, 1)
-theme_override_font_sizes/font_size = 18
-text = "You bought multiple servers for Joe’s shop during the game to expand your AI center."
+theme_override_font_sizes/font_size = 17
+text = "You bought multiple servers for Joe’s shop 
+during the game to expand your AI center."
 
-[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox" unique_id=469820977]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=1736531982]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/MiddleRow/VBoxContainer" unique_id=1736531982]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_font_sizes/normal_font_size = 16
 theme_override_font_sizes/bold_font_size = 17
 theme_override_font_sizes/bold_italics_font_size = 17
@@ -297,17 +302,18 @@ theme_override_font_sizes/italics_font_size = 17
 theme_override_font_sizes/mono_font_size = 17
 text = "Villagers noticed laptops and other electronics becoming more expensive. The same advanced chips powering your AI systems were driving up global demand. Producing these chips requires many rare metals, such as copper, silicon and cobalt, and the process requires many other resources, such as purified water. The smaller the chips, the more precise and pure the resources have to be. The chips used in AI centres are much more costly to produce than those used in general data centres."
 
-[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=2115840762]
-custom_minimum_size = Vector2(250, 250)
+[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=2115840762]
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 texture = ExtResource("4_ct33i")
 expand_mode = 3
 
-[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox" unique_id=325529668]
+[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox" unique_id=325529668]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ssfx3")
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox/InfoBox" unique_id=56019216]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/InfoBox" unique_id=56019216]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -315,156 +321,156 @@ theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/HWPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=220222985]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=220222985]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1254902, 0.08627451, 0.1882353, 1)
 theme_override_font_sizes/font_size = 18
 text = "other info"
 
-[node name="UsersPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid" unique_id=27767529]
+[node name="UsersPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow" unique_id=27767529]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_bv3rt")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel" unique_id=1137259377]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel" unique_id=1137259377]
 layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
 
-[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer" unique_id=143166923]
+[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer" unique_id=143166923]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox" unique_id=283691914]
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer/PanelVBox" unique_id=283691914]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox/TopRow" unique_id=236503993]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer/PanelVBox/TopRow" unique_id=236503993]
 layout_mode = 2
 texture = ExtResource("4_nmupo")
 expand_mode = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox/TopRow" unique_id=947906062]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer/PanelVBox/TopRow" unique_id=947906062]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Users"
 
-[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox" unique_id=669949009]
+[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer/PanelVBox" unique_id=669949009]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qtnvp")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=2073735738]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=2073735738]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=1952385537]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=1952385537]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1254902, 0.08627451, 0.1882353, 1)
 theme_override_font_sizes/font_size = 18
 text = "You bought multiple servers for Joe’s shop during the game to expand your AI center."
 
-[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox" unique_id=36290094]
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer/PanelVBox" unique_id=36290094]
 layout_mode = 2
 size_flags_vertical = 3
+alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=840707569]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/normal_font_size = 17
-theme_override_font_sizes/bold_font_size = 17
-theme_override_font_sizes/bold_italics_font_size = 17
-theme_override_font_sizes/italics_font_size = 17
-theme_override_font_sizes/mono_font_size = 17
-text = "PIE CHART GOES HERE"
-
-[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=487179617]
-custom_minimum_size = Vector2(250, 250)
+[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=487179617]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("6_nmupo")
 expand_mode = 3
 
-[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox" unique_id=1966261507]
+[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer/PanelVBox" unique_id=1966261507]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ct33i")
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox/InfoBox" unique_id=1557638598]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer/PanelVBox/InfoBox" unique_id=1557638598]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/UsersPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=1164067470]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/UsersPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=1164067470]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1254902, 0.08627451, 0.1882353, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 17
 text = "ChatGPT has approximately 800 million weekly users"
+autowrap_mode = 3
 
-[node name="EnergyPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid" unique_id=1072984644]
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout" unique_id=2141966339]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="EnergyPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow" unique_id=1072984644]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_bv3rt")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel" unique_id=291753686]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel" unique_id=291753686]
 layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
 
-[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer" unique_id=770005640]
+[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer" unique_id=770005640]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 16
 
-[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox" unique_id=459215253]
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox" unique_id=459215253]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox/TopRow" unique_id=687169734]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox/TopRow" unique_id=687169734]
 layout_mode = 2
 texture = ExtResource("5_ck8l7")
 expand_mode = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox/TopRow" unique_id=1939785994]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox/TopRow" unique_id=1939785994]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Energy Usage"
 
-[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox" unique_id=152618340]
+[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox" unique_id=152618340]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fsoio")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=1663323640]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=1663323640]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=615220622]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=615220622]
 custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1254902, 0.08627451, 0.1882353, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
 text = "By redirecting energy towards the AI data center near Petalia, you have significantly reduced the amount of electricity available to local households. "
 autowrap_mode = 3
 
-[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox" unique_id=1079555183]
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox" unique_id=1079555183]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=1688867626]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=1688867626]
+custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 theme_override_font_sizes/normal_font_size = 16
 theme_override_font_sizes/bold_font_size = 17
 theme_override_font_sizes/bold_italics_font_size = 17
@@ -472,83 +478,85 @@ theme_override_font_sizes/italics_font_size = 17
 theme_override_font_sizes/mono_font_size = 17
 text = "As CEO, your expansion contributes to the rapidly growing global energy demand of AI infrastructure, which currently accounts for 15–20% of data center electricity consumption worldwide. Overall, AI systems consume enough energy each year to power approximately two to three and a half times the number of Swiss family households."
 
-[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=1319318881]
+[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=1319318881]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
-[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox" unique_id=447226830]
+[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox" unique_id=447226830]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h8vrx")
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox/InfoBox" unique_id=913077521]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox/InfoBox" unique_id=913077521]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/EnergyPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=185695803]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=185695803]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1254902, 0.08627451, 0.1882353, 1)
 theme_override_font_sizes/font_size = 18
 text = "other info"
 
-[node name="WaterPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid" unique_id=807249017]
+[node name="WaterPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow" unique_id=807249017]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_bv3rt")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel" unique_id=1359212302]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel" unique_id=1359212302]
 layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
 
-[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer" unique_id=515464414]
+[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer" unique_id=515464414]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 16
 
-[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox" unique_id=2005621468]
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox" unique_id=2005621468]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox/TopRow" unique_id=241643846]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox/TopRow" unique_id=241643846]
 layout_mode = 2
 texture = ExtResource("6_upmtq")
 expand_mode = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox/TopRow" unique_id=245748561]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox/TopRow" unique_id=245748561]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Water Usage"
 
-[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox" unique_id=1459952649]
+[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox" unique_id=1459952649]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_krfy7")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=1160454066]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=1160454066]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=951611695]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=951611695]
 custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1254902, 0.08627451, 0.1882353, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
 text = "By installing two water pumps on the North river, you have left Pontia with almost no water resources. "
 autowrap_mode = 3
 
-[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox" unique_id=808243066]
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox" unique_id=808243066]
+custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=293343889]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=293343889]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 16
@@ -558,155 +566,66 @@ theme_override_font_sizes/italics_font_size = 17
 theme_override_font_sizes/mono_font_size = 17
 text = "As CEO, your expansion contributes to the rapidly growing global energy demand of AI infrastructure, which currently accounts for 15–20% of data center electricity consumption worldwide. Overall, AI systems consume enough energy each year to power approximately two to three and a half times the number of Swiss family households."
 
-[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=621822798]
+[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=621822798]
 visible = false
 custom_minimum_size = Vector2(250, 250)
 layout_mode = 2
 
-[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox" unique_id=1998097847]
+[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox" unique_id=1998097847]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1lixt")
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox/InfoBox" unique_id=1149461476]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox/InfoBox" unique_id=1149461476]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/WaterPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=1921026869]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=1921026869]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1254902, 0.08627451, 0.1882353, 1)
 theme_override_font_sizes/font_size = 18
 text = "other info"
 
-[node name="AirPollutionPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid" unique_id=1911392777]
+[node name="NoisePollutionPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow" unique_id=263506285]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_bv3rt")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel" unique_id=224181797]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel" unique_id=394719394]
 layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
 
-[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer" unique_id=2016171046]
+[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer" unique_id=257089748]
 layout_mode = 2
-theme_override_constants/separation = 16
+size_flags_vertical = 0
+theme_override_constants/separation = 6
 
-[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox" unique_id=318959727]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox/TopRow" unique_id=57969605]
-layout_mode = 2
-texture = ExtResource("7_debuo")
-expand_mode = 3
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox/TopRow" unique_id=1114740785]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "Carbon and Air Pollution"
-
-[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox" unique_id=1913238212]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kh86l")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=1737497807]
-visible = false
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 7
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 7
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=7219040]
-visible = false
-custom_minimum_size = Vector2(100, 10)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
-text = "By installing two water pumps on the North river, you have left Pontia with almost no water resources. "
-autowrap_mode = 3
-
-[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox" unique_id=193050884]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=976447114]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/normal_font_size = 16
-theme_override_font_sizes/bold_font_size = 17
-theme_override_font_sizes/bold_italics_font_size = 17
-theme_override_font_sizes/italics_font_size = 17
-theme_override_font_sizes/mono_font_size = 17
-text = "AI systems can have a carbon footprint between 32 and 80 millions of tons CO_2, which corresponds to the carbon footprint of New York City or to the emission per passenger of 30-70 million economy class flights from Zurich to New York. 
-
-Some AI centers use gas power daily, which increases air pollution and greenhouse gas emissions. AI centers usually have backup generators too, such as diesel-fuelled ones. These generators release harmful substances such as fine particulate matter and nitrogen oxides into the air, which can lead to respiratory or heart disease."
-
-[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=518306995]
-visible = false
-custom_minimum_size = Vector2(0, 180)
-layout_mode = 2
-
-[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox" unique_id=1956141593]
-visible = false
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7o5ro")
-
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox/InfoBox" unique_id=21460037]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 7
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 7
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/AirPollutionPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=1457952840]
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "other info"
-
-[node name="NoisePollutionPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid" unique_id=263506285]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_bv3rt")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel" unique_id=394719394]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer" unique_id=257089748]
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox" unique_id=94521011]
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer/PanelVBox" unique_id=94521011]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox/TopRow" unique_id=1432233927]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer/PanelVBox/TopRow" unique_id=1432233927]
 layout_mode = 2
 texture = ExtResource("8_kvtt4")
 expand_mode = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox/TopRow" unique_id=2077599773]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer/PanelVBox/TopRow" unique_id=2077599773]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Noise Pollution"
 
-[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox" unique_id=997500820]
+[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer/PanelVBox" unique_id=997500820]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kh86l")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=1283819531]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=1283819531]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -714,7 +633,7 @@ theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=197567440]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=197567440]
 custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -722,13 +641,15 @@ theme_override_font_sizes/font_size = 18
 text = "By installing two water pumps on the North river, you have left Pontia with almost no water resources. "
 autowrap_mode = 3
 
-[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox" unique_id=1731949057]
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer/PanelVBox" unique_id=1731949057]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=766688272]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=766688272]
+custom_minimum_size = Vector2(0, 220)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 theme_override_font_sizes/normal_font_size = 16
 theme_override_font_sizes/bold_font_size = 17
 theme_override_font_sizes/bold_italics_font_size = 17
@@ -738,23 +659,108 @@ text = "Another drawback of building an AI centre is noise pollution. Building t
 For reference, here are some other decibel measurements for common noises. 
 Vacuum cleaner (60-85 dBA), blender or food processor (80-90 dBA),, snow blower (105 dBA),  baby crying (110 dBA), car horn (110 dBA)."
 
-[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=61419777]
-custom_minimum_size = Vector2(0, 230)
-layout_mode = 2
-
-[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox" unique_id=530960224]
+[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer/PanelVBox" unique_id=530960224]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5sflr")
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox/InfoBox" unique_id=1399555020]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer/PanelVBox/InfoBox" unique_id=1399555020]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/PanelGrid/NoisePollutionPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=745190026]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/NoisePollutionPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=745190026]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "other info"
+
+[node name="AirPollutionPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout" unique_id=1911392777]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bv3rt")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel" unique_id=224181797]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer" unique_id=2016171046]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox" unique_id=318959727]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox/TopRow" unique_id=57969605]
+layout_mode = 2
+texture = ExtResource("7_debuo")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox/TopRow" unique_id=1114740785]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Carbon and Air Pollution"
+
+[node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox" unique_id=1913238212]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kh86l")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox/ChoiceBox" unique_id=1737497807]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 7
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer" unique_id=7219040]
+visible = false
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "By installing two water pumps on the North river, you have left Pontia with almost no water resources. "
+autowrap_mode = 3
+
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox" unique_id=193050884]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=976447114]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 17
+theme_override_font_sizes/bold_italics_font_size = 17
+theme_override_font_sizes/italics_font_size = 17
+theme_override_font_sizes/mono_font_size = 17
+text = "AI systems can have a carbon footprint between 32 and 80 millions of tons CO2, which corresponds to the carbon footprint of New York City or to the emission per passenger of 30-70 million economy class flights from Zurich to New York. Some AI centers use gas power daily, which increases air pollution and greenhouse gas emissions. AI centers usually have backup generators too, such as diesel-fuelled ones. These generators release harmful substances such as fine particulate matter and nitrogen oxides into the air, which can lead to respiratory or heart disease."
+
+[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=518306995]
+visible = false
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+
+[node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox" unique_id=1956141593]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7o5ro")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox/InfoBox" unique_id=21460037]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 7
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel/MarginContainer/PanelVBox/InfoBox/MarginContainer2" unique_id=1457952840]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "other info"

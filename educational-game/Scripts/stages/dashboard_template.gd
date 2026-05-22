@@ -1,8 +1,8 @@
 extends Stage
 
 @export_category("Global Dashboard Settings")
-@export var background_color: Color = Color("1a1a1a")
-@export var title_text: String = "Your AI footprint"
+@export var background_color: Color = Color("bebce9ff")
+@export var title_text: String = "Final Report"
 @export var subtitle_text: String = "See how the choices you made shaped the real-world impact of your datacenter."
 
 @export_category("Panel 1: Land Usage")
@@ -13,11 +13,11 @@ extends Stage
 @export_category("Panel 2: Hardware")
 @export var p2_title: String = "Hardware"
 @export var p2_description: String = "Villagers noticed laptops and other electronics becoming more expensive. The same advanced chips powering your AI systems were driving up global demand. Producing these chips requires many rare metals, such as copper, silicon and cobalt, and the process requires many other resources, such as purified water. The smaller the chips, the more precise and pure the resources have to be. The chips used in AI centres are much more costly to produce than those used in general data centres."
-@export var p2_choice_text: String = "You bought multiple servers for Joe's shop during the game to expand your AI center."
+@export var p2_choice_text: String = "You bought multiple servers for Joe's shop\nduring the game to expand your AI center."
 
 @export_category("Panel 3: Users")
 @export var p3_title: String = "Users"
-@export var p3_description: String = "" # Left blank intentionally for your charts!
+@export var p3_description: String = " " # Left blank intentionally for your charts!
 @export var p3_choice_text: String = "ChatGPT has approximately 800 million weekly users"
 
 @export_category("Panel 4: Energy Usage")
@@ -27,17 +27,17 @@ extends Stage
 
 @export_category("Panel 5: Water Usage")
 @export var p5_title: String = "Water Usage"
-@export var p5_description: String = "Training and running AI models requires significant water for server cooling. Data centres can use millions of litres per day."
+@export var p5_description: String = "As a CEO, you are also responsible for the amount of water used by the ai center. Water is used not only to cool down buildings and hardware in the AI center, but also during chip manufacturing and by power plant facilities that supply AI centers with power. The daily water footprint of ai systems is between 850 million and 2 billion litres of water every day, which is equivalent to the daily consumption of 5 to 13 million people."
 @export var p5_choice_text: String = "Choice text updates dynamically"
 
 @export_category("Panel 6: Carbon and Air Pollution")
 @export var p6_title: String = "Carbon and Air Pollution"
-@export var p6_description: String = "AI systems can have a carbon footprint between 32 and 80 millions of tons CO_2, which corresponds to the carbon footprint of New York City or to the emission per passenger of 30-70 million economy class flights from Zurich to New York.\n\nSome AI centers use gas power daily, which increases air pollution and greenhouse gas emissions. AI centers usually have backup generators too, such as diesel-fuelled ones. These generators release harmful substances such as fine particulate matter and nitrogen oxides into the air, which can lead to respiratory or heart disease."
+@export var p6_description: String = "AI systems can have a carbon footprint between 32 and 80 millions of tons CO2, which corresponds to the carbon footprint of New York City or to the emission per passenger of 30-70 million economy class flights from Zurich to New York.Some AI centers use gas power daily, which increases air pollution and greenhouse gas emissions. AI centers usually have backup generators too, such as diesel-fuelled ones. These generators release harmful substances such as fine particulate matter and nitrogen oxides into the air, which can lead to respiratory or heart disease."
 @export var p6_choice_text: String = ""
 
 @export_category("Panel 7: Noise Pollution")
 @export var p7_title: String = "Noise Pollution"
-@export var p7_description: String = "Another drawback of building an AI centre is noise pollution. Building them close to residential areas can cause health issues such as stress and sleep deprivation. Potential sources of noise include cooling systems, diesel generators and whirring fans. These noises can reach up to 105 decibels, which is as loud as a jet flying overhead.\n\nFor reference, here are some other decibel measurements for common noises: Vacuum cleaner (60-85 dBA), blender or food processor (80-90 dBA), snow blower (105 dBA), baby crying (110 dBA), car horn (110 dBA)."
+@export var p7_description: String = "Another drawback of building an AI centre is noise pollution. Building them close to residential areas can cause health issues such as stress and sleep deprivation. Potential sources of noise include cooling systems, diesel generators and whirring fans. These noises can reach up to 105 decibels, which is as loud as a jet flying overhead.\nFor reference, here are some other decibel measurements for common noises: Vacuum cleaner (60-85 dBA), blender or food processor (80-90 dBA), snow blower (105 dBA), baby crying (110 dBA), car horn (110 dBA)."
 @export var p7_choice_text: String = ""
 
 # Node references (assign these in the editor)
@@ -99,43 +99,37 @@ func _apply_theme() -> void:
 		p5_choice_text = "By installing two water pumps on the East river, you have left Fontania with almost no water resources."
 	
 	
-	# store the grid path
-	var grid = $CanvasLayer/MarginContainer/MainLayout/PanelGrid
-	
+	var top = $CanvasLayer/MarginContainer/MainLayout/TopRow
+	var mid = $CanvasLayer/MarginContainer/MainLayout/MiddleRow
+	var main = $CanvasLayer/MarginContainer/MainLayout
 	# 1. Land Panel
-	grid.get_node("LandPanel/MarginContainer/PanelVBox/TopRow/Label").text = p1_title
-	grid.get_node("LandPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p1_description
-	grid.get_node("LandPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p1_choice_text
-	
-	# 2. Hardware Panel 
-	grid.get_node("HWPanel/MarginContainer/PanelVBox/TopRow/Label").text = p2_title
-	grid.get_node("HWPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p2_description
-	grid.get_node("HWPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p2_choice_text
-	
+	top.get_node("LandPanel/MarginContainer/PanelVBox/TopRow/Label").text = p1_title
+	top.get_node("LandPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p1_description
+	top.get_node("LandPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p1_choice_text
+	# 2. Hardware Panel
+	top.get_node("HWPanel/MarginContainer/PanelVBox/TopRow/Label").text = p2_title
+	top.get_node("HWPanel/MarginContainer/PanelVBox/MiddleRow/VBoxContainer/RichTextLabel").text = p2_description
+	top.get_node("HWPanel/MarginContainer/PanelVBox/MiddleRow/VBoxContainer/ChoiceBox/MarginContainer/Label").text = p2_choice_text
 	# 3. Users Panel
-	grid.get_node("UsersPanel/MarginContainer/PanelVBox/TopRow/Label").text = p3_title
-	grid.get_node("UsersPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p3_description
-	grid.get_node("UsersPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p3_choice_text
-	
+	top.get_node("UsersPanel/MarginContainer/PanelVBox/TopRow/Label").text = p3_title
+	#top.get_node("UsersPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p3_description
+	top.get_node("UsersPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p3_choice_text
 	# 4. Energy Panel
-	grid.get_node("EnergyPanel/MarginContainer/PanelVBox/TopRow/Label").text = p4_title
-	grid.get_node("EnergyPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p4_description
-	grid.get_node("EnergyPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p4_choice_text
-	
+	mid.get_node("EnergyPanel/MarginContainer/PanelVBox/TopRow/Label").text = p4_title
+	mid.get_node("EnergyPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p4_description
+	mid.get_node("EnergyPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p4_choice_text
 	# 5. Water Panel
-	grid.get_node("WaterPanel/MarginContainer/PanelVBox/TopRow/Label").text = p5_title
-	grid.get_node("WaterPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p5_description
-	grid.get_node("WaterPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p5_choice_text
-	
-	# 6. Air Pollution Panel
-	grid.get_node("AirPollutionPanel/MarginContainer/PanelVBox/TopRow/Label").text = p6_title
-	grid.get_node("AirPollutionPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p6_description
-	grid.get_node("AirPollutionPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p6_choice_text
-	
-	# 7. Noise Pollution Panel
-	grid.get_node("NoisePollutionPanel/MarginContainer/PanelVBox/TopRow/Label").text = p7_title
-	grid.get_node("NoisePollutionPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p7_description
-	grid.get_node("NoisePollutionPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p7_choice_text
+	mid.get_node("WaterPanel/MarginContainer/PanelVBox/TopRow/Label").text = p5_title
+	mid.get_node("WaterPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p5_description
+	mid.get_node("WaterPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p5_choice_text
+	# 6. Carbon and Air Pollution Panel (directly under MainLayout now)
+	main.get_node("AirPollutionPanel/MarginContainer/PanelVBox/TopRow/Label").text = p6_title
+	main.get_node("AirPollutionPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p6_description
+	#main.get_node("AirPollutionPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p6_choice_text
+	# 7. Noise Pollution Panel (now in MiddleRow)
+	mid.get_node("NoisePollutionPanel/MarginContainer/PanelVBox/TopRow/Label").text = p7_title
+	mid.get_node("NoisePollutionPanel/MarginContainer/PanelVBox/MiddleRow/RichTextLabel").text = p7_description
+	#mid.get_node("NoisePollutionPanel/MarginContainer/PanelVBox/ChoiceBox/MarginContainer/Label").text = p7_choice_text
 
 
 func _stage_start() -> void:
