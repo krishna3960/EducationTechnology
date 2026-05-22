@@ -23,7 +23,7 @@ extends Stage
 @export_category("Panel 4: Energy Usage")
 @export var p4_title: String = "Energy Usage"
 @export var p4_description: String = "As CEO, your expansion contributes to the rapidly growing global energy demand of AI infrastructure, which currently accounts for 15-20% of data center electricity consumption worldwide. Overall, AI systems consume enough energy each year to power approximately two to three and a half times the number of Swiss family households."
-@export var p4_choice_text: String = "Choice text updates dynamically"
+@export var p4_choice_text: String = "By redirecting energy towards the AI data center near Petalia, you have significantly reduced the amount of electricity available to local households."
 
 @export_category("Panel 5: Water Usage")
 @export var p5_title: String = "Water Usage"
