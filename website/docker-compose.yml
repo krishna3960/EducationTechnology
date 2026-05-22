@@ -1,6 +1,22 @@
 name: "educational-game-dev"
 
 services:
+  educational-game-build:
+    container_name: educational-game-build
+    build:
+      context: .
+      dockerfile: Dockerfile.godot
+    working_dir: /project
+    volumes:
+      - ../educational-game:/project
+      - game-build:/project/build/web
+    command: >
+      bash -c "
+        mkdir -p /project/build/web &&
+        godot --headless --export-release Web &&
+        ls -la /project/build/web
+      "
+
   educational-game-website:
     container_name: educational-game-website
     build:
@@ -11,7 +27,14 @@ services:
       - 3000:3000
     volumes:
       - ./educational-game-website:/app
+      - game-build:/app/public/game
       - /etc/timezone:/etc/timezone
       - /etc/localtime:/etc/localtime
     working_dir: /app
+    depends_on:
+      educational-game-build:
+        condition: service_completed_successfully
     command: /bin/sh -c "npm install --no-audit --no-fund && npm run dev"
+
+volumes:
+  game-build:

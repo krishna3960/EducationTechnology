@@ -6,12 +6,11 @@ var sfx_player: AudioStreamPlayer
 
 
 func _init() -> void:
+	# Only the default "Master" bus exists in this project — assigning a
+	# non-existent bus crashes the HTML5 audio backend on volume changes.
 	audio_player = AudioStreamPlayer.new()
-	audio_player.bus = "Music"
 	ambient_player = AudioStreamPlayer.new()
-	ambient_player.bus = "Master"
 	sfx_player = AudioStreamPlayer.new()
-	sfx_player.bus = "Master"
 
 
 func _ready() -> void:
