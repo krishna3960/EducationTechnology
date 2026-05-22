@@ -13,7 +13,7 @@ extends Stage
 @export_category("Panel 2: Hardware")
 @export var p2_title: String = "Hardware"
 @export var p2_description: String = "Villagers noticed laptops and other electronics becoming more expensive. The same advanced chips powering your AI systems were driving up global demand. Producing these chips requires many rare metals, such as copper, silicon and cobalt, and the process requires many other resources, such as purified water. The smaller the chips, the more precise and pure the resources have to be. The chips used in AI centres are much more costly to produce than those used in general data centres."
-@export var p2_choice_text: String = "You bought multiple servers for Joe's shop\nduring the game to expand your AI center."
+@export var p2_choice_text: String = "You bought multiple servers from Joe's shop\nduring the game to expand your AI center."
 
 @export_category("Panel 3: Users")
 @export var p3_title: String = "Users"
@@ -76,7 +76,7 @@ func _apply_theme() -> void:
 	if GameState.electricity_choice == "far":
 		p4_choice_text = "By redirecting energy towards the AI data center, you have slightly reduced the amount of electricity available to Pontia."
 	elif GameState.electricity_choice == "close":
-		p4_choice_text = "By redirecting energy towards the AI data center near Petalia, you have significantly reduced the amount of electricity available to local households."
+		p4_choice_text = "By redirecting energy towards the AI data center near Petalia and Fontania, you have significantly reduced the amount of electricity available to local households."
 		
 	# WATER CHOICE 
 	if GameState.metrics.water_choices.size() >= 2:
