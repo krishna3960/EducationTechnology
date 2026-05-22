@@ -21,6 +21,11 @@ const markdownComponents: Components = {
       {children}
     </h1>
   ),
+  a: ({ children, href, ...props }) => (
+    <a {...props} href={href} className="[overflow-wrap:anywhere] break-all">
+      {children}
+    </a>
+  ),
 }
 
 export default async function Page() {
