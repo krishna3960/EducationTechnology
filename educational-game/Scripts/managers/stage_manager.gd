@@ -66,11 +66,6 @@ func _on_skip_pressed() -> void:
 	if target_idx == -1 or target_idx <= _index:
 		return
 	_skip_to(target_idx)
-	_skip_index += 1
-	if _skip_index < _SKIP_TARGETS.size():
-		_skip_btn.text = _SKIP_TARGETS[_skip_index]["label"]
-	else:
-		_skip_btn.hide()
 
 func _skip_to(target_idx: int) -> void:
 	# Set sensible defaults for skipped stages
