@@ -73,6 +73,14 @@ func _on_skip_pressed() -> void:
 		_skip_btn.hide()
 
 func _skip_to(target_idx: int) -> void:
+	# Set sensible defaults for skipped stages
+	if GameState.land_location == GameState.LandLocation.NONE:
+		GameState.land_location = GameState.LandLocation.FIRST
+	if GameState.electricity_choice.is_empty():
+		GameState.electricity_choice = "far"
+	# Dismiss any active overlays
+	Dialogue.dismiss()
+	Newspaper.dismiss()
 	if _current:
 		if _current.finished.is_connected(_advance):
 			_current.finished.disconnect(_advance)
