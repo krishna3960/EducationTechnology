@@ -111,7 +111,7 @@ func _show_choices() -> void:
 	_ui_canvas.add_child(row)
 
 	var prev_btn := Button.new()
-	prev_btn.text = "◀"
+	prev_btn.text = "<"
 	prev_btn.custom_minimum_size = Vector2(80, 56)
 	Stage.style_choice_button(prev_btn, Color(1, 1, 1, 0.25))
 	row.add_child(prev_btn)
@@ -123,7 +123,7 @@ func _show_choices() -> void:
 	_choose_btn.pressed.connect(func(): _on_choice(_CHOICES.keys()[_current_choice_index]))
 
 	var next_btn := Button.new()
-	next_btn.text = "▶"
+	next_btn.text = ">"
 	next_btn.custom_minimum_size = Vector2(80, 56)
 	Stage.style_choice_button(next_btn, Color(1, 1, 1, 0.25))
 	row.add_child(next_btn)
@@ -238,7 +238,7 @@ func _show_continue_button() -> void:
 	_ui_canvas.add_child(row)
 
 	var btn := Button.new()
-	btn.text = "Go to the Hardware Shop  →"
+	btn.text = "Go to the Hardware Shop  ->"
 	btn.custom_minimum_size = Vector2(360, 64)
 	Stage.style_choice_button(btn, Color(1.0, 0.7, 0.2, 1.0))
 	row.add_child(btn)

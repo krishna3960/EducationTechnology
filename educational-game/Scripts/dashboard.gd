@@ -404,7 +404,7 @@ func _make_card(data: Dictionary) -> Control:
 	var callout: String = _get_choice_callout(data.get("choice_key", ""))
 	if callout != "":
 		var cl := Label.new()
-		cl.text = "▶  Your choice:  " + callout
+		cl.text = ">  Your choice:  " + callout
 		cl.add_theme_font_size_override("font_size", FS_SPECIAL)
 		cl.add_theme_color_override("font_color", COLOR_TEXT_SPECIAL)
 		cl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -571,7 +571,7 @@ func _build_footer(parent: Control) -> void:
 	parent.add_child(hbox)
 
 	var btn := Button.new()
-	btn.text = "Return to Map  →"
+	btn.text = "Return to Map  ->"
 	btn.custom_minimum_size = Vector2(320, 62)
 	Stage.style_choice_button(btn, COLOR_TITLE_RULE)
 	btn.add_theme_font_size_override("font_size", FS_BUTTON)

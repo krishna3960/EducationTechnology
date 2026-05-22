@@ -62,7 +62,7 @@ func _set_buy_buttons_enabled(enabled: bool) -> void:
 
 func _show_intro_dialogue() -> void:
 	_set_buy_buttons_enabled(false)
-	Dialogue.on_typewriter_done.connect(func(): _show_action_button("Start Shopping  →", _on_start_pressed), CONNECT_ONE_SHOT)
+	Dialogue.on_typewriter_done.connect(func(): _show_action_button("Start Shopping  ->", _on_start_pressed), CONNECT_ONE_SHOT)
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	opts.auto_close = false
@@ -70,7 +70,7 @@ func _show_intro_dialogue() -> void:
 
 func _show_exit_dialogue() -> void:
 	_set_buy_buttons_enabled(false)
-	Dialogue.on_typewriter_done.connect(func(): _show_action_button("Return to Map  →", _on_return_pressed), CONNECT_ONE_SHOT)
+	Dialogue.on_typewriter_done.connect(func(): _show_action_button("Return to Map  ->", _on_return_pressed), CONNECT_ONE_SHOT)
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	opts.auto_close = false
