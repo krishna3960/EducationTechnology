@@ -5,7 +5,7 @@ const _SFX_WRONG: AudioStream = preload("res://Assets/Music/aww sound effect ( 4
 
 signal exit_requested
 
-@export var speed: float = 0.025
+@export var speed: float = 0.05
 
 var full_text_1: String = "Welcome to Mrs. Susan's lecture on using AI sustainably!\n\nAre you excited?"
 var full_text_2: String = "Larger, more complex prompts use lot of resources.\n\nSo please be mindful of what you ask.\n\nLet's work through some examples together!"

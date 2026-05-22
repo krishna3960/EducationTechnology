@@ -17,6 +17,7 @@ var _skip_canvas: CanvasLayer
 var _skip_btn: Button
 const _SKIP_TARGETS: Array = [
 	{"label": "Skip Intro", "stage_name": "1_land_choice_stage"},
+	{"label": "Skip to Classroom", "stage_name": "04_classroom_tscn"},
 ]
 var _skip_index: int = 0
 
@@ -46,11 +47,8 @@ func _create_skip_button() -> void:
 	_skip_btn.pressed.connect(_on_skip_pressed)
 
 func _process(_delta: float) -> void:
-	if _skip_btn != null and _skip_btn.disabled and _can_skip_now():
+	if _skip_btn != null and _skip_btn.disabled and GameState.user_consented:
 		_skip_btn.disabled = false
-
-func _can_skip_now() -> bool:
-	return GameState.user_consented
 
 func _on_skip_pressed() -> void:
 	if _skip_index >= _SKIP_TARGETS.size():
