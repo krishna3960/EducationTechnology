@@ -4,7 +4,7 @@ extends Stage
 @export var _SPEAKER: String = "Prompto"
 @export var full_text_1: String =  "Welcome to “VibeX”. You are the CEO of the AI datacenter company VibeX, responsible for managing infrastructure, expanding operations, and making critical business decisions. Your choices will shape the future of AI services across the region. \n\n Click Next to start"
 const _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
-@export var _INTRO_TEXT: String =  "Hello! My name is Prompto, and I’ll be your assistant throughout the game. Before we begin, let me show you the region."
+@export var _INTRO_TEXT: String =  "Hello! My name is Prompto, and I’ll be your assistant throughout the game. Before we begin, let me show you the region. \nClick on the screen to continue."
 @export var _text_show_pontia: String = "In the top left is the village of Pontia."
 @export var _text_show_petalia: String = "In the top center you'll find Petalia."
 @export var _text_show_fontania: String = "And on the bottom right is Fontania."
@@ -101,10 +101,6 @@ func _show_dialogue_step(text: String) -> void:
 	opts.dim = true
 	opts.auto_close = true
 	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, text, opts)
-	if show_hint:
-		await get_tree().create_timer(10.0).timeout
-		get_node("CanvasLayer/HintButton").show()
-		show_hint = false
 	await Dialogue.on_close
 
 
@@ -139,9 +135,3 @@ func _show_next_char(text, button, labels, timers, current_idx):
 		timers.stop()
 		get_node(button).visible = true
 		return current_idx
-
-
-func _on_cross_button_pressed() -> void:
-	get_node("CanvasLayer/HintButton").hide()
-	get_node("CanvasLayer/HintButton/Button").hide()
-	get_node("CanvasLayer").hide()
