@@ -4,7 +4,7 @@ extends Stage
 @export var _SPEAKER: String = "Prompto"
 @export var full_text_1: String =  "Welcome to “VibeX”. You are the CEO of the AI datacenter company VibeX, responsible for managing infrastructure, expanding operations, and making critical business decisions. Your choices will shape the future of AI services across the region. \n\n Click Next to start"
 const _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
-@export var _INTRO_TEXT: String =  "Hello! My name is Prompto, and I’ll be your assistant throughout the game. Before we begin, let me show you the region. \nClick on the screen to continue."
+@export var _INTRO_TEXT: String =  "Hello, {name}! My name is Prompto, and I’ll be your assistant throughout the game. Before we begin, let me show you the region. \nClick on the screen to continue."
 @export var _text_show_pontia: String = "In the top left is the village of Pontia."
 @export var _text_show_petalia: String = "In the top center you'll find Petalia."
 @export var _text_show_fontania: String = "And on the bottom right is Fontania."
@@ -111,7 +111,8 @@ func _pan_then_show(cell: Vector2i, zoom: Vector2, text: String) -> void:
 
 
 func start_conversation():
-	await _pan_then_show(_OVERVIEW_CELL, _CAM_OVERVIEW_ZOOM, _INTRO_TEXT)
+	var intro_text: String = _INTRO_TEXT.replace("{name}", GameState.player_name)
+	await _pan_then_show(_OVERVIEW_CELL, _CAM_OVERVIEW_ZOOM, intro_text)
 	await _pan_then_show(_PONTIA_CELL, _CAM_REGION_ZOOM, _text_show_pontia)
 	await _pan_then_show(_PETALIA_CELL, _CAM_REGION_ZOOM, _text_show_petalia)
 	await _pan_then_show(_FONTANIA_CELL, _CAM_REGION_ZOOM, _text_show_fontania)

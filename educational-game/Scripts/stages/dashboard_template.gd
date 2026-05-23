@@ -3,7 +3,7 @@ extends Stage
 @export_category("Global Dashboard Settings")
 @export var background_color: Color = Color("bebce9ff")
 @export var title_text: String = "Final Report"
-@export var subtitle_text: String = "See how the choices you made shaped the real-world impact of your datacenter."
+@export var subtitle_text: String = "See how your choices, {name}, shaped the real-world impact of your datacenter."
 
 @export_category("Panel 1: Land Usage")
 @export var p1_title: String = "Land Usage"
@@ -54,9 +54,9 @@ func _apply_theme() -> void:
 	if background:
 		background.color = background_color
 	if title_label:
-		title_label.text = title_text
+		title_label.text = title_text.replace("{name}", GameState.player_name)
 	if subtitle_label:
-		subtitle_label.text = subtitle_text
+		subtitle_label.text = subtitle_text.replace("{name}", GameState.player_name)
 		
 	# read global choices
 	# LAND CHOICE (Checks the Enum in GameState)

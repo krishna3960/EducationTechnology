@@ -9,6 +9,7 @@ var user_consented: bool = false
 var electricity_choice: String = ""
 var current_stage_index: int = 0
 var land_location: LandLocation = LandLocation.NONE
+var player_name: String = ""
 
 var metrics: Metrics = Metrics.new()
 

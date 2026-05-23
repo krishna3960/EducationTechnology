@@ -41,7 +41,6 @@ const _SIGN_HOLD_DELAY: float = 1.0
 const _NEWSPAPER_DELAY: float = 1.0
 
 var _clump_polygons: Dictionary = {}
-var _ui_canvas: CanvasLayer
 var _current_choice_index: int = 0
 var _choose_btn: Button = null
 var _ts_started: float = 0.0
@@ -80,10 +79,6 @@ func _show_choices() -> void:
 
 	_pan_camera_to_cell(_DATACENTER_CELL, _OVERVIEW_CAMERA_ZOOM)
 
-	_ui_canvas = CanvasLayer.new()
-	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
-	add_child(_ui_canvas)
-
 	_clump_polygons.clear()
 	for value in _CHOICES:
 		var choice: Dictionary = _CHOICES[value]
@@ -100,36 +95,26 @@ func _show_choices() -> void:
 			polys.append(overlay)
 		_clump_polygons[value] = polys
 
-	var row := HBoxContainer.new()
-	row.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	row.offset_left = 648
-	row.offset_right = -24
-	row.offset_top = -300
-	row.offset_bottom = -220
-	row.alignment = BoxContainer.ALIGNMENT_CENTER
-	row.add_theme_constant_override("separation", 24)
-	_ui_canvas.add_child(row)
-
 	var prev_btn := Button.new()
 	prev_btn.text = "< Prev"
-	prev_btn.custom_minimum_size = Vector2(120, 56)
+	prev_btn.custom_minimum_size = Vector2(120, 80)
 	Stage.style_choice_button(prev_btn, Color(1, 1, 1, 0.25))
-	row.add_child(prev_btn)
 	prev_btn.pressed.connect(func(): _cycle_choice(-1))
 
 	_choose_btn = Button.new()
-	_choose_btn.custom_minimum_size = Vector2(320, 56)
-	row.add_child(_choose_btn)
+	_choose_btn.custom_minimum_size = Vector2(320, 80)
 	_choose_btn.pressed.connect(func(): _on_choice(_CHOICES.keys()[_current_choice_index]))
 
 	var next_btn := Button.new()
 	next_btn.text = "Next >"
-	next_btn.custom_minimum_size = Vector2(120, 56)
+	next_btn.custom_minimum_size = Vector2(120, 80)
 	Stage.style_choice_button(next_btn, Color(1, 1, 1, 0.25))
-	row.add_child(next_btn)
 	next_btn.pressed.connect(func(): _cycle_choice(1))
 
-	_ui_canvas.add_child(Stage.make_choice_hint("Use Prev / Next to preview each location, then Choose."))
+	Dialogue.mount_choices(
+		[prev_btn, _choose_btn, next_btn],
+		"Use Prev / Next to preview each location, then Choose."
+	)
 
 	_current_choice_index = 0
 	_show_only(_CHOICES.keys()[_current_choice_index])
@@ -165,9 +150,7 @@ func _on_choice(value: GameState.LandLocation) -> void:
 	entry.ts_duration = ts_chosen - _ts_started
 	GameState.metrics.land_choice = entry
 	Dialogue.dismiss()
-	if _ui_canvas:
-		_ui_canvas.queue_free()
-		_ui_canvas = null
+	Dialogue.clear_choices()
 	_clear_clumps()
 
 	var chosen: Dictionary = _CHOICES[value]
@@ -226,25 +209,12 @@ func _show_continue_dialogue() -> void:
 
 
 func _show_continue_button() -> void:
-	_ui_canvas = CanvasLayer.new()
-	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
-	add_child(_ui_canvas)
-
-	var row := HBoxContainer.new()
-	row.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	row.offset_left = 648
-	row.offset_right = -24
-	row.offset_top = -300
-	row.offset_bottom = -220
-	row.alignment = BoxContainer.ALIGNMENT_END
-	row.add_theme_constant_override("separation", 24)
-	_ui_canvas.add_child(row)
-
 	var btn := Button.new()
 	btn.text = "Go to the Hardware Shop  ->"
-	btn.custom_minimum_size = Vector2(360, 64)
+	btn.custom_minimum_size = Vector2(360, 80)
 	Stage.style_choice_button(btn, Color(1.0, 0.7, 0.2, 1.0))
-	row.add_child(btn)
+
+	Dialogue.mount_choices([btn])
 
 	Stage.pulse_choice_buttons([btn])
 	var pulse_timer := Timer.new()
@@ -262,7 +232,6 @@ func _show_continue_button() -> void:
 		await fade.finished
 		Dialogue.dismiss()
 		finished.emit()
-		btn.queue_free()
 	)
 
 func _fade_clump(polys: Array, target_alpha: float) -> void:
@@ -287,9 +256,7 @@ func _clear_clumps() -> void:
 
 func _stage_end() -> void:
 	_clear_clumps()
-	if _ui_canvas:
-		_ui_canvas.queue_free()
-		_ui_canvas = null
+	Dialogue.clear_choices()
 	if Dialogue.on_typewriter_done.is_connected(_show_choices):
 		Dialogue.on_typewriter_done.disconnect(_show_choices)
 	if Dialogue.on_typewriter_done.is_connected(_show_continue_button):

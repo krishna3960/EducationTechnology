@@ -30,6 +30,7 @@ signal on_typewriter_done
 @onready var _bubble: Panel = $UILayer/Container/Bubble
 @onready var _name_label: Label = $UILayer/Container/Bubble/Name
 @onready var _label: RichTextLabel = $UILayer/Container/Bubble/Label
+@onready var _above_bubble: Control = $UILayer/Container/Bubble/AboveBubble
 @onready var _dim_rect: ColorRect = $DimLayer/DimRect
 @onready var _dim_layer: CanvasLayer = $DimLayer
 @onready var _ui_layer: CanvasLayer = $UILayer
@@ -141,6 +142,44 @@ func dismiss() -> void:
 	if _active:
 		_close()
 
+
+## Adds choices above the text bubble
+## Returns the row so the caller can run animations on it.
+func mount_choices(buttons: Array, hint_text: String = "", separation: int = 24) -> HBoxContainer:
+	clear_choices()
+	var vbox := VBoxContainer.new()
+	vbox.set_anchors_preset(Control.PRESET_FULL_RECT)
+	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	vbox.add_theme_constant_override("separation", 12)
+	vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_above_bubble.add_child(vbox)
+
+	if not hint_text.is_empty():
+		var lbl := Label.new()
+		lbl.text = hint_text
+		lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		lbl.add_theme_font_size_override("font_size", 24)
+		lbl.add_theme_color_override("font_color", Color.WHITE)
+		lbl.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+		lbl.add_theme_constant_override("outline_size", 6)
+		vbox.add_child(lbl)
+
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", separation)
+	for btn in buttons:
+		row.add_child(btn)
+	vbox.add_child(row)
+	return row
+
+
+## Removes any choice buttons above the bubble
+func clear_choices() -> void:
+	if _above_bubble == null:
+		return
+	for child in _above_bubble.get_children():
+		child.queue_free()
+
 func _input(event: InputEvent) -> void:
 	if not _active or not _auto_close:
 		return
@@ -206,6 +245,7 @@ func _close() -> void:
 	_enter_tween.tween_property(_bubble, "modulate:a", 0.0, _EXIT_DURATION)
 	await _enter_tween.finished
 	_ui.visible = false
+	clear_choices()
 	var ts_closed: float = Time.get_unix_time_from_system()
 	var entry := Metrics.DialogueEntry.new()
 	entry.speaker = _current_speaker

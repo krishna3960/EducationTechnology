@@ -2,6 +2,7 @@ class_name Metrics extends RefCounted
 
 # Metrics entry for a single play session
 class SessionEntry extends RefCounted:
+	var player_name: String = ""
 	var ts_started: float = 0.0
 	var ts_ended: float = 0.0
 	var ts_duration: float = 0.0
@@ -9,6 +10,7 @@ class SessionEntry extends RefCounted:
 
 	func to_dict() -> Dictionary:
 		return {
+			"player_name": player_name,
 			"ts_started": ts_started,
 			"ts_ended": ts_ended,
 			"ts_duration": ts_duration,

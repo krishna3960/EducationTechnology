@@ -92,23 +92,3 @@ static func pulse_choice_buttons(buttons: Array, iterations: int = 6, gap: float
 				t.tween_interval(gap)
 
 
-## Builds a Label sized to sit above the choice buttons row
-static func make_choice_hint(text: String) -> Label:
-	var lbl := Label.new()
-	lbl.text = text
-	lbl.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	lbl.offset_left = 630
-	lbl.offset_right = 0
-	lbl.offset_top = -340
-	lbl.offset_bottom = -320
-	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	lbl.add_theme_font_size_override("font_size", 24)
-	lbl.add_theme_color_override("font_color", Color.WHITE)
-	lbl.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
-	lbl.add_theme_constant_override("outline_size", 6)
-	lbl.modulate.a = 0.0
-	var t := lbl.create_tween()
-	t.tween_interval(0.2)
-	t.tween_property(lbl, "modulate:a", 1.0, 0.35)
-	return lbl

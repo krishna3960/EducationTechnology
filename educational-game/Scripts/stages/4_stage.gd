@@ -65,7 +65,6 @@ const _WATER_CHOICES: Dictionary = {
 }
 
 var _clump_polygons: Dictionary = {}  # key -> Array[Polygon2D]
-var _ui_canvas: CanvasLayer
 var _current_choice_index: int = 0
 var _choose_btn: Button = null
 var _first_choice_key: String = ""
@@ -90,9 +89,6 @@ func _show_choices() -> void:
 	_frame_water_view()
 
 	_ts_choice_started = Time.get_unix_time_from_system()
-	_ui_canvas = CanvasLayer.new()
-	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
-	add_child(_ui_canvas)
 
 	_clump_polygons.clear()
 	var keys: Array = _get_available_keys()
@@ -111,36 +107,26 @@ func _show_choices() -> void:
 			polys.append(overlay)
 		_clump_polygons[key] = polys
 
-	var row := HBoxContainer.new()
-	row.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	row.offset_left = 648
-	row.offset_right = -24
-	row.offset_top = -300
-	row.offset_bottom = -220
-	row.alignment = BoxContainer.ALIGNMENT_CENTER
-	row.add_theme_constant_override("separation", 24)
-	_ui_canvas.add_child(row)
-
 	var prev_btn := Button.new()
 	prev_btn.text = "< Prev"
-	prev_btn.custom_minimum_size = Vector2(120, 56)
+	prev_btn.custom_minimum_size = Vector2(120, 80)
 	Stage.style_choice_button(prev_btn, Color(1, 1, 1, 0.25))
-	row.add_child(prev_btn)
 	prev_btn.pressed.connect(func(): _cycle_choice(-1))
 
 	_choose_btn = Button.new()
-	_choose_btn.custom_minimum_size = Vector2(360, 56)
-	row.add_child(_choose_btn)
+	_choose_btn.custom_minimum_size = Vector2(360, 80)
 	_choose_btn.pressed.connect(func(): _on_choice(keys[_current_choice_index]))
 
 	var next_btn := Button.new()
 	next_btn.text = "Next >"
-	next_btn.custom_minimum_size = Vector2(120, 56)
+	next_btn.custom_minimum_size = Vector2(120, 80)
 	Stage.style_choice_button(next_btn, Color(1, 1, 1, 0.25))
-	row.add_child(next_btn)
 	next_btn.pressed.connect(func(): _cycle_choice(1))
 
-	_ui_canvas.add_child(Stage.make_choice_hint("Use Prev / Next to preview each option, then Choose."))
+	Dialogue.mount_choices(
+		[prev_btn, _choose_btn, next_btn],
+		"Use Prev / Next to preview each option, then Choose."
+	)
 
 	_current_choice_index = 0
 	_show_only(keys[_current_choice_index])
@@ -190,9 +176,7 @@ func _on_choice(key: String) -> void:
 	GameState.metrics.water_choices.append(entry)
 
 	Dialogue.dismiss()
-	if _ui_canvas:
-		_ui_canvas.queue_free()
-		_ui_canvas = null
+	Dialogue.clear_choices()
 	_clear_clumps()
 
 	var choice: Dictionary = _WATER_CHOICES[key]
@@ -350,9 +334,7 @@ func _clear_clumps() -> void:
 
 func _stage_end() -> void:
 	_clear_clumps()
-	if _ui_canvas:
-		_ui_canvas.queue_free()
-		_ui_canvas = null
+	Dialogue.clear_choices()
 	if Dialogue.on_typewriter_done.is_connected(_show_choices):
 		Dialogue.on_typewriter_done.disconnect(_show_choices)
 	Dialogue.dismiss()

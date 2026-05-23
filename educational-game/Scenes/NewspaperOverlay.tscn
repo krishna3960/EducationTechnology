@@ -82,4 +82,4 @@ theme_override_font_sizes/font_size = 65
 theme_override_styles/normal = SubResource("StyleBoxFlat_c5ghr")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ajf8j")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ddoes")
-text = "✖"
+text = "X"

@@ -8,8 +8,8 @@ const _SFX_WHOOSH: AudioStream = preload("res://Assets/Music/Transition - Sound 
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/salesman.png")
 @export var _SPEAKER: String = "Joe Sellington"
-@export var _INTRO_TEXT: String = "Welcome to Joe's Hardware Shop! You need 5 server racks? No problem, I got the best prices in town... today, anyway. Heh heh. Just so you know, those racks need a lot of the same parts as everything else I sell. Anyway! Point at what you want."
-@export var _EXIT_TEXT: String = "Pleasure doing business! All 5 racks, sold. Did you notice how everything else got pricier while you shopped? Bet you can work out why. Come back soon!"
+@export var _INTRO_TEXT: String = "Well well, look who walked in! Don't think I've had the pleasure — what was the name again? ...{name}? Ohhh, {name}... now THAT'S a fine name. Lucky for you, today I happen to be running a special for friends with such fine names. You need 5 server racks? I got the best prices in town... today, anyway. Heh heh. Just point at what you want."
+@export var _EXIT_TEXT: String = "Pleasure doing business {name}! All 5 racks, sold. Did you notice how everything else got pricier while you shopped? Bet a smart one like you can work out why. Come back soon!"
 
 @onready var counter = $Counter
 @onready var price_hikes = [
@@ -43,8 +43,6 @@ var laptop_prices = [2200, 1400]
 var accessory_prices = [120, 67, 240]
 var servers_bought = 0
 
-var _ui_canvas: CanvasLayer
-
 func _ready():
 	for hike in price_hikes:
 		hike.hide()
@@ -66,7 +64,8 @@ func _show_intro_dialogue() -> void:
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	opts.auto_close = false
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _INTRO_TEXT, opts, _SFX_SHOP_ENTER)
+	var text: String = _INTRO_TEXT.replace("{name}", GameState.player_name)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, text, opts, _SFX_SHOP_ENTER)
 
 func _show_exit_dialogue() -> void:
 	_set_buy_buttons_enabled(false)
@@ -74,29 +73,17 @@ func _show_exit_dialogue() -> void:
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	opts.auto_close = false
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _EXIT_TEXT, opts,  _SFX_SHOP_ENTER)
+	var text: String = _EXIT_TEXT.replace("{name}", GameState.player_name)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, text, opts,  _SFX_SHOP_ENTER)
 
 
 func _show_action_button(text: String, on_pressed: Callable) -> void:
-	_ui_canvas = CanvasLayer.new()
-	_ui_canvas.layer = RenderLayers.STAGE_CHOICE
-	add_child(_ui_canvas)
-
-	var row := HBoxContainer.new()
-	row.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	row.offset_left = 648
-	row.offset_right = -24
-	row.offset_top = -300
-	row.offset_bottom = -220
-	row.alignment = BoxContainer.ALIGNMENT_END
-	row.add_theme_constant_override("separation", 24)
-	_ui_canvas.add_child(row)
-
 	var btn := Button.new()
 	btn.text = text
-	btn.custom_minimum_size = Vector2(360, 64)
+	btn.custom_minimum_size = Vector2(360, 80)
 	Stage.style_choice_button(btn, Color(1.0, 0.7, 0.2, 1.0))
-	row.add_child(btn)
+
+	Dialogue.mount_choices([btn])
 
 	Stage.pulse_choice_buttons([btn])
 	var pulse_timer := Timer.new()
@@ -113,9 +100,6 @@ func _show_action_button(text: String, on_pressed: Callable) -> void:
 		fade.tween_property(btn, "modulate:a", 0.0, 0.35)
 		await fade.finished
 		Dialogue.dismiss()
-		if _ui_canvas:
-			_ui_canvas.queue_free()
-			_ui_canvas = null
 		on_pressed.call()
 	)
 
