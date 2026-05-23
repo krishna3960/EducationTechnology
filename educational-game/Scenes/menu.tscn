@@ -60,21 +60,22 @@ offset_bottom = 250.0
 theme_override_font_sizes/font_size = 40
 text = "Play"
 
-[node name="SettingsButton" type="Button" parent="UILayer/CenterContainer/Node2D" unique_id=1558918710]
-custom_minimum_size = Vector2(200, 50)
-offset_top = 266.0
-offset_right = 318.0
-offset_bottom = 329.0
-theme_override_font_sizes/font_size = 40
-text = "Settings"
-
 [node name="QuitButton" type="Button" parent="UILayer/CenterContainer/Node2D" unique_id=678476123]
 custom_minimum_size = Vector2(200, 50)
-offset_top = 345.0
+offset_top = 267.0
 offset_right = 318.0
-offset_bottom = 408.0
+offset_bottom = 330.0
 theme_override_font_sizes/font_size = 40
 text = "Quit"
+
+[node name="SettingsButton" type="Button" parent="UILayer/CenterContainer/Node2D" unique_id=1558918710]
+visible = false
+custom_minimum_size = Vector2(200, 50)
+offset_top = 348.0
+offset_right = 318.0
+offset_bottom = 411.0
+theme_override_font_sizes/font_size = 40
+text = "Settings"
 
 [node name="SettingsPanel" type="PanelContainer" parent="UILayer/CenterContainer" unique_id=331327507]
 visible = false
@@ -122,8 +123,8 @@ theme_override_font_sizes/font_size = 40
 text = "Back"
 
 [connection signal="pressed" from="UILayer/CenterContainer/Node2D/PlayButton" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="UILayer/CenterContainer/Node2D/SettingsButton" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UILayer/CenterContainer/Node2D/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="UILayer/CenterContainer/Node2D/SettingsButton" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow/FalseButton" to="." method="_on_skip_false"]
 [connection signal="pressed" from="UILayer/CenterContainer/SettingsPanel/VBox/SkipRow/TrueButton" to="." method="_on_skip_true"]
 [connection signal="pressed" from="UILayer/CenterContainer/SettingsPanel/VBox/BackButton" to="." method="_on_settings_back_pressed"]
