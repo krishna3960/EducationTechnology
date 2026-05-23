@@ -22,7 +22,6 @@ const _CAM_OVERVIEW_ZOOM: Vector2 = Vector2(0.4, 0.4)
 const _CAM_REGION_ZOOM: Vector2 = Vector2(0.48, 0.48)
 const _CAM_PAN_DURATION: float = 1.0
 const _PRE_PAN_DELAY: float = 1.0
-const _HINT_DELAY: float = 10.0
 
 # Set by _input while the consent/welcome typewriter runs — _run_typewriter
 # polls this each tick and bails out to the end of the text when true.
@@ -30,8 +29,6 @@ var _typing_skip_requested: bool = false
 # True while one of the in-page typewriters is running; lets _input only fire
 # the skip logic during those phases.
 var _typing_active: bool = false
-# Used by _show_dialogue_step to surface the hint a single time.
-var _hint_shown: bool = false
 
 
 func _stage_start() -> void:
@@ -47,8 +44,6 @@ func _stage_start() -> void:
 	welcome_label.visible = false
 	consent_button.visible = false
 	welcome_button.visible = false
-	get_node("UILayer/StartButtonHolder").visible = false
-	get_node("CanvasLayer/HintButton").visible = false
 
 	# ----- Consent page -----
 	await _run_typewriter(consent_label, _text_user_consent)
@@ -105,10 +100,6 @@ func _show_dialogue_step(text: String) -> void:
 	opts.auto_close = true
 	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, text, opts)
 	await Dialogue.on_close
-	# The hint disappears when the player dismisses the dialogue
-	var hint_to_hide := get_node_or_null("CanvasLayer/HintButton")
-	if hint_to_hide and hint_to_hide.visible:
-		hint_to_hide.hide()
 
 
 ## Wait `_PRE_PAN_DELAY` seconds, then pan the camera to the specified cell and show a dialogue step. The wait lets the previous dialogue's view sit a moment before the next pan starts.
@@ -144,18 +135,5 @@ func _input(event: InputEvent) -> void:
 		_typing_skip_requested = true
 
 
-func _start_scene_1():
-	finished.emit()
-
-
 func _stage_end() -> void:
 	Dialogue.dismiss()
-
-func _show_next_char(text, button, labels, timers, current_idx):
-	if current_idx < text.length():
-		labels.append_text(text.substr(current_idx, 1))
-		return current_idx + 1
-	else:
-		timers.stop()
-		get_node(button).visible = true
-		return current_idx

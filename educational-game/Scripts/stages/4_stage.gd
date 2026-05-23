@@ -15,8 +15,6 @@ const _CHOICE_CAMERA_POS: Vector2 = Vector2(742.8752, 765.6159)
 const _CHOICE_CAMERA_ZOOM: Vector2 = Vector2(0.389743, 0.389743)
 const _CAMERA_TRANSITION_DURATION: float = 1.0
 
-const _RIVER_TARGET_FAMILY: String = "river-1-"
-const _WATER_PUMP_PREFIX: String = "water-pump-"
 const _NEWSPAPER_DELAY: float = 1.0
 const _SWAP_DELAY_PER_TILE: float = 0.12
 
@@ -66,9 +64,6 @@ const _WATER_CHOICES: Dictionary = {
 	},
 }
 
-# Pump cells resolved at runtime — maps key -> [cell1, cell2]
-var _pump_cells: Dictionary = {}
-
 var _clump_polygons: Dictionary = {}  # key -> Array[Polygon2D]
 var _ui_canvas: CanvasLayer
 var _current_choice_index: int = 0
@@ -78,63 +73,7 @@ var _second_round: bool = false
 var _ts_choice_started: float = 0.0
 
 func _stage_start() -> void:
-	_resolve_pump_cells()
 	_show_intro()
-
-func _resolve_pump_cells() -> void:
-	var tilemap := MapLayer.main
-	if tilemap == null:
-		return
-	for key in _WATER_CHOICES:
-		var first_cell: Vector2i = Vector2i.ZERO
-		var second_cell: Vector2i = Vector2i.ZERO
-		var found_first := false
-		var found_second := false
-		for cell in _WATER_CHOICES[key]["river_cells"]:
-			if found_first and found_second:
-				break
-			var shape := _get_river_shape(cell)
-			if shape.is_empty():
-				continue
-			if not found_first and _tileset_has_pump(shape, 1):
-				first_cell = cell
-				found_first = true
-			elif not found_second and _tileset_has_pump(shape, 2):
-				second_cell = cell
-				found_second = true
-		var cells: Array = []
-		if found_first:
-			cells.append(first_cell)
-		if found_second:
-			cells.append(second_cell)
-		_pump_cells[key] = cells
-
-func _get_river_shape(cell: Vector2i) -> String:
-	var tilemap := MapLayer.main
-	var src_id := tilemap.get_cell_source_id(cell)
-	if src_id == -1:
-		return ""
-	var atlas := tilemap.tile_set.get_source(src_id) as TileSetAtlasSource
-	if atlas == null or atlas.texture == null:
-		return ""
-	var file_name: String = atlas.texture.resource_path.get_file()
-	for prefix in ["river-0-", "river-1-", "river-2-"]:
-		if file_name.begins_with(prefix):
-			return file_name.substr(prefix.length())
-	return ""
-
-func _tileset_has_pump(shape: String, version: int) -> bool:
-	var path: String = "res://Assets/tiles/water-pump-%d-%s" % [version, shape]
-	return _tileset_has_texture(path)
-
-func _tileset_has_texture(path: String) -> bool:
-	var tilemap := MapLayer.main
-	for i in tilemap.tile_set.get_source_count():
-		var source_id: int = tilemap.tile_set.get_source_id(i)
-		var source := tilemap.tile_set.get_source(source_id) as TileSetAtlasSource
-		if source and source.texture and source.texture.resource_path == path:
-			return true
-	return false
 
 func _show_intro() -> void:
 	var opts := DialogueOptions.new()
