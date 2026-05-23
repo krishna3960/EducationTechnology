@@ -218,6 +218,27 @@ https://arxiv.org/html/2603.27376v1
 [9] World Resources Institute, *US Data Center Growth Impacts*.  
 https://www.wri.org/insights/us-data-center-growth-impacts
 
-Where does the facts from the end stats come from? (TODO: add link to paper here)
+<!-- Where does the facts from the end stats come from? (TODO: add link to paper here) -->
+
+[10] de Vries-Gao A, *The carbon and water footprints of data centers and what this could mean for artificial intelligence*, Patterns, 2025. https://doi.org/10.1016/j.patter.2025.101430
+
+[11] Wasserwerke Zug AG, *Stromverbrauch im Haushalt*. https://www.wwz.ch/de/ueber-wwz/blog/2021/strom/stromverbrauch-bestimmen [online resource]. Accessed 21 May 2026.
+
+[12] Elektrizitätswerke des Kantons Zürich, *Wasser sparen*. https://energieshop.ekz.ch/blog/ekz-wasserspar-de [online resource]. Accessed 21 May 2026
+
+[13] Hlabisa, S, *The ecology of artificial intelligence: energy, water, materials, and land limits of digital systems.* Carbon Neutral Syst. 1, 19 (2025). https://doi.org/10.1007/s44438-025-00018-8
+
+[14] Ben Cottier (2025), *"The largest AI data center campuses will soon be a fifth the size of Manhattan".* Published online at [epoch.ai](http://epoch.ai/). Retrieved from 'https://epoch.ai/data-insights/data-center-sizes' [online resource]. Accessed 21 May 2026.
+
+[15] *Communities Are Raising Noise Pollution Concerns About Data Centers* , Environmental and Energy Study Institute (EESI). https://www.eesi.org/articles/view/communities-are-raising-noise-pollution-concernsabout-data-centers
+
+[16] *Calculate your carbon footprint and support climate protection*. 
+    https://co2.myclimate.org/en/calculate_emissions [online resource]. Accessed 21 May 2026
+
+[17] *Artificial Intelligence (AI) Usage Statistics 2026 | Global AI Users*.
+    https://www.theglobalstatistics.com/artificial-intelligence-ai-usage-statistics/ [online resource]. Accessed 21 May 2026
+
+[18] Mansi Porwal, *AI Usage Statistics In 2026: How Many People Use AI Today?*, March 2026.
+     https://www.quetext.com/blog/ai-usage-statistics-2026-how-many-people-use-ai [online resource]. Accessed 21 May 2026
 
 <!-- Write me, **write meeeee** -->
