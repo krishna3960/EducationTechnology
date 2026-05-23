@@ -235,9 +235,32 @@ func _show_outro() -> void:
 	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, _OUTRO_TEXT, opts, null)
 
 func _show_newspaper() -> void:
-	Newspaper.on_close.connect(func(): finished.emit(), CONNECT_ONE_SHOT)
+	Newspaper.on_close.connect(_show_outro_dialogue, CONNECT_ONE_SHOT)
 	Newspaper.show_article(Newspaper.Article.WATER_CRISIS)
 
+func _show_outro_dialogue() -> void:
+	var opts := DialogueOptions.new()
+	opts.dim = false
+	opts.auto_close = false
+	Dialogue.on_typewriter_done.connect(_mount_lets_go_button, CONNECT_ONE_SHOT)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, "Hello, I'm Ally from the data analytics team. Thanks to your hard work, our datacenter can now handle all user demand. But there is a serious problem. As reported by the newspapers, our choices have had serious environmental consequences, and my team has the data to prove it.", opts, null)
+
+func _mount_lets_go_button() -> void:
+	var btn := Button.new()
+	btn.text = "Ok show me"
+	btn.custom_minimum_size = Vector2(360, 80)
+	Stage.style_choice_button(btn, Color(0.0, 0.8, 0.4, 1.0))
+	btn.pressed.connect(_on_outro_dialogue_done)
+	Dialogue.mount_choices([btn], "")
+	Stage.fade_in_choice_buttons([btn])
+	Stage.pulse_choice_buttons([btn])
+
+func _on_outro_dialogue_done() -> void:
+	MusicManager.play_sfx(_SFX_CYCLE)
+	Dialogue.clear_choices()
+	Dialogue.dismiss()
+	finished.emit()
+	
 func _animate_river_swap(cells: Array, target_family: String, exclude: Dictionary = {}) -> float:
 	var sorted := cells.duplicate()
 	sorted.sort_custom(func(a, b): return a.x < b.x)
