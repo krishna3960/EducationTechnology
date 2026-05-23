@@ -63,8 +63,8 @@ static func set_world_camera_enabled(enabled: bool) -> void:
 	cam.set_process_unhandled_input(enabled)
 
 
-## Plays a brief "look at me" pulse on each button
-static func pulse_choice_buttons(buttons: Array) -> void:
+## Plays a repeating "look at me" pulse on each button
+static func pulse_choice_buttons(buttons: Array, iterations: int = 6, gap: float = 1.4) -> void:
 	const startdelay: float = 0.5
 	const hold: float = 0.26
 	const stagger: float = 0.40
@@ -74,16 +74,41 @@ static func pulse_choice_buttons(buttons: Array) -> void:
 			continue
 		var t := btn.create_tween()
 		t.tween_interval(startdelay + stagger * i)
-		t.tween_callback(func() -> void:
-			var prev_normal: StyleBox = btn.get_theme_stylebox("normal")
-			var hover_style: StyleBox = btn.get_theme_stylebox("hover")
-			if prev_normal == null or hover_style == null:
-				return
-			btn.set_meta("_pulse_prev_normal", prev_normal)
-			btn.add_theme_stylebox_override("normal", hover_style))
-		t.tween_interval(hold)
-		t.tween_callback(func() -> void:
-			var prev: StyleBox = btn.get_meta("_pulse_prev_normal", null) as StyleBox
-			if prev:
-				btn.add_theme_stylebox_override("normal", prev)
-				btn.remove_meta("_pulse_prev_normal"))
+		for iter in iterations:
+			t.tween_callback(func() -> void:
+				var prev_normal: StyleBox = btn.get_theme_stylebox("normal")
+				var hover_style: StyleBox = btn.get_theme_stylebox("hover")
+				if prev_normal == null or hover_style == null:
+					return
+				btn.set_meta("_pulse_prev_normal", prev_normal)
+				btn.add_theme_stylebox_override("normal", hover_style))
+			t.tween_interval(hold)
+			t.tween_callback(func() -> void:
+				var prev: StyleBox = btn.get_meta("_pulse_prev_normal", null) as StyleBox
+				if prev:
+					btn.add_theme_stylebox_override("normal", prev)
+					btn.remove_meta("_pulse_prev_normal"))
+			if iter < iterations - 1:
+				t.tween_interval(gap)
+
+
+## Builds a Label sized to sit above the choice buttons row
+static func make_choice_hint(text: String) -> Label:
+	var lbl := Label.new()
+	lbl.text = text
+	lbl.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	lbl.offset_left = 630
+	lbl.offset_right = 0
+	lbl.offset_top = -340
+	lbl.offset_bottom = -320
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	lbl.add_theme_font_size_override("font_size", 24)
+	lbl.add_theme_color_override("font_color", Color.WHITE)
+	lbl.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+	lbl.add_theme_constant_override("outline_size", 6)
+	lbl.modulate.a = 0.0
+	var t := lbl.create_tween()
+	t.tween_interval(0.2)
+	t.tween_property(lbl, "modulate:a", 1.0, 0.35)
+	return lbl

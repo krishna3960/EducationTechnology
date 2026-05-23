@@ -155,23 +155,25 @@ func _show_choices() -> void:
 	_ui_canvas.add_child(row)
 
 	var prev_btn := Button.new()
-	prev_btn.text = "<"
-	prev_btn.custom_minimum_size = Vector2(80, 56)
+	prev_btn.text = "< Prev"
+	prev_btn.custom_minimum_size = Vector2(120, 56)
 	Stage.style_choice_button(prev_btn, Color(1, 1, 1, 0.25))
 	row.add_child(prev_btn)
 	prev_btn.pressed.connect(func(): _cycle_choice(-1))
 
 	_choose_btn = Button.new()
-	_choose_btn.custom_minimum_size = Vector2(280, 56)
+	_choose_btn.custom_minimum_size = Vector2(360, 56)
 	row.add_child(_choose_btn)
 	_choose_btn.pressed.connect(func(): _on_choice(_ELECTRICITY_CHOICES.keys()[_current_choice_index]))
 
 	var next_btn := Button.new()
-	next_btn.text = ">"
-	next_btn.custom_minimum_size = Vector2(80, 56)
+	next_btn.text = "Next >"
+	next_btn.custom_minimum_size = Vector2(120, 56)
 	Stage.style_choice_button(next_btn, Color(1, 1, 1, 0.25))
 	row.add_child(next_btn)
 	next_btn.pressed.connect(func(): _cycle_choice(1))
+
+	_ui_canvas.add_child(Stage.make_choice_hint("Use Prev / Next to preview each option, then Choose."))
 
 	_current_choice_index = 0
 	_show_only(_ELECTRICITY_CHOICES.keys()[_current_choice_index])
@@ -191,7 +193,8 @@ func _show_only(active_key) -> void:
 		_fade_clump(_clump_polygons[key], alpha)
 	var tint: Color = _ELECTRICITY_CHOICES[active_key]["tint"]
 	var accent := Color(tint.r, tint.g, tint.b, 1.0)
-	_choose_btn.text = "Choose %s" % _ELECTRICITY_CHOICES[active_key]["label"]
+	var total: int = _ELECTRICITY_CHOICES.size()
+	_choose_btn.text = "Choose %s  (%d / %d)" % [_ELECTRICITY_CHOICES[active_key]["label"], _current_choice_index + 1, total]
 	Stage.style_choice_button(_choose_btn, accent)
 
 func _on_choice(key: String) -> void:
