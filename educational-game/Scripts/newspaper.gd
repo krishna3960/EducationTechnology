@@ -38,6 +38,7 @@ signal on_close
 
 @onready var _ui: Control = $UILayer/Container
 @onready var _paper: TextureRect = $UILayer/Container/Paper
+@onready var _close_btn: Button = $UILayer/Container/Paper/CloseButton
 @onready var _dim_rect: ColorRect = $DimLayer/DimRect
 @onready var _dim_layer: CanvasLayer = $DimLayer
 @onready var _ui_layer: CanvasLayer = $UILayer
@@ -54,6 +55,7 @@ func _ready() -> void:
 	_ui.visible = false
 	_dim_rect.modulate.a = 0.0
 	_dim_rect.visible = false
+	_close_btn.pressed.connect(dismiss)
 	if OS.is_debug_build():
 		var section: VBoxContainer = Debug.add_section("Newspaper")
 		Debug.add_option(Article.keys(), -1, func(idx): show_article(idx), section)
@@ -123,17 +125,3 @@ func _finalize_close() -> void:
 	GameState.metrics.newspapers.append(entry)
 	MusicManager.stop_ambient()
 	on_close.emit()
-
-func _unhandled_input(event: InputEvent) -> void:
-	if not _active:
-		return
-	var is_left_click: bool = event is InputEventMouseButton \
-		and event.pressed \
-		and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
-	var advance: bool = is_left_click \
-		or event.is_action_pressed("ui_accept") \
-		or event.is_action_pressed("ui_cancel")
-	if not advance:
-		return
-	get_viewport().set_input_as_handled()
-	_close()

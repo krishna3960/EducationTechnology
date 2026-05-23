@@ -2,6 +2,28 @@
 
 [ext_resource type="Script" uid="uid://dmn6t76lt657j" path="res://Scripts/newspaper.gd" id="1_script"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5ghr"]
+bg_color = Color(0.7397895, 1.9372628e-06, 9.62615e-07, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajf8j"]
+bg_color = Color(0.9474059, 3.778264e-06, 1.732707e-06, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddoes"]
+bg_color = Color(0.8564939, 3.657937e-06, 8.663535e-07, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 13
+
 [node name="Newspaper" type="Node" unique_id=1704287197]
 script = ExtResource("1_script")
 
@@ -21,19 +43,43 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="Paper" type="TextureRect" parent="UILayer/Container" unique_id=315653736]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.446
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.446
 offset_left = -700.0
-offset_top = -700.0
+offset_top = -745.68005
 offset_right = 700.0
-offset_bottom = 700.0
+offset_bottom = 654.31995
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(700, 700)
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
+
+[node name="CloseButton" type="Button" parent="UILayer/Container/Paper" unique_id=315653737]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.92800003
+anchor_right = 0.5
+anchor_bottom = 0.92800003
+offset_left = 635.0
+offset_top = -1015.2001
+offset_right = 727.0
+offset_bottom = -925.2001
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxFlat_c5ghr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ajf8j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ddoes")
+text = "✖"
