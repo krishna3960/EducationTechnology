@@ -2,6 +2,10 @@ extends Stage
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
 @export var _SPEAKER: String = "Prompto"
+
+@export var _PORTRAIT1: Texture2D = preload("res://Assets/scene_png/techgirl.png")
+@export var _SPEAKER1: String = "Ally"
+
 @export var _INTRO_TEXT: String = "Congratulations your education was a success! You have reduced token usage and we now have enough compute and electricity to handle all the incoming prompts. However all this now creates a heating issue, we are going to need access to water to cool our server!"
 @export var _OUTRO_TEXT: String = "Okay we have access to water now, but it is not sufficient to cool down all our servers, choose another river to get access to more water!"
 
@@ -243,7 +247,7 @@ func _show_outro_dialogue() -> void:
 	opts.dim = false
 	opts.auto_close = false
 	Dialogue.on_typewriter_done.connect(_mount_lets_go_button, CONNECT_ONE_SHOT)
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, "Hello, I'm Ally from the data analytics team. Thanks to your hard work, our datacenter can now handle all user demand. But there is a serious problem. As reported by the newspapers, our choices have had serious environmental consequences, and my team has the data to prove it.", opts, null)
+	Dialogue.show_dialogue(_PORTRAIT1, _SPEAKER1, "Hello, I'm Ally from the data analytics team. Thanks to your hard work, our datacenter can now handle all user demand. But there is a serious problem. As reported by the newspapers, our choices have had serious environmental consequences, and my team has the data to prove it.", opts, null)
 
 func _mount_lets_go_button() -> void:
 	var btn := Button.new()

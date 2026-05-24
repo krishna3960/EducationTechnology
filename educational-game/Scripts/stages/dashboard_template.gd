@@ -1,8 +1,8 @@
 extends Stage
 
 const _SFX_CYCLE: AudioStream = preload("res://Assets/Music/Just A 1 Second Woosh Sound.mp3")
-@export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
-@export var _SPEAKER: String = "Prompto"
+@export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/techgirl.png")
+@export var _SPEAKER: String = "Ally"
 var _intro_dismissed: bool = false
 
 @export_category("Global Dashboard Settings")
