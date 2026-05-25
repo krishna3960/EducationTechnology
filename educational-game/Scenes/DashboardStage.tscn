@@ -2,13 +2,18 @@
 
 [ext_resource type="Script" uid="uid://blemsam1bp131" path="res://Scripts/stages/dashboard_template.gd" id="1_1q6fv"]
 [ext_resource type="Texture2D" uid="uid://bwcqygy3l6re5" path="res://Assets/icons/icon-land.png" id="2_qtnvp"]
+[ext_resource type="Texture2D" uid="uid://dh57ov1ilb1nj" path="res://Assets/scene_png/dashboard_land.png" id="2_un0h3"]
 [ext_resource type="Texture2D" uid="uid://c3ixrxgpbc6e2" path="res://Assets/icons/icon-hw.png" id="3_ct33i"]
 [ext_resource type="Texture2D" uid="uid://twtmhcefjxaw" path="res://Assets/hardware_bar_chart.png" id="4_ct33i"]
 [ext_resource type="Texture2D" uid="uid://c2l4r8fiueqa0" path="res://Assets/icons/icon-stats.png" id="4_nmupo"]
 [ext_resource type="Texture2D" uid="uid://bkwu88mqxdvns" path="res://Assets/icons/icon-energy.png" id="5_ck8l7"]
+[ext_resource type="Texture2D" uid="uid://b0nx6y1tn0tir" path="res://Assets/scene_png/swiss_household_3.png" id="5_ssfx3"]
+[ext_resource type="Texture2D" uid="uid://cppuo8kyvsech" path="res://Assets/scene_png/dashboard_water.png" id="6_kh86l"]
 [ext_resource type="Texture2D" uid="uid://brotx1epnccvd" path="res://Assets/users_donut_chart.png" id="6_nmupo"]
 [ext_resource type="Texture2D" uid="uid://dm5ycpar0dph" path="res://Assets/icons/icon-water.png" id="6_upmtq"]
+[ext_resource type="Texture2D" uid="uid://kb4yhalwh63o" path="res://Assets/scene_png/airplane_and_world.png" id="7_5sflr"]
 [ext_resource type="Texture2D" uid="uid://cshbvtqhv1744" path="res://Assets/icons/icon-airpollution.png" id="7_debuo"]
+[ext_resource type="Texture2D" uid="uid://s6qjw4f3v8iq" path="res://Assets/scene_png/airplane_sound.png" id="8_fsoio"]
 [ext_resource type="Texture2D" uid="uid://mq5cjjqcxyc5" path="res://Assets/icons/icon-noisepollution.png" id="8_kvtt4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bv3rt"]
@@ -104,6 +109,13 @@ corner_radius_bottom_left = 5
 
 [node name="DashboardStage" type="Node2D" unique_id=2069696845]
 script = ExtResource("1_1q6fv")
+p1_cover = ExtResource("2_un0h3")
+p2_cover = ExtResource("4_ct33i")
+p3_cover = ExtResource("6_nmupo")
+p4_cover = ExtResource("5_ssfx3")
+p5_cover = ExtResource("6_kh86l")
+p6_cover = ExtResource("7_5sflr")
+p7_cover = ExtResource("8_fsoio")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=614214521]
 
@@ -150,7 +162,7 @@ text = "You have made choices that impacted the environment and the lives of peo
 [node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout" unique_id=972488747]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.0
+size_flags_stretch_ratio = 3.5
 
 [node name="LandPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow" unique_id=2144545307]
 layout_mode = 2
@@ -272,6 +284,7 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=1017356156]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="ChoiceBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/MiddleRow/VBoxContainer" unique_id=1387666573]
 layout_mode = 2
@@ -288,8 +301,7 @@ theme_override_constants/margin_bottom = 7
 layout_mode = 2
 theme_override_colors/font_color = Color(0.1254902, 0.08627451, 0.1882353, 1)
 theme_override_font_sizes/font_size = 17
-text = "You bought multiple servers for Joe’s shop 
-during the game to expand your AI center."
+text = "You bought multiple servers for Joe’s shop during the game to expand your AI center."
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/MiddleRow/VBoxContainer" unique_id=1736531982]
 layout_mode = 2
@@ -301,12 +313,6 @@ theme_override_font_sizes/bold_italics_font_size = 17
 theme_override_font_sizes/italics_font_size = 17
 theme_override_font_sizes/mono_font_size = 17
 text = "Villagers noticed laptops and other electronics becoming more expensive. The same advanced chips powering your AI systems were driving up global demand. Producing these chips requires many rare metals, such as copper, silicon and cobalt, and the process requires many other resources, such as purified water. The smaller the chips, the more precise and pure the resources have to be. The chips used in AI centres are much more costly to produce than those used in general data centres."
-
-[node name="PieChartControl" type="TextureRect" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox/MiddleRow" unique_id=2115840762]
-custom_minimum_size = Vector2(0, 300)
-layout_mode = 2
-texture = ExtResource("4_ct33i")
-expand_mode = 3
 
 [node name="InfoBox" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/TopRow/HWPanel/MarginContainer/PanelVBox" unique_id=325529668]
 visible = false
@@ -409,7 +415,7 @@ autowrap_mode = 3
 [node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout" unique_id=2141966339]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.0
+size_flags_stretch_ratio = 2.2
 
 [node name="EnergyPanel" type="PanelContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow" unique_id=1072984644]
 layout_mode = 2
@@ -426,7 +432,6 @@ theme_override_constants/margin_bottom = 25
 
 [node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer" unique_id=770005640]
 layout_mode = 2
-size_flags_vertical = 0
 theme_override_constants/separation = 16
 
 [node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/EnergyPanel/MarginContainer/PanelVBox" unique_id=459215253]
@@ -515,7 +520,6 @@ theme_override_constants/margin_bottom = 25
 
 [node name="PanelVBox" type="VBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer" unique_id=515464414]
 layout_mode = 2
-size_flags_vertical = 0
 theme_override_constants/separation = 16
 
 [node name="TopRow" type="HBoxContainer" parent="CanvasLayer/MarginContainer/MainLayout/MiddleRow/WaterPanel/MarginContainer/PanelVBox" unique_id=2005621468]
@@ -680,7 +684,7 @@ text = "other info"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.0
+size_flags_stretch_ratio = 1.6
 theme_override_styles/panel = SubResource("StyleBoxFlat_bv3rt")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/MainLayout/AirPollutionPanel" unique_id=224181797]

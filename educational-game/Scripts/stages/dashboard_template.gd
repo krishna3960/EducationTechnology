@@ -18,7 +18,7 @@ var _intro_dismissed: bool = false
 @export_category("Panel 2: Hardware")
 @export var p2_title: String = "Hardware"
 @export var p2_description: String = "Villagers noticed laptops and other electronics becoming [b]more expensive[/b]. The same advanced chips powering your AI systems were driving up [b]global demand[/b]. Producing these chips requires many [b]rare metals[/b] such as copper, silicon and cobalt, as well as [b]purified water[/b]. The smaller the chips, the more precise and pure the resources have to be. The chips used in AI centres are [b]much more costly to produce[/b] than those used in general data centres."
-@export var p2_choice_text: String = "You bought multiple servers from Joe's shop\nduring the game to expand your AI center."
+@export var p2_choice_text: String = "You bought multiple servers from Joe's shop during the game to expand your AI center."
 
 @export_category("Panel 3: Users")
 @export var p3_title: String = "Users"
@@ -44,6 +44,15 @@ var _intro_dismissed: bool = false
 @export var p7_title: String = "Noise Pollution"
 @export var p7_description: String = "Building an AI centre close to residential areas can cause [b]stress and sleep deprivation[/b]. Potential noise sources include [b]cooling systems[/b], [b]diesel generators[/b] and [b]whirring fans[/b], reaching up to [b]105 decibels[/b] — as loud as a jet flying overhead.\n\nFor reference: [b]Vacuum cleaner[/b] 60-85 dBA · [b]Blender[/b] 80-90 dBA · [b]Snow blower[/b] 105 dBA · [b]Baby crying[/b] 110 dBA · [b]Car horn[/b] 110 dBA."
 @export var p7_choice_text: String = ""
+
+@export_category("Cover Images")
+@export var p1_cover: Texture2D
+@export var p2_cover: Texture2D
+@export var p3_cover: Texture2D
+@export var p4_cover: Texture2D
+@export var p5_cover: Texture2D
+@export var p6_cover: Texture2D
+@export var p7_cover: Texture2D
 
 @onready var title_label: Label = $CanvasLayer/MarginContainer/MainLayout/HeaderContainer/Title
 @onready var subtitle_label: Label = $CanvasLayer/MarginContainer/MainLayout/HeaderContainer/Subtitle
@@ -173,8 +182,10 @@ func _get_all_panels() -> Array:
 	]
 
 func _setup_flip_panels() -> void:
-	for panel_node in _get_all_panels():
-		_init_flip(panel_node)
+	var covers: Array[Texture2D] = [p1_cover, p2_cover, p3_cover, p4_cover, p5_cover, p6_cover, p7_cover]
+	var panels := _get_all_panels()
+	for i: int in panels.size():
+		_init_flip(panels[i], covers[i])
 
 func _set_mouse_filter_recursive(node: Control, filter: int) -> void:
 	for child in node.get_children():
@@ -182,7 +193,7 @@ func _set_mouse_filter_recursive(node: Control, filter: int) -> void:
 			child.mouse_filter = filter
 			_set_mouse_filter_recursive(child, filter)
 
-func _init_flip(panel_node: Control) -> void:
+func _init_flip(panel_node: Control, cover_texture: Texture2D) -> void:
 	var original_margin := panel_node.get_node("MarginContainer")
 	var vbox := original_margin.get_node("PanelVBox")
 
@@ -236,6 +247,15 @@ func _init_flip(panel_node: Control) -> void:
 	top_row_copy.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 	front_vbox.add_child(top_row_copy)
+	# Cover image on the front face
+	if cover_texture != null:
+		var cover := TextureRect.new()
+		cover.texture = cover_texture
+		cover.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		cover.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		cover.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		cover.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		front_vbox.add_child(cover)
 	front.add_child(front_vbox)
 
 	panel_node.add_child(front)
