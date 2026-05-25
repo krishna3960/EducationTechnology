@@ -90,5 +90,3 @@ static func pulse_choice_buttons(buttons: Array, iterations: int = 6, gap: float
 					btn.remove_meta("_pulse_prev_normal"))
 			if iter < iterations - 1:
 				t.tween_interval(gap)
-
-

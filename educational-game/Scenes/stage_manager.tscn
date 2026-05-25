@@ -18,4 +18,4 @@ data = PackedByteArray("SUQzBAAAAAABAFRYWFgAAAASAAADbWFqb3JfYnJhbmQAZGFzaABUWFhY
 [node name="StageManager" type="Node" unique_id=830780553]
 script = ExtResource("1")
 stages = Array[PackedScene]([ExtResource("2_yfyfq"), ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("8_ank4r")])
-stage_music = Array[AudioStream]([SubResource("AudioStreamMP3_e7nqm"), ExtResource("8_e7nqm"), ExtResource("9_88vbr"), SubResource("AudioStreamMP3_e7nqm"), ExtResource("10_88vbr"), SubResource("AudioStreamMP3_e7nqm")])
+stage_music = Array[AudioStream]([SubResource("AudioStreamMP3_e7nqm"), ExtResource("8_e7nqm"), ExtResource("9_88vbr"), SubResource("AudioStreamMP3_e7nqm"), ExtResource("10_88vbr"), SubResource("AudioStreamMP3_e7nqm"), ExtResource("10_88vbr")])
