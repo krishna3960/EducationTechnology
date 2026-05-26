@@ -114,8 +114,8 @@ p2_cover = ExtResource("4_ct33i")
 p3_cover = ExtResource("6_nmupo")
 p4_cover = ExtResource("5_ssfx3")
 p5_cover = ExtResource("6_kh86l")
-p6_cover = ExtResource("7_5sflr")
-p7_cover = ExtResource("8_fsoio")
+p6_cover = ExtResource("8_fsoio")
+p7_cover = ExtResource("7_5sflr")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=614214521]
 
