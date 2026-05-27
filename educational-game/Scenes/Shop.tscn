@@ -24,27 +24,11 @@ texture = ExtResource("2_iidq5")
 [node name="BuyServerButtons" type="Node" parent="." unique_id=1191250001]
 
 [node name="Button" type="Button" parent="BuyServerButtons" unique_id=1155225072]
-offset_left = 280.0
-offset_top = 350.0
-offset_right = 401.0
-offset_bottom = 405.0
-theme_override_font_sizes/font_size = 27
-text = "Buy"
-
-[node name="Button2" type="Button" parent="BuyServerButtons" unique_id=916125230]
-offset_left = 534.0
-offset_top = 349.0
-offset_right = 652.0
-offset_bottom = 404.0
-theme_override_font_sizes/font_size = 27
-text = "Buy"
-
-[node name="Button3" type="Button" parent="BuyServerButtons" unique_id=279691913]
-offset_left = 778.0
-offset_top = 348.0
-offset_right = 896.0
-offset_bottom = 404.0
-theme_override_font_sizes/font_size = 27
+offset_left = 221.0
+offset_top = 338.0
+offset_right = 953.0
+offset_bottom = 397.0
+theme_override_font_sizes/font_size = 33
 text = "Buy"
 
 [node name="Price" type="Node" parent="." unique_id=1801598310]
@@ -157,12 +141,12 @@ theme_override_font_sizes/font_size = 23
 text = "$240"
 
 [node name="Bought" type="Label" parent="." unique_id=456784685]
-offset_left = 549.0
-offset_top = 294.0
-offset_right = 858.0
-offset_bottom = 377.0
+offset_left = 538.0
+offset_top = 296.0
+offset_right = 967.0
+offset_bottom = 379.0
 theme_override_font_sizes/font_size = 29
-text = "Servers Racks Bought:
+text = "Servers Racks Bought:     /5
 "
 
 [node name="Counter" type="Label" parent="." unique_id=1947249064]
@@ -194,5 +178,3 @@ scale = Vector2(0.16576533, 0.2617469)
 texture = ExtResource("3_lagin")
 
 [connection signal="pressed" from="BuyServerButtons/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="BuyServerButtons/Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="BuyServerButtons/Button3" to="." method="_on_button_3_pressed"]

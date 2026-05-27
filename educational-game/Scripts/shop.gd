@@ -52,7 +52,7 @@ func _ready():
 	_show_intro_dialogue()
 
 func _get_buy_buttons() -> Array:
-	return [$BuyServerButtons/Button, $BuyServerButtons/Button2, $BuyServerButtons/Button3]
+	return [$BuyServerButtons/Button]
 
 func _set_buy_buttons_enabled(enabled: bool) -> void:
 	for btn in _get_buy_buttons():
@@ -137,8 +137,7 @@ func raise_prices():
 	update_all_prices()
 
 func pulse_buttons():
-	var buttons = [$BuyServerButtons/Button, $BuyServerButtons/Button2, $BuyServerButtons/Button3]
-	for button in buttons:
+	for button in _get_buy_buttons():
 		var tween = create_tween()
 		tween.set_loops()
 		tween.tween_property(button, "modulate", Color(1.267, 0.698, 1.432, 1.0), 1)
@@ -159,10 +158,4 @@ func buy_server():
 		_show_exit_dialogue()
 
 func _on_button_pressed():
-	buy_server()
-
-func _on_button_2_pressed():
-	buy_server()
-
-func _on_button_3_pressed():
 	buy_server()
