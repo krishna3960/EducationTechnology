@@ -261,14 +261,46 @@ func _init_flip(panel_node: Control, cover_texture: Texture2D) -> void:
 	panel_node.add_child(front)
 	panel_node.add_child(back)
 
+	# Hover outline — sits above the faces, ignores mouse, fades in on hover.
+	var outline := Panel.new()
+	outline.name = "HoverOutline"
+	outline.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	outline.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	outline.modulate.a = 0.0
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0, 0, 0, 0)
+	sb.border_color = Color(1.0, 0.85, 0.35, 1.0)
+	sb.set_border_width_all(4)
+	sb.set_corner_radius_all(12)
+	outline.add_theme_stylebox_override("panel", sb)
+	panel_node.add_child(outline)
+	panel_node.set_meta("_hover_outline", outline)
+
 	panel_node.clip_contents = true
 	panel_node.mouse_filter = Control.MOUSE_FILTER_STOP
 	_set_mouse_filter_recursive(panel_node, Control.MOUSE_FILTER_PASS)
+	outline.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel_node.gui_input.connect(func(event: InputEvent):
 		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			_flip_panel(panel_node)
 	)
+	panel_node.mouse_entered.connect(func(): _set_hover(panel_node, true))
+	panel_node.mouse_exited.connect(func(): _set_hover(panel_node, false))
 	panel_node.set_meta("_flipped", false)
+
+
+func _set_hover(panel_node: Control, on: bool) -> void:
+	if not _intro_dismissed:
+		return
+	var outline: Panel = panel_node.get_meta("_hover_outline", null) as Panel
+	if outline == null:
+		return
+	var prev: Tween = panel_node.get_meta("_hover_tween", null) as Tween
+	if prev and prev.is_valid():
+		prev.kill()
+	var t := create_tween()
+	t.tween_property(outline, "modulate:a", 1.0 if on else 0.0, 0.12)
+	panel_node.set_meta("_hover_tween", t)
 
 func _flip_panel(panel_node: Control) -> void:
 	if not _intro_dismissed:
