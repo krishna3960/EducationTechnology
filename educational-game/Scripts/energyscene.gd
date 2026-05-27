@@ -7,7 +7,7 @@ const _SFX_BUILDING: AudioStream = preload("res://Assets/Music/Unique Cinematic 
 
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/assistant_v1.png")
 @export var _SPEAKER: String = "Prompto"
-@export var _INTRO_TEXT: String = "Ah thats a shame about the students....but your new hardware looks so good! Now we just need to power them up with electrcity. Where do you want to get electricity from?"
+@export var _INTRO_TEXT: String = "Ah thats a shame about the students....but your new hardware looks so good! Now we just need to power them up with electricity. Where do you want to get your electricity from?"
 
 const _ELECTRIC_POLE_TILE: String = "res://Assets/tiles/tile_electric_pole_aiCenter.png"
 

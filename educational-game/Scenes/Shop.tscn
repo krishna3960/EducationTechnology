@@ -24,25 +24,9 @@ texture = ExtResource("2_iidq5")
 [node name="BuyServerButtons" type="Node" parent="." unique_id=1191250001]
 
 [node name="Button" type="Button" parent="BuyServerButtons" unique_id=1155225072]
-offset_left = 280.0
-offset_top = 350.0
-offset_right = 401.0
-offset_bottom = 405.0
-theme_override_font_sizes/font_size = 27
-text = "Buy"
-
-[node name="Button2" type="Button" parent="BuyServerButtons" unique_id=916125230]
-offset_left = 534.0
+offset_left = 434.0
 offset_top = 349.0
-offset_right = 652.0
-offset_bottom = 404.0
-theme_override_font_sizes/font_size = 27
-text = "Buy"
-
-[node name="Button3" type="Button" parent="BuyServerButtons" unique_id=279691913]
-offset_left = 778.0
-offset_top = 348.0
-offset_right = 896.0
+offset_right = 764.0
 offset_bottom = 404.0
 theme_override_font_sizes/font_size = 27
 text = "Buy"
@@ -168,10 +152,10 @@ text = "Servers Racks Bought:
 [node name="Counter" type="Label" parent="." unique_id=1947249064]
 offset_left = 863.0
 offset_top = 290.0
-offset_right = 883.0
+offset_right = 940.0
 offset_bottom = 339.0
 theme_override_font_sizes/font_size = 35
-text = "0"
+text = "0/5"
 
 [node name="PriceHike" type="Sprite2D" parent="." unique_id=1810693872]
 position = Vector2(1685, 416)
@@ -194,5 +178,3 @@ scale = Vector2(0.16576533, 0.2617469)
 texture = ExtResource("3_lagin")
 
 [connection signal="pressed" from="BuyServerButtons/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="BuyServerButtons/Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="BuyServerButtons/Button3" to="." method="_on_button_3_pressed"]
