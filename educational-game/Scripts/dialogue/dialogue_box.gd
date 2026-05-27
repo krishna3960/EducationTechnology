@@ -63,6 +63,7 @@ func _ready() -> void:
 	_ui.visible = false
 	_dim_rect.modulate.a = 0.0
 	_dim_rect.visible = false
+	_ui.gui_input.connect(_on_container_gui_input)
 	await get_tree().process_frame
 	_portrait_rest_x = _portrait.position.x
 	if OS.is_debug_build():
@@ -180,15 +181,20 @@ func clear_choices() -> void:
 	for child in _above_bubble.get_children():
 		child.queue_free()
 
-func _input(event: InputEvent) -> void:
-	if not _active or not _auto_close:
+# Mouse clicks come through Container's gui_input.
+func _on_container_gui_input(event: InputEvent) -> void:
+	if not _active:
 		return
 	if _handle_advance(event):
-		get_viewport().set_input_as_handled()
+		_ui.accept_event()
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not _active or _auto_close:
+# Keyboard ui_accept — Container's gui_input doesn't fire for keys, so handle
+# them here. Mouse clicks are already taken care of above.
+func _input(event: InputEvent) -> void:
+	if not _active:
+		return
+	if not event.is_action_pressed("ui_accept"):
 		return
 	if _handle_advance(event):
 		get_viewport().set_input_as_handled()
