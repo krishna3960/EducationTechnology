@@ -198,7 +198,7 @@ func _init_flip(panel_node: Control, cover_texture: Texture2D) -> void:
 	var vbox := original_margin.get_node("PanelVBox")
 
 	# Read title before we touch anything
-	var title_text_str: String = vbox.get_node("TopRow/Label").text
+	##var title_text_str: String = vbox.get_node("TopRow/Label").text
 
 	# Enable scroll on RichTextLabels before reparenting
 	for child in vbox.find_children("*", "RichTextLabel", true, false):

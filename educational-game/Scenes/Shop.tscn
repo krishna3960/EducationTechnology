@@ -30,11 +30,11 @@ texture = ExtResource("2_iidq5")
 [node name="BuyServerButtons" type="Node" parent="." unique_id=1191250001]
 
 [node name="Button" type="Button" parent="BuyServerButtons" unique_id=1155225072]
-offset_left = 221.0
-offset_top = 338.0
-offset_right = 953.0
-offset_bottom = 397.0
-theme_override_font_sizes/font_size = 33
+offset_left = 434.0
+offset_top = 349.0
+offset_right = 764.0
+offset_bottom = 404.0
+theme_override_font_sizes/font_size = 27
 text = "Buy"
 
 [node name="Price" type="Node" parent="." unique_id=1801598310]
@@ -158,10 +158,10 @@ text = "Servers Racks Bought:     /5
 [node name="Counter" type="Label" parent="." unique_id=1947249064]
 offset_left = 863.0
 offset_top = 290.0
-offset_right = 883.0
+offset_right = 940.0
 offset_bottom = 339.0
 theme_override_font_sizes/font_size = 35
-text = "0"
+text = "0/5"
 
 [node name="PriceHike" type="Sprite2D" parent="." unique_id=1810693872]
 position = Vector2(1685, 416)

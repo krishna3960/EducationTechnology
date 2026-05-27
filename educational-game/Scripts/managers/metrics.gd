@@ -124,13 +124,15 @@ var water_choices: Array[ChoiceEntry] = []
 
 
 func to_dict() -> Dictionary:
+	var land_dict: Variant = land_choice.to_dict() if land_choice else null
+	var elec_dict: Variant = electricity_choice.to_dict() if electricity_choice else null
 	return {
 		"session": session.to_dict(),
 		"stages": stages.map(func(s): return s.to_dict()),
 		"newspapers": newspapers.map(func(n): return n.to_dict()),
 		"dialogues": dialogues.map(func(d): return d.to_dict()),
 		"classroom_quizzes": classroom_quizzes.map(func(q): return q.to_dict()),
-		"land_choice": land_choice.to_dict() if land_choice else null,
-		"electricity_choice": electricity_choice.to_dict() if electricity_choice else null,
+		"land_choice": land_dict,
+		"electricity_choice": elec_dict,
 		"water_choices": water_choices.map(func(c): return c.to_dict()),
 	}

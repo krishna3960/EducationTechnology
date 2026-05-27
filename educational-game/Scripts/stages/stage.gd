@@ -18,9 +18,9 @@ func _stage_end() -> void:
 
 ## Shared styling for the prev/next/choose buttons used during stage dialogues.
 static func style_choice_button(btn: Button, accent: Color) -> void:
-	var make_sb := func(bg: Color, border: Color) -> StyleBoxFlat:
+	var make_sb := func(fill: Color, border: Color) -> StyleBoxFlat:
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = bg
+		sb.bg_color = fill
 		sb.set_corner_radius_all(8)
 		sb.set_border_width_all(4)
 		sb.border_color = border
