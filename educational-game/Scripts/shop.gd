@@ -153,11 +153,19 @@ func raise_prices():
 	update_all_prices()
 
 func pulse_buttons():
+	const FLASH_HOLD: float = 0.3
+	const FLASH_GAP: float = 1.5
 	for button in _get_buy_buttons():
-		var tween = create_tween()
-		tween.set_loops()
-		tween.tween_property(button, "modulate", Color(1.267, 0.698, 1.432, 1.0), 1)
-		tween.tween_property(button, "modulate", Color(1, 1, 1, 1), 1)
+		var normal_style: StyleBox = button.get_theme_stylebox("normal")
+		var hover_style: StyleBox = button.get_theme_stylebox("hover")
+		if normal_style == null or hover_style == null:
+			continue
+		var t : Tween = button.create_tween()
+		t.set_loops()
+		t.tween_callback(func(): button.add_theme_stylebox_override("normal", hover_style))
+		t.tween_interval(FLASH_HOLD)
+		t.tween_callback(func(): button.add_theme_stylebox_override("normal", normal_style))
+		t.tween_interval(FLASH_GAP)
 
 func show_price_hikes():
 	for hike in price_hikes:
