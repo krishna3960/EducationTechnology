@@ -147,19 +147,19 @@ theme_override_font_sizes/font_size = 23
 text = "$240"
 
 [node name="Bought" type="Label" parent="." unique_id=456784685]
-offset_left = 538.0
-offset_top = 291.0
-offset_right = 967.0
-offset_bottom = 374.0
+offset_left = 418.0
+offset_top = 297.0
+offset_right = 847.0
+offset_bottom = 380.0
 theme_override_font_sizes/font_size = 29
 text = "Servers Racks Bought:     /5
 "
 
 [node name="Counter" type="Label" parent="." unique_id=1947249064]
-offset_left = 863.0
-offset_top = 285.0
-offset_right = 940.0
-offset_bottom = 334.0
+offset_left = 743.0
+offset_top = 291.0
+offset_right = 820.0
+offset_bottom = 340.0
 theme_override_font_sizes/font_size = 35
 text = "0"
 
