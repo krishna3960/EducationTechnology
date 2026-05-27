@@ -12,4 +12,3 @@
   
 3. Then, navigate to http://localhost:3000
 
-<img src="./giphy.gif" width="100%"/>

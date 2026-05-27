@@ -1,5 +1,8 @@
 extends Node
 
+# Background music attenuation. Tweak to make all tracks quieter/louder.
+@export var MUSIC_VOLUME_DB: float = -8.0
+
 var audio_player: AudioStreamPlayer
 var ambient_player: AudioStreamPlayer
 var sfx_player: AudioStreamPlayer
@@ -39,7 +42,7 @@ func stop_ambient() -> void:
 	if ambient_player == null:
 		return
 	ambient_player.stop()
-	
+
 func set_master_volume(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value))
 
@@ -47,7 +50,7 @@ func get_master_volume() -> float:
 	return db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
 
 
-func play(stream: AudioStream, volume_db: float = 0.0) -> void:
+func play(stream: AudioStream, volume_db: float = MUSIC_VOLUME_DB) -> void:
 	if audio_player == null or stream == null:
 		return
 	if audio_player.stream == stream and audio_player.playing:

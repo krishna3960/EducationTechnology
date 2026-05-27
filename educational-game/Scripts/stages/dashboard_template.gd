@@ -3,6 +3,10 @@ extends Stage
 const _SFX_CYCLE: AudioStream = preload("res://Assets/Music/Just A 1 Second Woosh Sound.mp3")
 @export var _PORTRAIT: Texture2D = preload("res://Assets/scene_png/techgirl.png")
 @export var _SPEAKER: String = "Ally"
+
+@export_multiline var _INTRO_TEXT_1: String = "This is the final report compiled by my team. Please read it carefully, it's serious. Click any card to reveal its details, click again to hide them."
+@export_multiline var _INTRO_TEXT_2: String = "Oh and one more thing, {name}. Don't be too disheartened if the numbers look rough. AI datacenters are inherently bad for the environment. There's no single 'right' choice you could have made; the best anyone can do is minimize the impact. You can never truly get rid of it altogether!"
+
 var _intro_dismissed: bool = false
 
 @export_category("Global Dashboard Settings")
@@ -59,33 +63,44 @@ var _intro_dismissed: bool = false
 @onready var background: ColorRect = $CanvasLayer/Background
 
 const _FLIP_DURATION: float = 0.15
-	
+
 func _ready() -> void:
 	_apply_theme()
 	_setup_flip_panels()
 	_show_intro_dialogue()
 
 func _show_intro_dialogue() -> void:
+	_show_intro_step(_INTRO_TEXT_1, "Understood", _show_second_intro_dialogue)
+
+func _show_second_intro_dialogue() -> void:
+	_show_intro_step(_INTRO_TEXT_2, "Got it", _dismiss_intro)
+
+func _show_intro_step(text: String, button_label: String, on_confirm: Callable) -> void:
 	var opts := DialogueOptions.new()
 	opts.dim = false
 	opts.auto_close = false
-	Dialogue.on_typewriter_done.connect(_mount_ok_button, CONNECT_ONE_SHOT)
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, "This is the final report compiled by my team. Please read it carefully as it is very serious. Click any card to reveal its details, click again to hide them.", opts, null)
+	var resolved: String = text.replace("{name}", GameState.player_name)
+	var on_typewriter_done := func(): _mount_intro_button(button_label, on_confirm)
+	Dialogue.on_typewriter_done.connect(on_typewriter_done, CONNECT_ONE_SHOT)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, resolved, opts, null)
 
-func _mount_ok_button() -> void:
+func _mount_intro_button(label: String, on_confirm: Callable) -> void:
 	var btn := Button.new()
-	btn.text = "Understood"
+	btn.text = label
 	btn.custom_minimum_size = Vector2(360, 80)
 	Stage.style_choice_button(btn, Color(0.0, 0.8, 0.4, 1.0))
 	btn.pressed.connect(func():
 		MusicManager.play_sfx(_SFX_CYCLE)
 		Dialogue.clear_choices()
 		Dialogue.dismiss()
-		_intro_dismissed = true
+		on_confirm.call()
 	)
 	Dialogue.mount_choices([btn], "")
 	Stage.fade_in_choice_buttons([btn])
 	Stage.pulse_choice_buttons([btn])
+
+func _dismiss_intro() -> void:
+	_intro_dismissed = true
 
 func _apply_theme() -> void:
 	if background:
@@ -198,7 +213,7 @@ func _init_flip(panel_node: Control, cover_texture: Texture2D) -> void:
 	var vbox := original_margin.get_node("PanelVBox")
 
 	# Read title before we touch anything
-	var title_text_str: String = vbox.get_node("TopRow/Label").text
+	##var title_text_str: String = vbox.get_node("TopRow/Label").text
 
 	# Enable scroll on RichTextLabels before reparenting
 	for child in vbox.find_children("*", "RichTextLabel", true, false):
@@ -261,14 +276,46 @@ func _init_flip(panel_node: Control, cover_texture: Texture2D) -> void:
 	panel_node.add_child(front)
 	panel_node.add_child(back)
 
+	# Hover outline — sits above the faces, ignores mouse, fades in on hover.
+	var outline := Panel.new()
+	outline.name = "HoverOutline"
+	outline.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	outline.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	outline.modulate.a = 0.0
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0, 0, 0, 0)
+	sb.border_color = Color(1.0, 0.85, 0.35, 1.0)
+	sb.set_border_width_all(4)
+	sb.set_corner_radius_all(12)
+	outline.add_theme_stylebox_override("panel", sb)
+	panel_node.add_child(outline)
+	panel_node.set_meta("_hover_outline", outline)
+
 	panel_node.clip_contents = true
 	panel_node.mouse_filter = Control.MOUSE_FILTER_STOP
 	_set_mouse_filter_recursive(panel_node, Control.MOUSE_FILTER_PASS)
+	outline.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel_node.gui_input.connect(func(event: InputEvent):
 		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			_flip_panel(panel_node)
 	)
+	panel_node.mouse_entered.connect(func(): _set_hover(panel_node, true))
+	panel_node.mouse_exited.connect(func(): _set_hover(panel_node, false))
 	panel_node.set_meta("_flipped", false)
+
+
+func _set_hover(panel_node: Control, on: bool) -> void:
+	if not _intro_dismissed:
+		return
+	var outline: Panel = panel_node.get_meta("_hover_outline", null) as Panel
+	if outline == null:
+		return
+	var prev: Tween = panel_node.get_meta("_hover_tween", null) as Tween
+	if prev and prev.is_valid():
+		prev.kill()
+	var t := create_tween()
+	t.tween_property(outline, "modulate:a", 1.0 if on else 0.0, 0.12)
+	panel_node.set_meta("_hover_tween", t)
 
 func _flip_panel(panel_node: Control) -> void:
 	if not _intro_dismissed:

@@ -64,6 +64,17 @@ func _start_game() -> void:
 	GameState.metrics.session.ts_started = Time.get_unix_time_from_system()
 	add_child(_STAGE_MANAGER_SCENE.instantiate())
 
+
+
+func _on_game_complete() -> void:
+	_notify_website_quit()
+	get_tree().quit()
+
+
+func _notify_website_quit() -> void:
+	if OS.has_feature("web"):
+		JavaScriptBridge.eval(EventLogger.NOTIFY_QUIT_JS, true)
+
 func _on_settings_pressed() -> void:
 	MusicManager.play_sfx(_SFX_CYCLE)
 	$UILayer/CenterContainer/Node2D.visible = false
@@ -94,4 +105,5 @@ func _update_skip_buttons() -> void:
 
 func _on_quit_pressed() -> void:
 	MusicManager.play_sfx(_SFX_CYCLE)
+	_notify_website_quit()
 	get_tree().quit()

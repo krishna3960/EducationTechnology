@@ -4,6 +4,9 @@ extends Node
 const _SUBMIT_URL: String = "https://docs.google.com/forms/d/e/1FAIpQLScMGJIJu02ZO4R8zKH4wQ28QkRCaF6qLVbZhRdTUpqwKrHVTw/formResponse"
 const _SUBMIT_FIELD: String = "entry.932053024"
 
+# When running inside an iframe on the website, post a message so the host page can route back to /.
+const NOTIFY_QUIT_JS: String = "if (window.parent && window.parent !== window) { window.parent.postMessage({ type: 'game-quit' }, '*'); }"
+
 var _http: HTTPRequest
 var _open_log_on_quit: bool = false
 
@@ -43,14 +46,14 @@ func submit_and_quit() -> void:
 		_dump_to_tmp(payload)
 
 	if _http == null:
-		get_tree().quit()
+		_quit_now()
 		return
 	var body: String = "%s=%s" % [_SUBMIT_FIELD, JSON.stringify(payload, "\t").uri_encode()]
 	var headers: PackedStringArray = ["Content-Type: application/x-www-form-urlencoded"]
 	var err: int = _http.request(_SUBMIT_URL, headers, HTTPClient.METHOD_POST, body)
 	if err != OK:
 		push_error("EventLogger: submit failed (err %d)" % err)
-		get_tree().quit()
+		_quit_now()
 
 
 func _dump_to_tmp(payload: Dictionary) -> void:
@@ -67,4 +70,10 @@ func _dump_to_tmp(payload: Dictionary) -> void:
 
 func _on_submit_complete(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
 	print("EventLogger: submit complete (result=%d, code=%d)" % [result, response_code])
+	_quit_now()
+
+
+func _quit_now() -> void:
+	if OS.has_feature("web"):
+		JavaScriptBridge.eval(NOTIFY_QUIT_JS, true)
 	get_tree().quit()

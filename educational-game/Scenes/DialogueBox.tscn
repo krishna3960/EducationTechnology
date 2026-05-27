@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://bvk2x1n4q8m3p" path="res://Scripts/dialogue/dialogue_box.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://kam0nhs73a5f" path="res://icon.svg" id="2_icon"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjj0w"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sh7kx"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
@@ -20,17 +23,14 @@ color = Color(0, 0, 0, 1)
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=1338335758]
 
-[node name="Container" type="Control" parent="UILayer" unique_id=1593062969]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="Container" type="Panel" parent="UILayer" unique_id=1854209324]
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mjj0w")
 
 [node name="Portrait" type="TextureRect" parent="UILayer/Container" unique_id=1200955554]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 24.0
@@ -49,7 +49,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 647.0
 offset_top = -232.0
-offset_right = -25.0
+offset_right = -29.0
 offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 0

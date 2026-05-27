@@ -22,7 +22,7 @@ EventLogger="*res://Scripts/event_logger.gd"
 Dialogue="*res://Scenes/DialogueBox.tscn"
 Newspaper="*res://Scenes/NewspaperOverlay.tscn"
 GameState="*res://Scripts/managers/game_state.gd"
-MusicManager="*uid://dm2o55jmplmst"
+MusicManager="*res://Scripts/musicmanager.gd"
 
 [display]
 
