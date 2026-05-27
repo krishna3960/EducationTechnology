@@ -10,6 +10,7 @@ const _SFX_WHOOSH: AudioStream = preload("res://Assets/Music/Transition - Sound 
 @export var _SPEAKER: String = "Joe Sellington"
 @export var _INTRO_TEXT: String = "Well well, look who walked in! Don't think I've had the pleasure — what was the name again? ...{name}? Ohhh, {name}... now THAT'S a fine name. Lucky for you, today I happen to be running a special for friends with such fine names. You need 5 server racks? I got the best prices in town... today, anyway. Heh heh. Just point at what you want."
 @export var _EXIT_TEXT: String = "Pleasure doing business {name}! All 5 racks, sold. Did you notice how everything else got pricier while you shopped? Bet a smart one like you can work out why. Come back soon!"
+@export_multiline var _DEVICE_AREA_TEXT: String = "Whoa {name}! Those are for the walk-in crowd. You came in for the server racks on the left. Heh. And I spot that company card... I got nothing against a little creative accounting, but I don't need anyone poking around my books. COMPLETELY legal business, mind you. Squeaky clean. Probably.. Soooo servers. On the left. Be a pal."
 
 @onready var counter = $Counter
 @onready var price_hikes = [
@@ -43,13 +44,28 @@ var laptop_prices = [2200, 1400]
 var accessory_prices = [120, 67, 240]
 var servers_bought = 0
 
+@onready var _device_area: Panel = $DeviceArea
+
 func _ready():
 	for hike in price_hikes:
 		hike.hide()
 	pulse_buttons()
 	update_counter()
 	update_all_prices()
+	_device_area.gui_input.connect(_on_device_area_input)
 	_show_intro_dialogue()
+
+
+func _on_device_area_input(event: InputEvent) -> void:
+	if not (event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
+		return
+	if Dialogue.is_active():
+		return
+	var opts := DialogueOptions.new()
+	opts.dim = false
+	opts.auto_close = true
+	var text: String = _DEVICE_AREA_TEXT.replace("{name}", GameState.player_name)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, text, opts, _SFX_SHOP_ENTER)
 
 func _get_buy_buttons() -> Array:
 	return [$BuyServerButtons/Button]

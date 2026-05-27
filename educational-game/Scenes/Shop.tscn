@@ -7,6 +7,12 @@
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1243070111]
 script = ExtResource("1_iidq5")
 
+[node name="DeviceArea" type="Panel" parent="." unique_id=1667729790]
+offset_left = 1071.0
+offset_top = 267.0
+offset_right = 1685.0
+offset_bottom = 1066.0
+
 [node name="Background" type="ColorRect" parent="." unique_id=1243070112]
 anchors_preset = 15
 anchor_right = 1.0
@@ -141,12 +147,12 @@ theme_override_font_sizes/font_size = 23
 text = "$240"
 
 [node name="Bought" type="Label" parent="." unique_id=456784685]
-offset_left = 549.0
-offset_top = 294.0
-offset_right = 858.0
-offset_bottom = 377.0
+offset_left = 538.0
+offset_top = 296.0
+offset_right = 967.0
+offset_bottom = 379.0
 theme_override_font_sizes/font_size = 29
-text = "Servers Racks Bought:
+text = "Servers Racks Bought:     /5
 "
 
 [node name="Counter" type="Label" parent="." unique_id=1947249064]
