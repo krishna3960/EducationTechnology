@@ -152,8 +152,7 @@ offset_top = 296.0
 offset_right = 967.0
 offset_bottom = 379.0
 theme_override_font_sizes/font_size = 29
-text = "Servers Racks Bought:     /5
-"
+text = "Servers Racks Bought:"
 
 [node name="Counter" type="Label" parent="." unique_id=1947249064]
 offset_left = 863.0

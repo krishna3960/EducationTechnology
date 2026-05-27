@@ -240,7 +240,9 @@ func _show_outro() -> void:
 
 func _show_newspaper() -> void:
 	Newspaper.on_close.connect(_show_outro_dialogue, CONNECT_ONE_SHOT)
-	Newspaper.show_article(Newspaper.Article.WATER_CRISIS)
+	var choices := GameState.metrics.water_choices
+	var same_river := choices.size() >= 2 and choices[0].value == choices[1].value
+	Newspaper.show_article(Newspaper.Article.FISH if same_river else Newspaper.Article.WATER_CRISIS)
 
 func _show_outro_dialogue() -> void:
 	var opts := DialogueOptions.new()
