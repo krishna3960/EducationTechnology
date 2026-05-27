@@ -257,9 +257,10 @@ func _fade_clump(polys: Array, target_alpha: float) -> void:
 	for p in polys:
 		if not is_instance_valid(p):
 			continue
-		var prev = p.get_meta("_hover_tween", null)
-		if prev and prev.is_valid():
-			prev.kill()
+		if p.has_meta("_hover_tween"):
+			var prev = p.get_meta("_hover_tween")
+			if prev and prev.is_valid():
+				prev.kill()
 		var t := create_tween()
 		t.tween_property(p, "modulate:a", target_alpha, _HOVER_FADE_DURATION)
 		p.set_meta("_hover_tween", t)
