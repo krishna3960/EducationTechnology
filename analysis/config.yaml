@@ -1,0 +1,56 @@
+# Single config for the analysis pipeline.
+
+players:
+  - Alex_bestie_chipmunkXD
+  - Sami
+  - Thilo
+  - alex_13564
+  - alex_frentsch
+  - alex_lau
+  - alex_nici
+  - alex_schmalex
+  - alex_treethatcansee
+
+# Override how stages are displayed
+stages:
+  "0 01_intro_stage": Intro
+  "1 1_land_choice_stage": Land choice
+  "2 02_shop_stage": Shop
+  "3 03_energy_scene": Electricity
+  "4 04_classroom_tscn": Classroom
+  "5 4_stage": Water
+  "6 statistics": Final dashboard
+
+# Override newspaper article display labels. Key = the article enum name from
+# the metrics. Omitted articles fall back to Title Case of the name.
+newspapers:
+  FARMLAND: Farmland damaged
+  FOREST: Forest damaged
+  VILLAGE_TOO_CLOSE: Community divide
+  INSOMNIA: Noise / insomnia
+  SCIENTIST: Climate change
+  WATER_CRISIS: Water crisis
+  WINTER: Winter energy strain
+  FISH: Fish extinction
+  PRICES_LAPTOPS: Laptop prices
+
+# Correct options for the knowledge questions
+answer_key:
+  "Which resources do AI datacenters use?":
+    - water
+    - land
+    - electricity
+    - rare materials
+
+  "How many water resources does a single prompt need on average? Assume a water bottle is 500 ml":
+    - "1 water bottle"
+
+  "What direct effects does AI usage have on the climate?":
+    - land degradation
+    - more storms
+
+  "Which effects can AI datacenters have on our everyday lives?":
+    - Noise pollution
+    - Air pollution
+    - More dust
+    - increase of diseases
