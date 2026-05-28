@@ -12147,3 +12147,315 @@
 		}
 	]
 }"
+"2026/05/27 6:45:24 PM GMT+3","{
+	""classroom_quizzes"": [
+		{
+			""answer_chosen"": ""Read first. Pick 2–3 key points. Ask one clear question."",
+			""answer_correct"": true,
+			""question"": ""You need to summarize a 3-page document. What's the most energy-conscious way to use AI for this?"",
+			""scene"": ""Sub-scene3"",
+			""ts_answerchosen"": 1779896473.744,
+			""ts_duration"": 3.70799994468689,
+			""ts_ended"": 1779896470.036,
+			""ts_skipped"": null,
+			""ts_started"": 1779896467.584
+		},
+		{
+			""answer_chosen"": ""Write it yourself. Ask AI to fix unclear parts."",
+			""answer_correct"": true,
+			""question"": ""You want AI to help write a work email. Which prompt approach saves the most energy?"",
+			""scene"": ""Sub-scene4"",
+			""ts_answerchosen"": 1779896483.786,
+			""ts_duration"": 4.2279999256134,
+			""ts_ended"": 1779896479.558,
+			""ts_skipped"": null,
+			""ts_started"": 1779896477.433
+		},
+		{
+			""answer_chosen"": ""Brainstorm 5 mins. Ask AI to expand your top 2–3 ideas."",
+			""answer_correct"": true,
+			""question"": ""You need to brainstorm ideas for a project. How do you prompt AI most sustainably?"",
+			""scene"": ""Sub-scene5"",
+			""ts_answerchosen"": 1779896495.301,
+			""ts_duration"": 5.94900012016296,
+			""ts_ended"": 1779896489.352,
+			""ts_skipped"": null,
+			""ts_started"": 1779896487.28
+		}
+	],
+	""dialogues"": [
+		{
+			""chars"": 160,
+			""speaker"": ""Prompto"",
+			""text"": ""Hello, Thilo! My name is Prompto, and I’ll be your assistant throughout the game. Before we begin, let me show you the region. \nClick on the screen to continue."",
+			""ts_closed"": 1779896213.039,
+			""ts_duration"": 5.07999992370605,
+			""ts_ended"": 1779896207.959,
+			""ts_skipped"": null,
+			""ts_started"": 1779896202.28
+		},
+		{
+			""chars"": 41,
+			""speaker"": ""Prompto"",
+			""text"": ""In the top left is the village of Pontia."",
+			""ts_closed"": 1779896221.157,
+			""ts_duration"": 5.3970000743866,
+			""ts_ended"": 1779896215.76,
+			""ts_skipped"": null,
+			""ts_started"": 1779896214.044
+		},
+		{
+			""chars"": 38,
+			""speaker"": ""Prompto"",
+			""text"": ""In the top center you'll find Petalia."",
+			""ts_closed"": 1779896225.491,
+			""ts_duration"": 1.72599983215332,
+			""ts_ended"": 1779896223.765,
+			""ts_skipped"": null,
+			""ts_started"": 1779896222.161
+		},
+		{
+			""chars"": 36,
+			""speaker"": ""Prompto"",
+			""text"": ""And on the bottom right is Fontania."",
+			""ts_closed"": 1779896230.937,
+			""ts_duration"": 2.89199995994568,
+			""ts_ended"": 1779896228.045,
+			""ts_skipped"": null,
+			""ts_started"": 1779896226.495
+		},
+		{
+			""chars"": 139,
+			""speaker"": ""Prompto"",
+			""text"": ""Your AI datacenter is located in the center. Any buildings, infrastructure, or assets you own will be highlighted in your company's colors."",
+			""ts_closed"": 1779896239.23,
+			""ts_duration"": 2.30800008773804,
+			""ts_ended"": 1779896236.922,
+			""ts_skipped"": null,
+			""ts_started"": 1779896231.942
+		},
+		{
+			""chars"": 223,
+			""speaker"": ""Prompto"",
+			""text"": ""I monitor AI demand across the region. Recently, I detected a dramatic increase in requests coming from all three villages. Our current infrastructure can no longer keep up with demand. If we do nothing, requests will fail."",
+			""ts_closed"": 1779896251.657,
+			""ts_duration"": 3.64199995994568,
+			""ts_ended"": 1779896248.015,
+			""ts_skipped"": null,
+			""ts_started"": 1779896240.235
+		},
+		{
+			""chars"": 127,
+			""speaker"": ""Prompto"",
+			""text"": ""This is our datacenter today. It won't keep up much longer, we need to expand! The first call is yours: show me where to build!"",
+			""ts_closed"": 1779896274.312,
+			""ts_duration"": 18.0710000991821,
+			""ts_ended"": 1779896256.241,
+			""ts_skipped"": null,
+			""ts_started"": 1779896251.659
+		},
+		{
+			""chars"": 339,
+			""speaker"": ""Joe Sellington"",
+			""text"": ""Well well, look who walked in! Don't think I've had the pleasure — what was the name again? ...Thilo? Ohhh, Thilo... now THAT'S a fine name. Lucky for you, today I happen to be running a special for friends with such fine names. You need 5 server racks? I got the best prices in town... today, anyway. Heh heh. Just point at what you want."",
+			""ts_closed"": 1779896326.51,
+			""ts_duration"": 8.53200006484985,
+			""ts_ended"": 1779896317.978,
+			""ts_skipped"": null,
+			""ts_started"": 1779896306.216
+		},
+		{
+			""chars"": 328,
+			""speaker"": ""Joe Sellington"",
+			""text"": ""Whoa Thilo! Those are for the walk-in crowd. You came in for the server racks on the left. Heh. And I spot that company card... I got nothing against a little creative accounting, but I don't need anyone poking around my books. COMPLETELY legal business, mind you. Squeaky clean. Probably.. Soooo servers. On the left. Be a pal."",
+			""ts_closed"": 1779896341.762,
+			""ts_duration"": 9.66000008583069,
+			""ts_ended"": 1779896332.102,
+			""ts_skipped"": 1779896332.102,
+			""ts_started"": 1779896327.583
+		},
+		{
+			""chars"": 328,
+			""speaker"": ""Joe Sellington"",
+			""text"": ""Whoa Thilo! Those are for the walk-in crowd. You came in for the server racks on the left. Heh. And I spot that company card... I got nothing against a little creative accounting, but I don't need anyone poking around my books. COMPLETELY legal business, mind you. Squeaky clean. Probably.. Soooo servers. On the left. Be a pal."",
+			""ts_closed"": 1779896343.367,
+			""ts_duration"": 0.636000156402588,
+			""ts_ended"": 1779896342.731,
+			""ts_skipped"": 1779896342.731,
+			""ts_started"": 1779896342.006
+		},
+		{
+			""chars"": 328,
+			""speaker"": ""Joe Sellington"",
+			""text"": ""Whoa Thilo! Those are for the walk-in crowd. You came in for the server racks on the left. Heh. And I spot that company card... I got nothing against a little creative accounting, but I don't need anyone poking around my books. COMPLETELY legal business, mind you. Squeaky clean. Probably.. Soooo servers. On the left. Be a pal."",
+			""ts_closed"": 1779896353.656,
+			""ts_duration"": 1.38899993896484,
+			""ts_ended"": 1779896352.267,
+			""ts_skipped"": 1779896352.267,
+			""ts_started"": 1779896351.774
+		},
+		{
+			""chars"": 174,
+			""speaker"": ""Joe Sellington"",
+			""text"": ""Pleasure doing business Thilo! All 5 racks, sold. Did you notice how everything else got pricier while you shopped? Bet a smart one like you can work out why. Come back soon!"",
+			""ts_closed"": 1779896364.57,
+			""ts_duration"": 4.42599987983704,
+			""ts_ended"": 1779896360.144,
+			""ts_skipped"": null,
+			""ts_started"": 1779896353.996
+		},
+		{
+			""chars"": 175,
+			""speaker"": ""Prompto"",
+			""text"": ""Ah thats a shame about the students....but your new hardware looks so good! Now we just need to power them up with electricity. Where do you want to get your electricity from?"",
+			""ts_closed"": 1779896405.695,
+			""ts_duration"": 14.1819999217987,
+			""ts_ended"": 1779896391.513,
+			""ts_skipped"": null,
+			""ts_started"": 1779896385.33
+		},
+		{
+			""chars"": 201,
+			""speaker"": ""Prompto"",
+			""text"": ""The news hurts me, but seeing our datacenter light up makes me happy!...However we now have a new problem. We are getting a lot of wasteful prompts. Should we educate our users on how to prompt better?"",
+			""ts_closed"": 1779896454.2,
+			""ts_duration"": 19.4249999523163,
+			""ts_ended"": 1779896434.775,
+			""ts_skipped"": null,
+			""ts_started"": 1779896427.724
+		},
+		{
+			""chars"": 260,
+			""speaker"": ""Prompto"",
+			""text"": ""Congratulations your education was a success! You have reduced token usage and we now have enough compute and electricity to handle all the incoming prompts. However all this now creates a heating issue, we are going to need access to water to cool our server!"",
+			""ts_closed"": 1779896523.721,
+			""ts_duration"": 9.5550000667572,
+			""ts_ended"": 1779896514.166,
+			""ts_skipped"": null,
+			""ts_started"": 1779896505.148
+		},
+		{
+			""chars"": 138,
+			""speaker"": ""Prompto"",
+			""text"": ""Okay we have access to water now, but it is not sufficient to cool down all our servers, choose another river to get access to more water!"",
+			""ts_closed"": 1779896547.863,
+			""ts_duration"": 17.2860000133514,
+			""ts_ended"": 1779896530.577,
+			""ts_skipped"": null,
+			""ts_started"": 1779896525.63
+		},
+		{
+			""chars"": 284,
+			""speaker"": ""Ally"",
+			""text"": ""Oh and one more thing, Thilo. Don't be too disheartened if the numbers look rough. AI datacenters are inherently bad for the environment. There's no single 'right' choice you could have made; the best anyone can do is minimize the impact. You can never truly get rid of it altogether!"",
+			""ts_closed"": 1779896625.337,
+			""ts_duration"": 15.5499999523163,
+			""ts_ended"": 1779896609.787,
+			""ts_skipped"": null,
+			""ts_started"": 1779896599.975
+		}
+	],
+	""electricity_choice"": {
+		""ts_chosen"": 1779896405.448,
+		""ts_duration"": 41.1280000209808,
+		""ts_started"": 1779896364.32,
+		""value"": ""close""
+	},
+	""land_choice"": {
+		""ts_chosen"": 1779896274.064,
+		""ts_duration"": 22.4059998989105,
+		""ts_started"": 1779896251.658,
+		""value"": ""FOURTH""
+	},
+	""newspapers"": [
+		{
+			""article"": ""FARMLAND"",
+			""ts_closed"": 1779896300.225,
+			""ts_duration"": 22.6619999408722,
+			""ts_opened"": 1779896277.563
+		},
+		{
+			""article"": ""PRICES_LAPTOPS"",
+			""ts_closed"": 1779896385.329,
+			""ts_duration"": 18.5090000629425,
+			""ts_opened"": 1779896366.82
+		},
+		{
+			""article"": ""WINTER"",
+			""ts_closed"": 1779896426.719,
+			""ts_duration"": 17.2690000534058,
+			""ts_opened"": 1779896409.45
+		},
+		{
+			""article"": ""WATER_CRISIS"",
+			""ts_closed"": 1779896572.489,
+			""ts_duration"": 21.8300001621246,
+			""ts_opened"": 1779896550.659
+		}
+	],
+	""session"": {
+		""debug"": false,
+		""player_name"": ""Thilo"",
+		""ts_duration"": 542.289999961853,
+		""ts_ended"": 1779896724.79,
+		""ts_started"": 1779896182.5
+	},
+	""stages"": [
+		{
+			""index"": 0,
+			""name"": ""0 01_intro_stage"",
+			""ts_duration"": 69.1490001678467,
+			""ts_ended"": 1779896251.657,
+			""ts_started"": 1779896182.508
+		},
+		{
+			""index"": 1,
+			""name"": ""1 1_land_choice_stage"",
+			""ts_duration"": 54.5500001907349,
+			""ts_ended"": 1779896306.209,
+			""ts_started"": 1779896251.659
+		},
+		{
+			""index"": 2,
+			""name"": ""2 02_shop_stage"",
+			""ts_duration"": 58.1039998531342,
+			""ts_ended"": 1779896364.32,
+			""ts_started"": 1779896306.216
+		},
+		{
+			""index"": 3,
+			""name"": ""3 03_energy_scene"",
+			""ts_duration"": 89.047000169754,
+			""ts_ended"": 1779896453.371,
+			""ts_started"": 1779896364.324
+		},
+		{
+			""index"": 4,
+			""name"": ""4 04_classroom_tscn"",
+			""ts_duration"": 51.7610001564026,
+			""ts_ended"": 1779896505.147,
+			""ts_started"": 1779896453.386
+		},
+		{
+			""index"": 5,
+			""name"": ""5 4_stage"",
+			""ts_duration"": 81.8810000419617,
+			""ts_ended"": 1779896587.029,
+			""ts_started"": 1779896505.148
+		}
+	],
+	""water_choices"": [
+		{
+			""ts_chosen"": 1779896523.473,
+			""ts_duration"": 9.30700016021729,
+			""ts_started"": 1779896514.166,
+			""value"": ""north""
+		},
+		{
+			""ts_chosen"": 1779896547.614,
+			""ts_duration"": 17.0370001792908,
+			""ts_started"": 1779896530.577,
+			""value"": ""north""
+		}
+	]
+}"
