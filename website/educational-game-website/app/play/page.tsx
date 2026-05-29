@@ -23,7 +23,7 @@ export default function PlayPage() {
     <iframe
       src={`${basePath}/game/index.html`}
       title="EducationalGame"
-      className="h-svh w-svw border-0"
+      style={{ width: "100vw", height: "100svh", border: 0, display: "block" }}
       allow="autoplay; fullscreen; gamepad"
     />
   )

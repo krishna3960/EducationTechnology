@@ -98,7 +98,7 @@ func _show_dialogue_step(text: String) -> void:
 	var opts := DialogueOptions.new()
 	opts.dim = true
 	opts.auto_close = true
-	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, text, opts, null)
+	Dialogue.show_dialogue(_PORTRAIT, _SPEAKER, text, opts)
 	await Dialogue.on_close
 
 
