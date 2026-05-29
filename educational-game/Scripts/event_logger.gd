@@ -46,14 +46,14 @@ func submit_and_quit() -> void:
 		_dump_to_tmp(payload)
 
 	if _http == null:
-		_quit_now()
+		get_tree().quit()
 		return
 	var body: String = "%s=%s" % [_SUBMIT_FIELD, JSON.stringify(payload, "\t").uri_encode()]
 	var headers: PackedStringArray = ["Content-Type: application/x-www-form-urlencoded"]
 	var err: int = _http.request(_SUBMIT_URL, headers, HTTPClient.METHOD_POST, body)
 	if err != OK:
 		push_error("EventLogger: submit failed (err %d)" % err)
-		_quit_now()
+		get_tree().quit()
 
 
 func _dump_to_tmp(payload: Dictionary) -> void:
@@ -70,10 +70,10 @@ func _dump_to_tmp(payload: Dictionary) -> void:
 
 func _on_submit_complete(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
 	print("EventLogger: submit complete (result=%d, code=%d)" % [result, response_code])
-	_quit_now()
+	_notify_host_quit()
+	get_tree().quit()
 
 
-func _quit_now() -> void:
+func _notify_host_quit() -> void:
 	if OS.has_feature("web"):
 		JavaScriptBridge.eval(NOTIFY_QUIT_JS, true)
-	get_tree().quit()
