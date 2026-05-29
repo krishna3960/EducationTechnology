@@ -44,12 +44,29 @@ export default function ToolPage() {
             <div className="card-body">
               <h3>Demo Video</h3>
               <p>
-                A short demo video (max 5 min) illustrating the interface and
-                how to interact with the game will be available here soon.
+                A short demo video illustrating the interface and how to
+                interact with the game.
               </p>
-              <div className="placeholder" style={{ marginTop: "1rem" }}>
-                <div className="ph-icon">🎥</div>
-                Demo video coming soon
+              <div
+                style={{
+                  marginTop: "1rem",
+                  position: "relative",
+                  paddingTop: "56.25%",
+                }}
+              >
+                <iframe
+                  src="https://player.vimeo.com/video/1196809243?badge=0&autopause=0&player_id=0&app_id=58479"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    border: 0,
+                  }}
+                  title="VibeX Expansion demo"
+                />
               </div>
             </div>
           </div>
