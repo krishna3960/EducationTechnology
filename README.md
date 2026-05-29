@@ -1,1 +1,1 @@
-# EducationTechnology
+# VibeX Expansion

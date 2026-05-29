@@ -22,7 +22,7 @@ export default function PlayPage() {
   return (
     <iframe
       src={`${basePath}/game/index.html`}
-      title="EducationalGame"
+      title="VibeX Expansion"
       style={{ width: "100vw", height: "100svh", border: 0, display: "block" }}
       allow="autoplay; fullscreen; gamepad"
     />
